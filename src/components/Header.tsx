@@ -1,23 +1,47 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';  // for redirecting
+import userPool from '@/lib/cognitoClient';     // so we can sign out
 import getCurrentUser from '@/lib/getCurrentUser';
+import { useUser } from '@/context/UserContext';
 
+/**
+ * The header is a client component,
+ * so we can use React hooks to fetch user data and call useUser().
+ */
 export default function Header() {
-  const [username, setUsername] = useState<string | null>(null);
+  const router = useRouter();
 
+  // Pull username and its setter from our global user context
+  const { username, setUsername } = useUser();
+
+  // On mount, attempt to fetch current user session
   useEffect(() => {
     getCurrentUser()
       .then((user) => {
-        if (user && user.cognitoUser) {
-          setUsername(user.cognitoUser.username);
+        if (user?.cognitoUser) {
+          // Must call getUsername() to get the actual username
+          setUsername(user.cognitoUser.getUsername());
         }
       })
       .catch(() => {
         setUsername(null);
       });
-  }, []);
+  }, [setUsername]);
+
+  // Sign out logic
+  const handleSignOut = () => {
+    const cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser) {
+      cognitoUser.signOut();
+    }
+    // Clear our global username
+    setUsername(null);
+    // Redirect back to home page
+    router.push('/');
+  };
 
   return (
     <header style={{ padding: '10px', backgroundColor: '#f1f1f1' }}>
@@ -27,19 +51,25 @@ export default function Header() {
           <li>
             <Link href="/">Home</Link>
           </li>
+
+          {/* If user is not logged in, show "Login" link. */}
           {!username && (
             <li>
               <Link href="/login">Login</Link>
             </li>
           )}
+
+          {/* If user is logged in, display the username and a Sign Out button */}
           {username && (
-            <li style={{ fontWeight: 'bold' }}>
-              Welcome, {username}!
-            </li>
+            <>
+              <li style={{ fontWeight: 'bold' }}>
+                Welcome, {username}!
+              </li>
+              <li>
+                <button onClick={handleSignOut}>Sign Out</button>
+              </li>
+            </>
           )}
-          <li>
-            <Link href="/registration">Register</Link>
-          </li>
         </ul>
       </nav>
     </header>

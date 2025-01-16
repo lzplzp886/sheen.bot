@@ -4,103 +4,99 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   AuthenticationDetails,
-  CognitoUser
+  CognitoUser,
+  CognitoUserAttribute,
 } from 'amazon-cognito-identity-js';
-import userPool from '@/lib/cognitoClient'; // Adjust to your actual path
+import userPool from '@/lib/cognitoClient';
+import { useUser } from '@/context/UserContext';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { setUsername } = useUser();
+
+  const [userInput, setUserInput] = useState('');
+  const [pass, setPass] = useState('');
   const [error, setError] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    if (!username || !password) {
-      setError('Please enter username and password.');
+    if (!userInput || !pass) {
+      setError('Please enter username (or email) and password.');
       return;
     }
 
     const authDetails = new AuthenticationDetails({
-      Username: username,
-      Password: password,
+      Username: userInput,
+      Password: pass,
     });
 
     const cognitoUser = new CognitoUser({
-      Username: username,
+      Username: userInput,
       Pool: userPool,
     });
 
     cognitoUser.authenticateUser(authDetails, {
       onSuccess: (session) => {
-        console.log('Login successful! Session:', session);
+        console.log('Login success!', session);
 
-        // Retrieve custom:role from user attributes
-        cognitoUser.getUserAttributes((attrErr, attributes) => {
-          if (attrErr || !attributes) {
-            console.error('Failed to retrieve user attributes:', attrErr);
-            // Fallback if attributes can't be loaded
-            router.push('/student');
+        // Immediately fetch user attributes so we get a “friendly” username
+        cognitoUser.getUserAttributes((attrErr, attrs: CognitoUserAttribute[] | undefined) => {
+          if (attrErr || !attrs) {
+            // fallback: set whatever cognitoUser.getUsername() returns
+            console.warn('No attributes found, using fallback username.');
+            setUsername(cognitoUser.getUsername());
+            router.push('/'); 
             return;
           }
 
-          let userRole = 'student'; // default role
-          for (const attr of attributes) {
-            if (attr.getName() === 'custom:role') {
-              userRole = attr.getValue();
+          // Attempt to find a “preferred_username” or fallback to getUsername()
+          let finalName = cognitoUser.getUsername(); 
+          for (const a of attrs) {
+            if (a.getName() === 'preferred_username') {
+              finalName = a.getValue();
               break;
             }
           }
 
-          switch (userRole) {
-            case 'teacher':
-              router.push('/teacher');
-              break;
-            case 'admin':
-              router.push('/admin');
-              break;
-            default: // includes 'student' or anything else
-              router.push('/student');
-              break;
-          }
+          // Now store finalName in context => the header displays it
+          setUsername(finalName);
+          router.push('/'); 
         });
       },
-      onFailure: (err) => {
-        console.error('Login error:', err);
-        setError(err.message || 'Login failed. Please check your credentials.');
+      onFailure: (authErr) => {
+        console.error('Login error:', authErr);
+        setError(authErr.message || 'Login failed. Please try again.');
       },
     });
   };
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>Login to Sheen.bot</h1>
+    <div style={{ padding: '20px' }}>
+      <h2>Login</h2>
       <form onSubmit={handleLogin} style={{ maxWidth: '400px', margin: 'auto' }}>
-        <label>Username:</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          style={{ width: '100%', marginBottom: '10px' }}
-        />
-
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ width: '100%', marginBottom: '10px' }}
-        />
-
+        <div>
+          <label>Username or Email:</label>
+          <input
+            type="text"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            style={{ width: '100%', marginBottom: '10px' }}
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+            style={{ width: '100%', marginBottom: '10px' }}
+          />
+        </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-
         <button type="submit" style={{ marginRight: '10px' }}>
-          Login
-        </button>
-        <button type="button" onClick={() => router.push('/registration')}>
-          Register
+          Log In
         </button>
       </form>
     </div>

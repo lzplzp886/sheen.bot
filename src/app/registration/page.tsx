@@ -2,13 +2,15 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-// Import from amazon-cognito-identity-js for sign-up and confirmation
+// Cognito
 import {
+  AuthenticationDetails,
   CognitoUser,
   CognitoUserAttribute,
 } from 'amazon-cognito-identity-js';
-// Import your userPool
 import userPool from '@/lib/cognitoClient'; 
+// Context
+import { useUser } from '@/context/UserContext';
 
 const geekWords = [
   'Hacker','Ninja','Jedi','Wizard','Ranger','Pirate','Robot','Viking','Mage','Knight',
@@ -21,13 +23,16 @@ const geekWords = [
 
 export default function RegistrationPage() {
   const router = useRouter();
+  // Access global user context
+  const { setUsername } = useUser(); // We'll set the username after auto-login
 
   // Basic form fields
   const [role, setRole] = useState<'student' | 'teacher'>('student');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
+  const [username, setLocalUsername] = useState('');
   const [email, setEmail] = useState('');
+  // We keep `password` so we can auto-login after user confirms registration
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [classID, setClassID] = useState('');
@@ -35,7 +40,7 @@ export default function RegistrationPage() {
   // Track error messages to display on screen
   const [errorMsg, setErrorMsg] = useState('');
 
-  // This indicates we successfully created a Cognito user 
+  // Indicates we successfully created a Cognito user 
   // and must confirm the code sent to the user.
   const [verificationNeeded, setVerificationNeeded] = useState(false);
 
@@ -53,26 +58,24 @@ export default function RegistrationPage() {
     const baseFirst = firstName || 'Kid';
     const baseLast = lastName || 'Learner';
     const proposedUsername = `${baseFirst}_${baseLast}_${randomGeekWord}`;
-    setUsername(proposedUsername);
+    setLocalUsername(proposedUsername);
   };
 
   /**
-   * Handle sign-up to Cognito. 
    * 1) Build attribute list 
-   * 2) Call userPool.signUp(...) 
-   * 3) If success => set verificationNeeded to true
+   * 2) userPool.signUp(...)
+   * 3) If success => set verificationNeeded = true
    */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
 
-    // Basic client-side checks
+    // Basic checks
     if (!username || !email || !password) {
       setErrorMsg('Please fill in username, email, and password.');
       return;
     }
 
-    // Build attributes for Cognito sign-up
     const attributeList = [
       new CognitoUserAttribute({ Name: 'email', Value: email }),
       new CognitoUserAttribute({ Name: 'custom:role', Value: role }),
@@ -80,34 +83,26 @@ export default function RegistrationPage() {
       new CognitoUserAttribute({ Name: 'given_name', Value: firstName }),
       new CognitoUserAttribute({ Name: 'family_name', Value: lastName }),
       new CognitoUserAttribute({ Name: 'custom:classID', Value: classID }),
-      // more attributes if needed...
     ];
 
-    userPool.signUp(
-      username,
-      password,
-      attributeList,
-      [],
-      (err, result) => {
-        if (err) {
-          console.error('Sign up error:', err);
-          setErrorMsg(err.message || 'Registration failed.');
-          return;
-        }
-
-        // success => Cognito user is created, but unconfirmed 
-        console.log('SignUp success. CognitoUser:', result?.user);
-        // Now prompt user to confirm the code
-        setVerificationNeeded(true);
+    userPool.signUp(username, password, attributeList, [], (err, result) => {
+      if (err) {
+        console.error('Sign up error:', err);
+        setErrorMsg(err.message || 'Registration failed.');
+        return;
       }
-    );
+
+      // success => Cognito user is created, but unconfirmed 
+      console.log('SignUp success. CognitoUser:', result?.user);
+      setVerificationNeeded(true);
+    });
   };
 
   /**
-   * Handle the confirmation code submission. 
-   * 1) Build CognitoUser object 
-   * 2) Call confirmRegistration(...) 
-   * 3) If success => navigate to the correct dashboard 
+   * 1) confirmRegistration(...) => verifies the user
+   * 2) Then auto-login with authenticateUser(...) => obtains session
+   * 3) setUsername(...) in context => updates header
+   * 4) router.push(...) to the role page
    */
   const handleConfirmCode = (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,33 +118,43 @@ export default function RegistrationPage() {
       Pool: userPool,
     });
 
-    // forceAliasCreation = true => merges old aliases 
-    cognitoUser.confirmRegistration(
-      confirmationCode,
-      true,
-      (err: Error | null, result?: string) => {
-        if (err) {
-          console.error('Verification error:', err);
-          setErrorMsg(err.message || 'Verification failed.');
-          return;
-        }
-
-        console.log('Verification success:', result); // Typically "SUCCESS"
-        // After success, the user can now log in or we auto-route them
-        router.push(`/${role}`);
+    cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
+      if (err) {
+        console.error('Verification error:', err);
+        setErrorMsg(err.message || 'Verification failed.');
+        return;
       }
-    );
+
+      console.log('Verification success:', result); // Typically "SUCCESS"
+
+      // --- AUTO-LOGIN after confirming registration ---
+      const authDetails = new AuthenticationDetails({
+        Username: username,
+        Password: password, // we stored the password in state
+      });
+
+      cognitoUser.authenticateUser(authDetails, {
+        onSuccess: (session) => {
+          console.log('Auto-login success. Session:', session);
+
+          // Set the global username in context so header updates
+          setUsername(cognitoUser.getUsername());
+
+          // Go to the correct role-based page
+          router.push(`/${role}`);
+        },
+        onFailure: (authErr) => {
+          console.error('Auto-login failed:', authErr);
+          setErrorMsg(authErr.message || 'Auto-login failed. Please log in manually.');
+        },
+      });
+    });
   };
 
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
       <h1>Account Registration</h1>
 
-      {/* 
-        1) If verification is NOT yet needed, show the sign-up form.
-        2) If user successfully signed up, show the "enter verification code" form.
-      */}
-      
       {!verificationNeeded && (
         <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: 'auto', textAlign: 'left' }}>
           {/* ROLE */}
@@ -195,7 +200,7 @@ export default function RegistrationPage() {
             <input
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setLocalUsername(e.target.value)}
               style={{ width: '100%' }}
               required
             />
@@ -260,13 +265,13 @@ export default function RegistrationPage() {
         </form>
       )}
 
-      {/* Verification Form (only show if user has signed up and we need the code) */}
+      {/* If we've created the user and need to confirm the code */}
       {verificationNeeded && (
         <form onSubmit={handleConfirmCode} style={{ maxWidth: '400px', margin: 'auto', textAlign: 'left' }}>
           <p style={{ color: 'green' }}>
             We sent a verification code to <strong>{email}</strong>. Check your email and enter the code below.
           </p>
-          
+
           <div style={{ marginBottom: '10px' }}>
             <label>Verification Code:</label><br />
             <input

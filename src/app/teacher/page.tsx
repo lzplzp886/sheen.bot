@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-// import ProtectedRoute from '@/components/ProtectedRoute'; // to protect the page
+import ProtectedRoute from '@/components/ProtectedRoute'; // to protect the page
 
 export default function TeacherDashboard() {
   return (
-    // <ProtectedRoute> // wrap if you'd like to ensure only teacher roles can access
+    <ProtectedRoute allowedRoles={['teacher']}>
     <div style={{ textAlign: 'center' }}>
       <h2>Teacher Dashboard</h2>
       <p>
@@ -42,6 +42,6 @@ export default function TeacherDashboard() {
         </button>
       </div>
     </div>
-    // </ProtectedRoute>
+    </ProtectedRoute>
   );
 }
