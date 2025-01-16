@@ -9,8 +9,8 @@ export default function StudentDashboard() {
     <div style={{ textAlign: 'center' }}>
       <h2>Student Dashboard</h2>
       <p>Welcome to your personal learning space. Start coding and exploring robotics here!</p>
+      <BlocklyEditor></BlocklyEditor>
     </div>
-    <BlocklyEditor></BlocklyEditor>
     </ProtectedRoute>
   );
 }

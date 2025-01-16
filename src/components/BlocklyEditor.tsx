@@ -109,12 +109,21 @@ export default function BlocklyEditor() {
     // Convert the toolbox text into DOM
     const toolboxDom = Blockly.utils.xml.textToDom(toolboxXml);
 
+    // Reset Tailwind SVG impact on scroll bar
+    const style = document.createElement('style');
+    style.innerHTML = `
+      svg[display="none"] {
+        display: none;
+      }
+    `;
+    document.head.appendChild(style);
+
     // Inject Blockly workspace
     workspaceRef.current = Blockly.inject(blocklyDiv.current!, {
       toolbox: toolboxDom,
       zoom: {
         controls: true,
-        wheel: true,
+        wheel: false,
         startScale: 1.0,
         maxScale: 2,
         minScale: 0.5,
@@ -126,6 +135,12 @@ export default function BlocklyEditor() {
 
     // Cleanup on unmount
     return () => {
+      // Remove the style tag to avoid polluting the global DOM
+      document.head.removeChild(style);
+    };
+    
+    return () => {
+      // Dispose of the Blockly workspace
       workspaceRef.current?.dispose();
     };
   }, [toolboxXml]);
@@ -172,7 +187,7 @@ export default function BlocklyEditor() {
           border: 'none',
           borderRadius: '5px',
           cursor: 'pointer',
-        }}
+          }}
       >
         Run Code
       </button>
