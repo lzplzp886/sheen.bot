@@ -11,6 +11,7 @@ import {
 import userPool from '@/lib/cognitoClient'; 
 // Context
 import { useUser } from '@/context/UserContext';
+import CountryCodeSelect from '@/components/CountryCodeSelect'
 
 const geekWords = [
   'Hacker','Ninja','Jedi','Wizard','Ranger','Pirate','Robot','Viking','Mage','Knight',
@@ -34,6 +35,7 @@ export default function RegistrationPage() {
   const [email, setEmail] = useState('');
   // We keep `password` so we can auto-login after user confirms registration
   const [password, setPassword] = useState('');
+  const [countryCode, setCountryCode] = useState('+27');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [classID, setClassID] = useState('');
 
@@ -46,6 +48,13 @@ export default function RegistrationPage() {
 
   // Store the verification code input
   const [confirmationCode, setConfirmationCode] = useState('');
+
+  // Normalize phone number by removing the first '0' if present and prepend country code
+  const normalizePhoneNumber = (number: string, code: string): string => {
+    // Remove the first '0' if it exists and combine with the country code
+    const normalizedNumber = number.startsWith('0') ? number.substring(1) : number;
+    return `${code}${normalizedNumber}`;
+  };
 
   /**
    * Generate a random "geeky" username if user wants it auto-filled.
@@ -76,10 +85,14 @@ export default function RegistrationPage() {
       return;
     }
 
+    // Form normalized number
+    const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber, countryCode);
+
+
     const attributeList = [
       new CognitoUserAttribute({ Name: 'email', Value: email }),
       new CognitoUserAttribute({ Name: 'custom:role', Value: role }),
-      new CognitoUserAttribute({ Name: 'phone_number', Value: phoneNumber }),
+      new CognitoUserAttribute({ Name: 'phone_number', Value: normalizedPhoneNumber }),
       new CognitoUserAttribute({ Name: 'given_name', Value: firstName }),
       new CognitoUserAttribute({ Name: 'family_name', Value: lastName }),
       new CognitoUserAttribute({ Name: 'custom:classID', Value: classID }),
@@ -233,15 +246,23 @@ export default function RegistrationPage() {
             />
           </div>
 
-          {/* PHONE NUMBER */}
+          {/* Country Code and Phone Number with adjusted widths */}
           <div style={{ marginBottom: '10px' }}>
-            <label>Phone Number (optional):</label><br />
+            <label>Phone Number:</label><br />
+            <div style={{ display: 'flex' }}>
+              <CountryCodeSelect 
+                value={countryCode} 
+                onChange={setCountryCode} 
+                style={{ width: '30%', marginRight: '5%' }}  // Adjust width here for country code
+              />
             <input
               type="tel"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              style={{ width: '100%' }}
+              style={{ flex: 1}}  // Flex property adjusts to take the remaining space
+              placeholder="Enter your phone number"
             />
+            </div>
           </div>
 
           {/* CLASS ID */}
