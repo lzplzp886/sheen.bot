@@ -11,16 +11,8 @@ import {
 import userPool from '@/lib/cognitoClient'; 
 // Context
 import { useUser } from '@/context/UserContext';
-import CountryCodeSelect from '@/components/CountryCodeSelect'
-
-const geekWords = [
-  'Hacker','Ninja','Jedi','Wizard','Ranger','Pirate','Robot','Viking','Mage','Knight',
-  'Druid','Paladin','Berserker','Coder','Phantom','Cyborg','Sorcerer','TimeLord','Oracle',
-  'Shadow','MechPilot','SpaceCadet','BountyHunter','CyberElf','Dwarf','Elf','Goblin','Troll',
-  'Necromancer','Alchemist','Assassin','Scribe','Archivist','Warlock','Engineer','Inventor',
-  'Artificer','Sentinel','Guardian','Gladiator','Commando','Pilot','Samurai','Sniper',
-  'Mercenary','Scout','Shaman','Monk','Chemist','Spy'
-];
+import CountryCodeSelect from '@/components/reg_CountryCodeSelect'
+import GeekWordsUsername from '@/components/reg_UsernameGenerator';
 
 export default function RegistrationPage() {
   const router = useRouter();
@@ -57,24 +49,17 @@ export default function RegistrationPage() {
   };
 
   /**
-   * Generate a random "geeky" username if user wants it auto-filled.
-   * Called whenever firstName or lastName changes (onBlur).
-   */
-  const generateUsername = () => {
-    if (!firstName && !lastName) return;
-    const randomIndex = Math.floor(Math.random() * geekWords.length);
-    const randomGeekWord = geekWords[randomIndex] || 'Coder';
-    const baseFirst = firstName || 'Kid';
-    const baseLast = lastName || 'Learner';
-    const proposedUsername = `${baseFirst}_${baseLast}_${randomGeekWord}`;
-    setLocalUsername(proposedUsername);
-  };
-
-  /**
    * 1) Build attribute list 
    * 2) userPool.signUp(...)
    * 3) If success => set verificationNeeded = true
    */
+
+      
+  // Handle the username generation
+  const handleUsernameGenerated = (generatedUsername: string) => {
+    setLocalUsername(generatedUsername);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
@@ -87,7 +72,6 @@ export default function RegistrationPage() {
 
     // Form normalized number
     const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber, countryCode);
-
 
     const attributeList = [
       new CognitoUserAttribute({ Name: 'email', Value: email }),
@@ -190,7 +174,6 @@ export default function RegistrationPage() {
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              onBlur={generateUsername}
               style={{ width: '100%' }}
             />
           </div>
@@ -202,14 +185,13 @@ export default function RegistrationPage() {
               type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              onBlur={generateUsername}
               style={{ width: '100%' }}
             />
           </div>
 
-          {/* USERNAME */}
+          {/* Username */}
           <div style={{ marginBottom: '10px' }}>
-            <label>Username (min 6 chars, [0-9a-z-_]):</label><br />
+            <label>Username (min 6 chars, [0-9,a-z,-,_]):</label><br />
             <input
               type="text"
               value={username}
@@ -217,9 +199,11 @@ export default function RegistrationPage() {
               style={{ width: '100%' }}
               required
             />
-            <button type="button" onClick={generateUsername} style={{ marginTop: '5px' }}>
-              Suggest Another Username
-            </button>
+            <GeekWordsUsername
+              firstName={firstName}
+              lastName={lastName}
+              onUsernameGenerated={handleUsernameGenerated}
+            />
           </div>
 
           {/* EMAIL */}
