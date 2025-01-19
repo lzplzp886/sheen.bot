@@ -78,7 +78,7 @@ export default function LoginPage() {
       {!showReset ? (
         <>
           <h2>Account Login</h2>
-          <form onSubmit={handleLogin} style={{ maxWidth: '400px', margin: 'auto' }}>
+          <form onSubmit={handleLogin} style={{ maxWidth: '400px', margin: 'auto', textAlign: 'left' }}>
             <div>
               <label>Username or Email:</label>
               <input
