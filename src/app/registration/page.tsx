@@ -208,7 +208,9 @@ export default function RegistrationPage() {
 
           {/* EMAIL */}
           <div style={{ marginBottom: '10px' }}>
-            <label>Email (mandatory):</label><br />
+            <label>
+              Email <span style={{ color: 'red' }}>*</span>:
+            </label><br />
             <input
               type="email"
               value={email}
@@ -220,7 +222,9 @@ export default function RegistrationPage() {
 
           {/* PASSWORD */}
           <div style={{ marginBottom: '10px' }}>
-            <label>Password (mandatory):</label><br />
+            <label>
+              Password <span style={{ color: 'red' }}>*</span>:
+            </label><br />
             <input
               type="password"
               value={password}

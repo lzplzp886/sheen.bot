@@ -151,7 +151,6 @@ export default function BlocklyEditor() {
 
     try {
       // Evaluate the generated JS code
-      // eslint-disable-next-line no-new-func
       const result = new Function(code)();
       setExecutionOutput(
         result !== undefined ? String(result) : 'Code executed successfully.'

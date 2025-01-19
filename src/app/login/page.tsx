@@ -9,11 +9,12 @@ import {
 } from 'amazon-cognito-identity-js';
 import userPool from '@/lib/cognitoClient';
 import { useUser } from '@/context/UserContext';
+import ResetPassword from './login_ResetPassword';
 
 export default function LoginPage() {
   const router = useRouter();
   const { setUsername } = useUser();
-
+  const [showReset, setShowReset] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
@@ -73,32 +74,44 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin} style={{ maxWidth: '400px', margin: 'auto' }}>
-        <div>
-          <label>Username or Email:</label>
-          <input
-            type="text"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            style={{ width: '100%', marginBottom: '10px' }}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            style={{ width: '100%', marginBottom: '10px' }}
-          />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit" style={{ marginRight: '10px' }}>
-          Log In
-        </button>
-      </form>
+    <div style={{ padding: '20px', textAlign: 'center' }}>
+      {!showReset ? (
+        <>
+          <h2>Account Login</h2>
+          <form onSubmit={handleLogin} style={{ maxWidth: '400px', margin: 'auto' }}>
+            <div>
+              <label>Username or Email:</label>
+              <input
+                type="text"
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                style={{ width: '100%', marginBottom: '10px' }}
+              />
+            </div>
+            <div>
+              <label>Password:</label>
+              <input
+                type="password"
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+                style={{ width: '100%', marginBottom: '10px' }}
+              />
+            </div>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <button type="submit" style={{ marginRight: '10px' }}>
+              Log In
+            </button>
+            <button type="button" onClick={() => setShowReset(true)} style={{ marginTop: '10px' }}>
+              Forgot password?
+            </button>
+          </form>
+        </>
+      ) : (
+        <>
+          <h2>Reset Password</h2>
+          <ResetPassword onResetComplete={() => setShowReset(false)} />
+        </>
+      )}
     </div>
-  );
+  )
 }

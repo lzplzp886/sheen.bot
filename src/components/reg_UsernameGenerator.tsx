@@ -38,7 +38,7 @@ const GeekWordsUsername: React.FC<UsernameProps> = ({ firstName, lastName, onUse
   // For simplicity, we'll return a button that triggers it here.
   return (
     <button onClick={generateUsername} type="button">
-      Suggest Another Username
+      Pick One Username For Me
     </button>
   );
 };
