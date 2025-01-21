@@ -5,6 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,8 +15,46 @@
   }
 }
 
+/*body font*/
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+/*menu style*/
+.menu {
+  color: #ffffff;
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-right: 10px;
+}
+
+/*menu font*/
+.menu li {
+  font-family: var(--font-family, 'Open Sans', Arial, Helvetica, sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/*headlines font*/
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 16px;
+}
+
+/*paragraphs font*/
+p {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
 }

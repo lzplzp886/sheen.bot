@@ -44,10 +44,21 @@ export default function Header() {
   };
 
   return (
-    <header style={{ padding: '10px', backgroundColor: '#f1f1f1' }}>
-      <h1>Sheen.bot</h1>
+    <header style={{ 
+        backgroundColor: '#4790fc',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+        }}>
+      <h1 style={{ margin: 0 }}>
+        <img
+          src="/images/logo.png"
+          alt="sheen.bot Logo"
+          style={{ height: '80px' }}
+        />
+      </h1>
       <nav>
-        <ul style={{ display: 'flex', gap: '10px', listStyle: 'none' }}>
+        <ul className='menu'>
           <li>
             <Link href="/">Home</Link>
           </li>

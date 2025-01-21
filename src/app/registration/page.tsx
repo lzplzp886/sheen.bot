@@ -11,8 +11,8 @@ import {
 import userPool from '@/lib/cognitoClient'; 
 // Context
 import { useUser } from '@/context/UserContext';
-import CountryCodeSelect from '@/components/reg_CountryCodeSelect'
-import GeekWordsUsername from '@/components/reg_UsernameGenerator';
+import CountryCodeSelect from '@/app/registration/reg_CountryCodeSelect'
+import GeekWordsUsername from '@/app/registration/reg_UsernameGenerator';
 
 export default function RegistrationPage() {
   const router = useRouter();
@@ -191,7 +191,7 @@ export default function RegistrationPage() {
 
           {/* Username */}
           <div style={{ marginBottom: '10px' }}>
-            <label>Username (min 6 chars, [0-9,a-z,-,_]):</label><br />
+            <label><span style={{ color: 'red' }}>*</span>Username (min 6 chars, [0-9,a-z,-,_]):</label><br />
             <input
               type="text"
               value={username}
@@ -209,7 +209,7 @@ export default function RegistrationPage() {
           {/* EMAIL */}
           <div style={{ marginBottom: '10px' }}>
             <label>
-              Email <span style={{ color: 'red' }}>*</span>:
+              <span style={{ color: 'red' }}>*</span>Email:
             </label><br />
             <input
               type="email"
@@ -223,7 +223,7 @@ export default function RegistrationPage() {
           {/* PASSWORD */}
           <div style={{ marginBottom: '10px' }}>
             <label>
-              Password <span style={{ color: 'red' }}>*</span>:
+              <span style={{ color: 'red' }}>*</span>Password:
             </label><br />
             <input
               type="password"

@@ -1,6 +1,6 @@
 'use client';
 
-import BlocklyEditor from '@/components/BlocklyEditor';
+import BlocklyEditor from '@/app/student/BlocklyEditor';
 import ProtectedRoute from '@/components/ProtectedRoute'; // to protect the page if needed
 
 export default function StudentDashboard() {

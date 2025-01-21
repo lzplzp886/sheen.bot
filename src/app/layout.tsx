@@ -2,10 +2,21 @@ import './globals.css';
 import React from 'react';
 import { UserProvider } from '@/context/UserContext';  // <--- import your context provider
 import Header from '@/components/Header';              // <--- client-based header
+import Footer from '@/components/Footer';
+import { Open_Sans } from 'next/font/google'; // Import Open Sans
+
+const openSans = Open_Sans({
+  subsets: ['latin'], // Ensure proper character subset
+  weight: ['400', '500', '600', '700'], // Add desired weights
+  display: 'swap', // Improves loading behavior
+});
 
 export const metadata = {
-  title: 'Sheen.bot',
-  description: 'A smarter way to learn coding & robotics',
+  title: 'sheen.bot',
+  description: 'a smarter way to learn coding & robotics',
+  icons: {
+    icon: '/images/icon.ico',
+  },
 };
 
 /**
@@ -14,7 +25,7 @@ export const metadata = {
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={openSans.className}>
       <body>
         {/* Wrap the entire app in UserProvider */}
         <UserProvider>
@@ -24,10 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main style={{ minHeight: '80vh' }}>
             {children}
           </main>
-
-          <footer style={{ textAlign: 'center', padding: '20px' }}>
-            © Sheen.bot 2025
-          </footer>
+          <Footer />
         </UserProvider>
       </body>
     </html>

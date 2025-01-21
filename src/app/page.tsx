@@ -77,8 +77,8 @@ export default function HomePage() {
   // display the normal home page with "Login" / "Register" buttons.
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>Welcome to Sheen.bot</h1>
-      <p>A smarter way to learn coding & robotics</p>
+      <h1>Welcome to sheen.bot</h1>
+      <p style={{ fontWeight: 400 }}>A smarter way to learn coding & robotics</p>
       <div style={{ marginTop: '20px' }}>
         <button onClick={() => router.push('/login')} style={{ marginRight: '10px' }}>
           Login
