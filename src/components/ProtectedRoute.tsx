@@ -62,7 +62,11 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
   }, [router, allowedRoles]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="p-5 text-center">
+        <h2 className="text-base font-semibold">Loading...</h2>
+      </div>
+    )
   }
 
   return isAuthenticated ? <>{children}</> : null;

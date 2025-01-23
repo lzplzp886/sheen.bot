@@ -10,6 +10,7 @@ import {
 import userPool from '@/lib/cognitoClient';
 import { useUser } from '@/context/UserContext';
 import ResetPassword from './login_ResetPassword';
+import Button from '@/components/UI/Button';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const [userInput, setUserInput] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false); // Prevent users from trying click button too many times
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +29,8 @@ export default function LoginPage() {
       setError('Please enter username (or email) and password.');
       return;
     }
+
+    setIsProcessing(true);
 
     const authDetails = new AuthenticationDetails({
       Username: userInput,
@@ -44,6 +48,9 @@ export default function LoginPage() {
 
         // Immediately fetch user attributes so we get a “friendly” username
         cognitoUser.getUserAttributes((attrErr, attrs: CognitoUserAttribute[] | undefined) => {
+          
+          setIsProcessing(false);
+          
           if (attrErr || !attrs) {
             // fallback: set whatever cognitoUser.getUsername() returns
             console.warn('No attributes found, using fallback username.');
@@ -68,47 +75,59 @@ export default function LoginPage() {
       },
       onFailure: (authErr) => {
         console.error('Login error:', authErr);
+        setIsProcessing(false);
         setError(authErr.message || 'Login failed. Please try again.');
       },
     });
   };
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
+    <div className="p-5 text-center">
       {!showReset ? (
         <>
-          <h2>Account Login</h2>
-          <form onSubmit={handleLogin} style={{ maxWidth: '400px', margin: 'auto', textAlign: 'left' }}>
-            <div>
+          <h1>Account Login</h1>
+          <form onSubmit={handleLogin} className="max-w-md mx-auto text-left">
+            <div className="mb-3">
               <label>Username or Email:</label>
               <input
                 type="text"
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
-                style={{ width: '100%', marginBottom: '10px' }}
+                className="input-style"
               />
             </div>
-            <div>
+            <div className="mb-3">
               <label>Password:</label>
               <input
                 type="password"
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
-                style={{ width: '100%', marginBottom: '10px' }}
+                className="input-style"
               />
             </div>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <button type="submit" style={{ marginRight: '10px' }}>
-              Log In
-            </button>
-            <button type="button" onClick={() => setShowReset(true)} style={{ marginTop: '10px' }}>
-              Forgot password?
-            </button>
+            {error && <p className="text-error mb-3">
+              {error}
+            </p>}
+            <div className="space-x-2 inline-block">
+              
+              <Button 
+                type="submit" 
+                className="btn"
+                isLoading={isProcessing}
+                loadingText="Logging in..."
+                >
+                Log In
+              </Button>
+              
+              <button type="button" onClick={() => setShowReset(true)}>
+                Forgot password?
+              </button>
+            </div>
           </form>
         </>
       ) : (
         <>
-          <h2>Reset Password</h2>
+          <h1>Reset Password</h1>
           <ResetPassword onResetComplete={() => setShowReset(false)} />
         </>
       )}

@@ -15,6 +15,12 @@ export default function HomePage() {
   // Track the user’s role if found
   const [role, setRole] = useState<string | null>(null);
 
+  /*Typewriter text display effect */
+  const [headline, setHeadline] = useState('');
+  const [subtext, setSubtext] = useState('');
+  const headlineText = 'welcome to sheen.bot';
+  const subtextText = 'a smarter way to learn coding & robotics';
+
   useEffect(() => {
     // Attempt to fetch the current user from Cognito
     getCurrentUser()
@@ -64,26 +70,63 @@ export default function HomePage() {
     }
   }, [loading, isLoggedIn, role, router]);
 
+  /*Typewriter text display effect */
+  useEffect(() => {
+    let headlineTimer: number | null = null;
+    let subtextTimer: number | null = null;
+  
+    const typewriterEffect = () => {
+      let currentHeadline = '';
+      let currentSubtext = '';
+  
+      headlineTimer = window.setInterval(() => {
+        currentHeadline = headlineText.slice(0, currentHeadline.length + 1);
+        setHeadline(currentHeadline);
+  
+        if (currentHeadline === headlineText) {
+          clearInterval(headlineTimer!);
+  
+          subtextTimer = window.setInterval(() => {
+            currentSubtext = subtextText.slice(0, currentSubtext.length + 1);
+            setSubtext(currentSubtext);
+  
+            if (currentSubtext === subtextText) {
+              clearInterval(subtextTimer!);
+            }
+          }, 50);
+        }
+      }, 50);
+    };
+
+    typewriterEffect();
+
+    return () => {
+      if (headlineTimer !== null) clearInterval(headlineTimer);
+      if (subtextTimer !== null) clearInterval(subtextTimer);
+    };
+  }, []);
+
   // If we're still checking, show a simple loading indicator
   if (loading) {
     return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>Checking session...</h2>
+      <div className="p-5 text-center">
+        <h2 className="text-base font-semibold">Checking session...</h2>
       </div>
     );
   }
 
   // If not logged in (or error retrieving session),
-  // display the normal home page with "Login" / "Register" buttons.
-  return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>Welcome to sheen.bot</h1>
-      <p style={{ fontWeight: 400 }}>A smarter way to learn coding & robotics</p>
-      <div style={{ marginTop: '20px' }}>
-        <button onClick={() => router.push('/login')} style={{ marginRight: '10px' }}>
+  // display the normal home page with "Login" / "Register" buttons, and gap between each button is 8px.
+  
+    return (
+    <div className="p-5 text-center select-none">
+      <h1 className="text-2xl">{headline}</h1>
+      <p>{subtext}</p>
+      <div className="mt-5 space-x-5 inline-block">
+        <button onClick={() => router.push('/login')} className="btn">
           Login
         </button>
-        <button onClick={() => router.push('/registration')}>
+        <button onClick={() => router.push('/registration')} className="btn">
           Register
         </button>
       </div>

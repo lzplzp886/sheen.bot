@@ -1,19 +1,13 @@
-import './globals.css';
+import '@/app/globals.css'
 import React from 'react';
 import { UserProvider } from '@/context/UserContext';  // <--- import your context provider
-import Header from '@/components/Header';              // <--- client-based header
-import Footer from '@/components/Footer';
-import { Open_Sans } from 'next/font/google'; // Import Open Sans
-
-const openSans = Open_Sans({
-  subsets: ['latin'], // Ensure proper character subset
-  weight: ['400', '500', '600', '700'], // Add desired weights
-  display: 'swap', // Improves loading behavior
-});
+import Header from '@/components/UI/Header';              // <--- client-based header
+import Footer from '@/components/UI/Footer';
 
 export const metadata = {
-  title: 'sheen.bot',
-  description: 'a smarter way to learn coding & robotics',
+  title: 'sheen.bot | a smarter way to learn coding & robotics',
+  description: 'sheen.bot is built on AWS to deliver a secure, scalable environment where students can learn coding and robotics efficiently. The platform integrates robotics kits with cloud services to enable remote coding and intuitive device control.',
+  keywords: 'coding, robotics, kids learning, STEM education, cloud robotics, cloud coding, home school',
   icons: {
     icon: '/images/icon.ico',
   },
@@ -25,14 +19,13 @@ export const metadata = {
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={openSans.className}>
+    <html lang="en" className="bg-background text-body font-sans select-none">
       <body>
         {/* Wrap the entire app in UserProvider */}
         <UserProvider>
           {/* Render a client-based header that can read the global user state */}
           <Header />
-
-          <main style={{ minHeight: '80vh' }}>
+          <main className="flex items-center justify-center min-h-[80vh] bg-background">
             {children}
           </main>
           <Footer />

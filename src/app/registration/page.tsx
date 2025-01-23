@@ -13,6 +13,7 @@ import userPool from '@/lib/cognitoClient';
 import { useUser } from '@/context/UserContext';
 import CountryCodeSelect from '@/app/registration/reg_CountryCodeSelect'
 import GeekWordsUsername from '@/app/registration/reg_UsernameGenerator';
+import Button from '@/components/UI/Button';
 
 export default function RegistrationPage() {
   const router = useRouter();
@@ -40,6 +41,12 @@ export default function RegistrationPage() {
 
   // Store the verification code input
   const [confirmationCode, setConfirmationCode] = useState('');
+
+  // Checking registering status for button
+  const [isRegistering, setIsRegistering] = useState(false);
+
+  // Checking verification code status for button
+  const [isVerifying, setIsVerifying] = useState(false);
 
   // Normalize phone number by removing the first '0' if present and prepend country code
   const normalizePhoneNumber = (number: string, code: string): string => {
@@ -70,6 +77,9 @@ export default function RegistrationPage() {
       return;
     }
 
+    // Start submitting registration form
+    setIsRegistering(true);
+
     // Form normalized number
     const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber, countryCode);
 
@@ -83,6 +93,10 @@ export default function RegistrationPage() {
     ];
 
     userPool.signUp(username, password, attributeList, [], (err, result) => {
+      
+      // Registration form submission done
+      setIsRegistering(false);
+
       if (err) {
         console.error('Sign up error:', err);
         setErrorMsg(err.message || 'Registration failed.');
@@ -110,12 +124,19 @@ export default function RegistrationPage() {
       return;
     }
 
+    // Start verifying user's contact details
+    setIsVerifying(true);
+
     const cognitoUser = new CognitoUser({
       Username: username,
       Pool: userPool,
     });
 
     cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
+      
+      // User's contact details verification done
+      setIsVerifying(false);
+      
       if (err) {
         console.error('Verification error:', err);
         setErrorMsg(err.message || 'Verification failed.');
@@ -149,18 +170,21 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
+    <div className="p-5 text-center">
       <h1>Account Registration</h1>
 
       {!verificationNeeded && (
-        <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: 'auto', textAlign: 'left' }}>
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto text-left">
+          
           {/* ROLE */}
-          <div style={{ marginBottom: '10px' }}>
-            <label>Role:</label><br />
+          <div className="mb-3">
+            <label>
+              I am a
+            </label><br />
             <select
               value={role}
               onChange={(e) => setRole(e.target.value as 'student' | 'teacher')}
-              style={{ width: '100%' }}
+              className="select-style"
             >
               <option value="student">Student</option>
               <option value="teacher">Teacher</option>
@@ -168,36 +192,45 @@ export default function RegistrationPage() {
           </div>
 
           {/* FIRST NAME */}
-          <div style={{ marginBottom: '10px' }}>
-            <label>First Name:</label><br />
+          <div className="mb-3">
+            <label>
+              First Name:
+            </label><br />
             <input
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              style={{ width: '100%' }}
+              className="input-style"
+              placeholder='e.g. James'
             />
           </div>
 
           {/* LAST NAME */}
-          <div style={{ marginBottom: '10px' }}>
-            <label>Last Name:</label><br />
+          <div className="mb-3">
+            <label>
+              Last Name:
+            </label><br />
             <input
               type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              style={{ width: '100%' }}
+              className="input-style"
+              placeholder='e.g. Smith'
             />
           </div>
 
           {/* Username */}
-          <div style={{ marginBottom: '10px' }}>
-            <label><span style={{ color: 'red' }}>*</span>Username (min 6 chars, [0-9,a-z,-,_]):</label><br />
+          <div className="mb-3">
+            <label>
+              Username:
+            </label><br />
             <input
               type="text"
               value={username}
               onChange={(e) => setLocalUsername(e.target.value)}
-              style={{ width: '100%' }}
+              className="input-style"
               required
+              placeholder='mininum 6 characters, use 0-9, a-z, -, _'
             />
             <GeekWordsUsername
               firstName={firstName}
@@ -207,96 +240,112 @@ export default function RegistrationPage() {
           </div>
 
           {/* EMAIL */}
-          <div style={{ marginBottom: '10px' }}>
+          <div className="mb-3">
             <label>
-              <span style={{ color: 'red' }}>*</span>Email:
+              Email:
             </label><br />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ width: '100%' }}
+              className="input-style"
               required
             />
           </div>
 
           {/* PASSWORD */}
-          <div style={{ marginBottom: '10px' }}>
+          <div className="mb-3">
             <label>
-              <span style={{ color: 'red' }}>*</span>Password:
+              Password:
             </label><br />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{ width: '100%' }}
+              className="input-style"
               required
             />
           </div>
 
           {/* Country Code and Phone Number with adjusted widths */}
-          <div style={{ marginBottom: '10px' }}>
-            <label>Phone Number:</label><br />
-            <div style={{ display: 'flex' }}>
+          <div className="mb-3">
+            <label>
+              Phone Number:
+            </label><br />
+            <div>
               <CountryCodeSelect 
                 value={countryCode} 
-                onChange={setCountryCode} 
-                style={{ width: '30%', marginRight: '5%' }}  // Adjust width here for country code
+                onChange={setCountryCode}
               />
-            <input
-              type="tel"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              style={{ flex: 1}}  // Flex property adjusts to take the remaining space
-              placeholder="Enter your phone number"
-            />
+              <input
+                type="tel"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="input-style"
+                placeholder="Enter your phone number"
+              />
             </div>
           </div>
 
           {/* CLASS ID */}
-          <div style={{ marginBottom: '10px' }}>
-            <label>Class ID(s) (optional, comma-separated):</label><br />
+          <div className="mb-3">
+            <label>
+              Class ID(s) (optional, comma-separated):
+            </label><br />
             <input
               type="text"
               value={classID}
               onChange={(e) => setClassID(e.target.value)}
-              style={{ width: '100%' }}
+              className="input-style"
             />
           </div>
 
           {/* ERRORS */}
-          {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+          {errorMsg && <p className="text-error">{errorMsg}</p>}
 
           {/* SUBMIT BUTTON */}
-          <button type="submit" style={{ marginTop: '10px', width: '100%' }}>
+          <Button
+            type="submit"
+            className="btn"
+            isLoading={isRegistering}      // Loading status binded with registering status
+            loadingText="Registering..."  // Display loading status text
+            >
             Register
-          </button>
+          </Button>
+        
         </form>
       )}
 
       {/* If we've created the user and need to confirm the code */}
       {verificationNeeded && (
-        <form onSubmit={handleConfirmCode} style={{ maxWidth: '400px', margin: 'auto', textAlign: 'left' }}>
-          <p style={{ color: 'green' }}>
+        <form onSubmit={handleConfirmCode} className="max-w-md mx-auto text-left">
+          <p className="text-success mb-3">
             We sent a verification code to <strong>{email}</strong>. Check your email and enter the code below.
           </p>
 
-          <div style={{ marginBottom: '10px' }}>
+          <div className="mb-3">
             <label>Verification Code:</label><br />
             <input
               type="text"
               value={confirmationCode}
               onChange={(e) => setConfirmationCode(e.target.value)}
-              style={{ width: '100%' }}
               required
+              className="input-style"
             />
           </div>
 
-          {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+          {errorMsg && <p className="text-error mb-3">
+            {errorMsg}
+          </p>}
 
-          <button type="submit" style={{ marginTop: '10px', width: '100%' }}>
-            Confirm Code
-          </button>
+          <Button 
+            type="submit"
+            className="btn"
+            isLoading={isVerifying}    // Loading status binded with verification status
+            loadingText="Verifying..." // Display verifying status text
+            >
+            Confirm
+          </Button>
         </form>
       )}
     </div>
