@@ -25,8 +25,9 @@ const config: Config = {
         body: '#8c8c8c', // Body font color when background is white
         light: '#d9d9d9', // Slightly darker background
         highlight: '#ffc107', // Emphasize or highlight
-        error: '#FF0000', // Error message font color or mandatory field
+        error: '#ff0000', // Error message font color or mandatory field
         success: '#008000', // Success message font color
+        extralight: '#f2f2f2', // Menu items background compared to normal background color.
       },
     },
   },
