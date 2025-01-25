@@ -86,19 +86,23 @@ function ResetPassword({ onResetComplete }: ResetPasswordProps) {
   return (
     <div className="max-w-md mx-auto text-left">
       {stage === 1 && (
-        <div className="mb-3">
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username or Email"
-            className="input-style"
-            required
-          />
+        <div>
+          <div className="mb-3">
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username or Email"
+              className="input-style"
+              required
+            />
+          </div>
+          
           {message && <p className={`mb-3 text-sm ${messageType === 'success' ? 'text-success' : 'text-error'}`}>
               {message}
             </p>
           }
+          
           <div className="mb-3">
             <Button 
               onClick={requestPasswordReset} 
@@ -111,24 +115,29 @@ function ResetPassword({ onResetComplete }: ResetPasswordProps) {
           </div>
         </div>
       )}
+      
       {stage === 2 && (
-        <div className="mb-3">
-          <input
-            type="text"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            placeholder="Enter your code"
-            className="input-style"
-            required
-          />
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="New Password"
-            className="input-style"
-            required
-          />
+        <div>
+          <div className="mb-3">
+            <input
+              type="text"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="Enter your code"
+              className="input-style"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="New Password"
+              className="input-style"
+              required
+            />
+          </div>
           {message && <p className={`mb-3 text-sm ${messageType === 'success' ? 'text-success' : 'text-error'}`}>
             {message}
           </p>}

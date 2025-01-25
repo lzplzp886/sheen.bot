@@ -1,7 +1,7 @@
 import '@/app/globals.css'
 import React from 'react';
-import { UserProvider } from '@/context/UserContext';  // <--- import your context provider
-import Header from '@/components/UI/Header';              // <--- client-based header
+import { UserProvider } from '@/context/UserContext';
+import Header from '@/components/UI/Header';
 import Footer from '@/components/UI/Footer';
 
 export const metadata = {
@@ -19,13 +19,13 @@ export const metadata = {
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-background text-body font-sans select-none">
-      <body>
+    <html lang="en" className="text-body font-sans select-none">
+      <body className="h-screen flex flex-col">
         {/* Wrap the entire app in UserProvider */}
         <UserProvider>
           {/* Render a client-based header that can read the global user state */}
           <Header />
-          <main className="flex items-center justify-center min-h-[80vh] bg-background">
+          <main className="flex items-center justify-center flex-grow p-4">
             {children}
           </main>
           <Footer />
