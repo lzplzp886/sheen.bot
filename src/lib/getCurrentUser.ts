@@ -1,9 +1,8 @@
-import userPool from './cognitoClient';
+import userPool from '@/lib/cognitoClient';
 import { CognitoUserSession, CognitoUser } from 'amazon-cognito-identity-js';
 
 /**
- * A convenient interface if you want to reference both objects together.
- * You can rename it as you see fit.
+ * A convenient interface to integrate user info and session verification
  */
 interface CognitoUserSessionResult {
   cognitoUser: CognitoUser;

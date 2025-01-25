@@ -7,17 +7,6 @@
   --foreground: #171717;
 }
 
-/*body font defined under tailwind.config.ts*/
-/* body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-family);
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-}
-*/
-
 /*menu style*/
 .menu {
   @apply bg-primary flex gap-2 list-none m-0 p-2;
