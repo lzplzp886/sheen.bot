@@ -49,7 +49,6 @@ const config: Config = {
           padding: '0',
           fontSize: theme('fontSize.base'),
           fontWeight: theme('fontWeight.semibold'),
-          marginBottom: theme('spacing.5'),
         },
         p: {
           margin: '0',
