@@ -1,3 +1,5 @@
+// src/app/layout.tsx
+
 import '@/app/globals.css'
 import React from 'react';
 import { UserProvider } from '@/context/UserContext';

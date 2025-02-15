@@ -1,3 +1,5 @@
+// src/lib/cognitoClient.ts
+
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
 
 // All sensitive data for Cognito connection is kept under .env.local file

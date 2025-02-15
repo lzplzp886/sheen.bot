@@ -1,3 +1,5 @@
+// src/lib/getCurrentUser.ts
+
 import userPool from '@/lib/cognitoClient';
 import { CognitoUserSession, CognitoUser } from 'amazon-cognito-identity-js';
 
@@ -11,11 +13,11 @@ interface CognitoUserSessionResult {
 
 /**
  * Attempts to retrieve the currently logged-in user (and session)
- * from the browser. Throws an error if there's no current user,
+ * from the browser. Returns null if there's no current user
  * or if session retrieval fails.
  */
 export default async function getCurrentUser(): Promise<CognitoUserSessionResult | null> {
-  // If this is on server side, return null or throw
+  // Return null on the server side
   if (typeof window === 'undefined') {
     return null;
   }
@@ -23,17 +25,17 @@ export default async function getCurrentUser(): Promise<CognitoUserSessionResult
   // Attempt to fetch the user from local storage via the user pool
   const cognitoUser = userPool.getCurrentUser();
   if (!cognitoUser) {
-    // You can either throw an error or return null here
-    throw new Error('No current user found.');
+    console.warn('No current user found.');
+    return null;
   }
 
   // Wrap getSession in a Promise
-  return new Promise<CognitoUserSessionResult>((resolve, reject) => {
+  return new Promise<CognitoUserSessionResult | null>((resolve) => {
     cognitoUser.getSession((err: Error | null, session: CognitoUserSession | null) => {
       if (err || !session) {
-        reject(err || new Error('Failed to retrieve session.'));
+        console.error('Failed to retrieve session.', err);
+        resolve(null);
       } else {
-        // Successfully retrieved session
         resolve({ cognitoUser, session });
       }
     });

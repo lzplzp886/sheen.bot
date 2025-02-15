@@ -1,3 +1,4 @@
+// src/context/UserContext.tsx
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from 'react';
@@ -26,7 +27,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // When component did mount, call getCurrentUser() and obtain Cognito session details
+    // When the component mounts, call getCurrentUser() to obtain Cognito session details.
     (async () => {
       try {
         const result = await getCurrentUser();
@@ -35,26 +36,30 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
           setUsername(null);
           setRole(null);
         } else {
-          // Logged in
           const { cognitoUser } = result;
           setUsername(cognitoUser.getUsername());
-          // Reading customized attributes e.g. custom:role
-          cognitoUser.getUserAttributes(
-            (attrErr: Error | undefined, attrs: CognitoUserAttribute[] | undefined) => {
-              if (attrErr || !attrs) {
-                setRole(null);
+          // Wrap getUserAttributes in a promise so that we wait for it before marking loading as false.
+          const attributes = await new Promise<CognitoUserAttribute[] | null>((resolve) => {
+            cognitoUser.getUserAttributes((err, attrs) => {
+              if (err || !attrs) {
+                resolve(null);
               } else {
-                let userRole = "student"; // Default set to student
-                for (const attr of attrs) {
-                  if (attr.getName() === "custom:role") {
-                    userRole = attr.getValue();
-                    break;
-                  }
-                }
-                setRole(userRole);
+                resolve(attrs);
+              }
+            });
+          });
+          if (attributes) {
+            let userRole = "student"; // Default role
+            for (const attr of attributes) {
+              if (attr.getName() === "custom:role") {
+                userRole = attr.getValue();
+                break;
               }
             }
-          );
+            setRole(userRole);
+          } else {
+            setRole(null);
+          }
         }
       } catch (error) {
         console.error("getCurrentUser failed:", error);
