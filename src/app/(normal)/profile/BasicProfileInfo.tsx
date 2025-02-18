@@ -3,7 +3,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Button from "@/components/Button";
 
 interface BasicProfileInfoProps {
@@ -58,7 +57,7 @@ const BasicProfileInfo: React.FC<BasicProfileInfoProps> = ({
       
       {/* Avatar */}
       <div>
-        <Image
+        <img
           src={finalAvatarUrl}
           alt="Avatar Preview"
           className="w-24 h-24 rounded-full border"

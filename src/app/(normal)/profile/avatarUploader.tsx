@@ -6,6 +6,8 @@ import React, { useState, useCallback } from "react";
 import ReactCrop, { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import Button from "@/components/Button";
+import getCurrentUser from "@/lib/getCurrentUser";
+import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 
 interface AvatarUploaderProps {
   // Callback to inform parent that uploading is done, with the final avatar URL
@@ -47,8 +49,8 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({ onUploadComplete }) => 
 
   // Called once the <img> itself has finished loading
   const onImageLoad = useCallback(() => {
-    // If you need to do something right after the image is loaded, do it here
-    // e.currentTarget gives the image element
+    // 这里如果需要在图片加载完成后做额外处理，可以在这里添加逻辑
+    return true;
   }, []);
 
   // Called whenever the user finishes a crop gesture (drag end)
@@ -58,7 +60,7 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({ onUploadComplete }) => 
 
   // Called whenever the crop is changing (drag in progress)
   const onCropChange = (newCrop: Crop) => {
-    // keep the aspect ratio from the previous state, if you want forced aspect
+    // 保留之前的 aspect 值，确保裁剪比例保持一致
     setCrop((prevCrop) => ({ ...newCrop, aspect: prevCrop.aspect }));
   };
 
@@ -67,7 +69,6 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({ onUploadComplete }) => 
     if (!upImg || !completedCrop?.width || !completedCrop?.height) return null;
     const image = new Image();
     image.src = upImg;
-
     await new Promise<void>((resolve) => {
       image.onload = () => resolve();
     });
@@ -75,13 +76,10 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({ onUploadComplete }) => 
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
-
     canvas.width = completedCrop.width;
     canvas.height = completedCrop.height;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return null;
-
     ctx.drawImage(
       image,
       completedCrop.x! * scaleX,
@@ -120,7 +118,7 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({ onUploadComplete }) => 
         return;
       }
 
-      // Request a presigned URL from our API route
+      // 请求预签名 URL
       const res = await fetch("/api/profile/upload-avatar");
       if (!res.ok) {
         throw new Error("Failed to get presigned URL");
@@ -128,7 +126,7 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({ onUploadComplete }) => 
       const data = await res.json();
       const { url, key } = data;
 
-      // Upload the blob to S3 via the presigned URL
+      // 通过预签名 URL 上传文件到 S3
       const uploadRes = await fetch(url, {
         method: "PUT",
         headers: {
@@ -140,10 +138,31 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({ onUploadComplete }) => 
         throw new Error("Failed to upload file to S3");
       }
 
-      // Construct the final URL to the new avatar
+      // 构造最终头像 URL（假设 S3 桶为公开访问或有 CloudFront 分发）
       const finalAvatarUrl = `https://${process.env.NEXT_PUBLIC_AWS_AVATAR_BUCKET}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${key}`;
 
       setUploadMsg("Upload successful!");
+
+      // 自动更新 Cognito 中的 "picture" 属性
+      try {
+        const sessionResult = await getCurrentUser();
+        if (sessionResult) {
+          const { cognitoUser } = sessionResult;
+          cognitoUser.updateAttributes(
+            [new CognitoUserAttribute({ Name: "picture", Value: finalAvatarUrl })],
+            (err, result) => {
+              if (err) {
+                console.error("Update picture attribute error:", err);
+              } else {
+                console.log("Update picture attribute success:", result);
+              }
+            }
+          );
+        }
+      } catch (updateError) {
+        console.error("Error updating picture attribute:", updateError);
+      }
+
       onUploadComplete(finalAvatarUrl);
     } catch (error) {
       console.error("Upload error:", error);
@@ -167,7 +186,7 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({ onUploadComplete }) => 
             src={upImg} 
             alt="Avatar to crop" 
             onLoad={onImageLoad} 
-            />
+          />
         </ReactCrop>
       )}
 
