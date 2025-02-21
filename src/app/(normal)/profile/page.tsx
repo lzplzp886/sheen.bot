@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import getCurrentUser from "@/lib/getCurrentUser";
@@ -10,6 +10,7 @@ import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import BasicProfileInfo from "@/app/(normal)/profile/BasicProfileInfo";
 import ChangePasswordForm from "@/app/(normal)/profile/ChangePasswordForm";
 import AvatarUploader from "@/app/(normal)/profile/avatarUploader";
+import Button from "@/components/Button";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -23,9 +24,11 @@ export default function ProfilePage() {
   const [newPassword, setNewPassword] = useState("");
   const [changePassMsg, setChangePassMsg] = useState("");
 
-  // Loading states for buttons
-  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
-  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  // 控制头像上传弹窗的显示
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
+
+  // 使用 useRef 保存防抖定时器 ID
+  const updateDebounceTimer = useRef<number | null>(null);
 
   useEffect(() => {
     if (!loading && !globalUsername) {
@@ -59,25 +62,38 @@ export default function ProfilePage() {
     })();
   }, []);
 
-  const handleUpdateProfile = async () => {
+  // 当头像上传完成后更新 avatarUrl，并自动调用更新 Cognito 属性（防抖处理）
+  const onAvatarUploadComplete = (url: string) => {
+    setAvatarUrl(url);
+    // 如果已有定时器，先清除它
+    if (updateDebounceTimer.current) {
+      clearTimeout(updateDebounceTimer.current);
+    }
+    // 延迟 1 秒后再调用更新操作，防止重复调用
+    updateDebounceTimer.current = window.setTimeout(() => {
+      handleUpdateProfile(url);
+      setShowAvatarModal(false);
+    }, 1000);
+  };
+
+
+  // 更新 Cognito 中的 picture 属性（传入新头像 URL）
+  const handleUpdateProfile = async (newUrl?: string) => {
     setUpdateMsg("");
-    setIsUpdatingProfile(true);
     try {
       const sessionResult = await getCurrentUser();
       if (!sessionResult) {
         setUpdateMsg("No logged in user found.");
-        setIsUpdatingProfile(false);
         return;
       }
       const { cognitoUser } = sessionResult;
       const attrList = [
         new CognitoUserAttribute({
           Name: "picture",
-          Value: avatarUrl,
+          Value: newUrl || avatarUrl,
         }),
       ];
       cognitoUser.updateAttributes(attrList, (err, result) => {
-        setIsUpdatingProfile(false);
         if (err) {
           console.error("updateAttributes error:", err);
           setUpdateMsg(err.message || "Update failed");
@@ -89,7 +105,6 @@ export default function ProfilePage() {
     } catch (err) {
       console.error("Update failed:", err);
       setUpdateMsg("Update failed or user not found.");
-      setIsUpdatingProfile(false);
     }
   };
 
@@ -99,17 +114,14 @@ export default function ProfilePage() {
       setChangePassMsg("Please fill in both old and new password fields.");
       return;
     }
-    setIsChangingPassword(true);
     try {
       const sessionResult = await getCurrentUser();
       if (!sessionResult) {
         setChangePassMsg("No logged in user found.");
-        setIsChangingPassword(false);
         return;
       }
       const { cognitoUser } = sessionResult;
       cognitoUser.changePassword(oldPassword, newPassword, (err, result) => {
-        setIsChangingPassword(false);
         if (err) {
           console.error("Change password error:", err);
           setChangePassMsg(err.message || "Failed to change password");
@@ -124,7 +136,6 @@ export default function ProfilePage() {
     } catch (err) {
       console.error("Change password failed:", err);
       setChangePassMsg("Change password failed. Possibly not logged in?");
-      setIsChangingPassword(false);
     }
   };
 
@@ -146,15 +157,27 @@ export default function ProfilePage() {
         role={role}
         updateMsg={updateMsg}
         finalAvatarUrl={finalAvatarUrl}
-        isUpdatingProfile={isUpdatingProfile}
-        onUpdateProfile={handleUpdateProfile}
+        onAvatarClick={() => setShowAvatarModal(true)}
       />
-      <AvatarUploader onUploadComplete={(url) => setAvatarUrl(url)} />
+      {showAvatarModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-4 rounded shadow-lg max-w-md w-full">
+            <h2 className="text-xl mb-4">Crop and Upload Avatar</h2>
+            <AvatarUploader onUploadComplete={onAvatarUploadComplete} />
+            <Button
+              onClick={() => setShowAvatarModal(false)}
+              className="mt-4 hover:scale-105 transition-transform duration-200 ease-in-out"
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      )}
       <ChangePasswordForm
         oldPassword={oldPassword}
         newPassword={newPassword}
         changePassMsg={changePassMsg}
-        isChangingPassword={isChangingPassword}
+        isChangingPassword={false} // 如果不需要 loading 状态可设置为 false，否则传入 isChangingPassword 状态
         setOldPassword={setOldPassword}
         setNewPassword={setNewPassword}
         onChangePassword={handleChangePassword}
