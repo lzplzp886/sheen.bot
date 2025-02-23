@@ -47,7 +47,7 @@ export default function RegistrationPage() {
   const [isVerifying, setIsVerifying] = useState(false);
 
   // Import setUsername from the global UserContext
-  const { setUsername } = useUser();
+  const { setUsername, setRole } = useUser();
 
   // If user is already logged in, redirect them away from registration
   useEffect(() => {
@@ -159,11 +159,24 @@ export default function RegistrationPage() {
       cognitoUser.authenticateUser(authDetails, {
         onSuccess: (session) => {
           console.log("Auto-login success. Session:", session);
-          // Set the global username in context => updates the header
-          setUsername(cognitoUser.getUsername());
-
-          // Redirect to the unified dashboard page
-          router.push("/dashboard");
+          // 获取用户属性
+          cognitoUser.getUserAttributes((attrErr, attrs) => {
+            if (attrErr || !attrs) {
+              setUsername(cognitoUser.getUsername());
+            } else {
+              let finalRole = "";
+              for (const a of attrs) {
+                if (a.getName() === "custom:role") {
+                  finalRole = a.getValue();
+                  break;
+                }
+              }
+              setRole(finalRole);
+            }
+            // 更新用户名（这里也可以考虑使用给定名）
+            setUsername(cognitoUser.getUsername());
+            router.push("/dashboard");
+          });
         },
         onFailure: (authErr) => {
           console.error("Auto-login failed:", authErr);

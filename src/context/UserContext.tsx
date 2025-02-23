@@ -1,4 +1,5 @@
 // src/context/UserContext.tsx
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from 'react';
@@ -9,9 +10,11 @@ import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 type UserContextType = {
   username: string | null;
   role: string | null;
+  firstName: string | null;
   loading: boolean;
   setUsername: Dispatch<SetStateAction<string | null>>;
   setRole: Dispatch<SetStateAction<string | null>>;
+  setFirstName: Dispatch<SetStateAction<string | null>>;
 };
 
 /** Create the context, initially undefined */
@@ -24,6 +27,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
+  const [firstName, setFirstName] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -35,6 +39,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
           // Not logged in
           setUsername(null);
           setRole(null);
+          setFirstName(null);
         } else {
           const { cognitoUser } = result;
           setUsername(cognitoUser.getUsername());
@@ -48,23 +53,32 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
               }
             });
           });
+          // Print to make sure correct attributes retrieved.
+          console.log("UserContext - Retrieved attributes:", attributes);
           if (attributes) {
             let userRole = "student"; // Default role
+            let givenName: string | null = null;
             for (const attr of attributes) {
               if (attr.getName() === "custom:role") {
                 userRole = attr.getValue();
                 break;
               }
+              if (attr.getName() === "given_name") {
+                givenName = attr.getValue();
+              }
             }
             setRole(userRole);
+            setFirstName(givenName);
           } else {
             setRole(null);
+            setFirstName(null);
           }
         }
       } catch (error) {
         console.error("getCurrentUser failed:", error);
         setUsername(null);
         setRole(null);
+        setFirstName(null);
       } finally {
         setLoading(false);
       }
@@ -76,9 +90,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       value={{
         username,
         role,
+        firstName,
         loading,
         setUsername,
         setRole,
+        setFirstName,
       }}
     >
       {children}

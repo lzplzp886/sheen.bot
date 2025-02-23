@@ -39,7 +39,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
 
           // Attempt to find the custom:role attribute
           console.log('[ProtectedRoute] Retrieved attributes:', attrs);
-          let userRole = null;
+          let userRole : string | null = null;
           for (const attr of attrs) {
             if (attr.getName() === 'custom:role') {
               userRole = attr.getValue();
@@ -47,8 +47,16 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
             }
           }
 
-          // If userRole is not in allowedRoles => redirect
-          if (!userRole || !allowedRoles.includes(userRole)) {
+          // If custom:role is missing, then redirect the user to role supplement page /auth/callback
+          if (!userRole) {
+            console.warn('[ProtectedRoute] User role is missing. Redirecting to role supplement page.');
+            router.push('/auth/callback');
+            setIsLoading(false);
+            return;
+          }
+
+          // If custom:role exists but not in the allowed role list, then back to /login
+          if (!allowedRoles.includes(userRole)) {
             console.warn(`[ProtectedRoute] Unauthorized role "${userRole}". Allowed: ${allowedRoles}`);
             router.push('/login');
             setIsLoading(false);

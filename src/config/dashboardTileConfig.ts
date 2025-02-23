@@ -10,9 +10,9 @@ export interface RoleTile {
     iot: { title: "IoT", path: "/iot", icon: "/images/dashboard/iot.svg" },
     builder: { title: "Builder", path: "/builder", icon: "/images/dashboard/builder.svg" },
     training: { title: "Training", path: "/training", icon: "/images/dashboard/training.svg" },
-    subscription: { title: "Subscription", path: "/subscription", icon: "/images/dashboard/subscription.svg" },
     bookings: { title: "Bookings", path: "/bookings", icon: "/images/dashboard/bookings.svg" },
-    class: { title: "Class", path: "/class", icon: "/images/dashboard/class.svg" },
+    subscription: { title: "Subscription", path: "/subscription", icon: "/images/dashboard/subscription.svg" },
+    class: { title: "Kids & Class", path: "/class", icon: "/images/dashboard/class.svg" },
     profile: { title: "My Profile", path: "/profile", icon: "/images/dashboard/profile.svg" },
   };
   
