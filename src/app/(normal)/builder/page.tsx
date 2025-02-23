@@ -5,12 +5,13 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ProtectedRoute from "@/context/ProtectedRoute";
+import { routeRoles } from "@/config/routeRoles";
 
 export default function UnderConstructionPage() {
   const router = useRouter();
 
   return (
-    <ProtectedRoute allowedRoles={["student", "teacher", "parent", "admin"]}>
+    <ProtectedRoute allowedRoles={routeRoles.builder}>
       <div className="min-h-screen flex flex-col items-center justify-center bg-background p-8">
         <div className="flex flex-col items-center">
           <Image

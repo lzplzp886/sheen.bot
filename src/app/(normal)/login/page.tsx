@@ -29,6 +29,16 @@ export default function LoginPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
+  // Support Google Sign-in
+  const handleGoogleSignIn = () => {
+  const domain = process.env.NEXT_PUBLIC_COGNITO_DOMAIN;
+  const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const redirectUri = window.location.origin + '/dashboard';
+
+  // 构造托管 UI 登录 URL
+  window.location.href = `${domain}/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&identity_provider=Google`;
+};
+
   // If user is already logged in, redirect them
   useEffect(() => {
     if (!loading && globalUsername) {
@@ -153,6 +163,11 @@ export default function LoginPage() {
               <button type="button" onClick={() => setShowReset(true)}>
                 Forgot password?
               </button>
+            </div>
+            <div className="mt-4">
+              <Button type="button" onClick={handleGoogleSignIn} className="btn google-signin">
+                Sign in with Google
+              </Button>
             </div>
           </form>
         </>

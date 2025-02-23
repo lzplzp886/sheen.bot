@@ -34,7 +34,6 @@ export default function RegistrationPage() {
   const [password, setPassword] = useState("");
   const [countryCode, setCountryCode] = useState("+27");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [classID, setClassID] = useState("");
 
   // Error handling
   const [errorMsg, setErrorMsg] = useState("");
@@ -97,7 +96,6 @@ export default function RegistrationPage() {
       new CognitoUserAttribute({ Name: "phone_number", Value: normalizedPhoneNumber }),
       new CognitoUserAttribute({ Name: "given_name", Value: firstName }),
       new CognitoUserAttribute({ Name: "family_name", Value: lastName }),
-      new CognitoUserAttribute({ Name: "custom:classID", Value: classID }),
     ];
 
     userPool.signUp(
@@ -295,18 +293,6 @@ export default function RegistrationPage() {
                 placeholder="Enter your phone number"
               />
             </div>
-          </div>
-
-          {/* CLASS ID (optional) */}
-          <div className="mb-3">
-            <label>Class ID(s) (optional, comma-separated):</label>
-            <br />
-            <input
-              type="text"
-              value={classID}
-              onChange={(e) => setClassID(e.target.value)}
-              className="input-style"
-            />
           </div>
 
           {/* ERRORS */}

@@ -4,6 +4,7 @@
 
 import React, { useRef, useState } from "react";
 import ProtectedRoute from "@/context/ProtectedRoute";
+import { routeRoles } from '@/config/routeRoles';
 import BlocklyEditor from "./BlocklyEditor";
 import type { BlocklyEditorRef } from "./BlocklyEditor";
 
@@ -110,7 +111,7 @@ export default function ProjectCanvasPage() {
   };
 
   return (
-    <ProtectedRoute allowedRoles={["student"]}>
+    <ProtectedRoute allowedRoles={routeRoles.canvas}>
       <div className="flex flex-col w-full h-screen">
         {/* Project header */}
         <NavigationHeader

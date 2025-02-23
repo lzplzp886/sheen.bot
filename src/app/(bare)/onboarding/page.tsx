@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ProjectDashboardPopup from "@/app/(bare)/onboarding/popup";
 import ProtectedRoute from "@/context/ProtectedRoute";
+import { routeRoles } from "@/config/routeRoles";
 import Image from "next/image";
 
 export default function LandingPage() {
@@ -16,7 +17,7 @@ export default function LandingPage() {
   };
 
   return (
-    <ProtectedRoute allowedRoles={["student"]}>
+    <ProtectedRoute allowedRoles={routeRoles.onboarding}>
       <div className="min-h-screen flex flex-col items-center justify-center">
         {/* Container for buttons and divider */}
         <div className="flex flex-col lg:flex-row items-center lg:space-x-14 space-y-8 lg:space-y-0">
