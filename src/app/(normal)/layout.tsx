@@ -22,7 +22,7 @@ export default function NormalLayout({
     <html lang="en" className="text-body font-sans select-none">
       <body className="h-screen flex flex-col">
           <Header />
-          <main className="flex items-center justify-center flex-grow p-4">
+            <main className="flex-grow p-0 relative">
             {children}
           </main>
           <Footer />

@@ -72,21 +72,26 @@ export default function HomePage() {
     );
   }
 
-  // If not logged in (or error retrieving session),
-  // display the normal home page with "Login" / "Register" buttons, and gap between each button is 8px.
-  
-    return (
-    <div className="p-5 text-center">
-      <h1 className="text-2xl font-bold mb-4">{headline}</h1>
-      <p>{subtext}</p>
-      <div className="flex mt-4 mb-4 space-y-4 flex-col items-center justify-center lg:flex lg:flex-row lg:space-x-5 lg:space-y-0 lg:items-center lg:justify-center">
-        <button onClick={() => router.push('/login')} className="btn">
-          Login
-        </button>
-        <button onClick={() => router.push('/registration')} className="btn">
-          Register
-        </button>
+  return (
+    <main className="relative flex flex-col min-h-screen overflow-hidden">
+      {/* 背景视频：占满全屏，半透明 */}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-50 z-[-1]"
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src="/images/home/video.mp4" type="video/mp4" />
+        {/* 可以加个备用 source 或提示 */}
+        Your browser does not support the video tag.
+      </video>
+
+      {/* 内容区：z-10 确保在视频之上 */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-5 text-center text-white">
+        <h1 className="text-4xl font-bold mb-4">{headline}</h1>
+        <p className="text-xl">{subtext}</p>
       </div>
-    </div>    
+    </main>
   );
 }

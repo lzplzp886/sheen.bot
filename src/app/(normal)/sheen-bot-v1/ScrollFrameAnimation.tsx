@@ -10,7 +10,7 @@ const frameCount: number = 25;
 
 const getImageSrc = (index: number): string => {
   const paddedIndex: string = String(index).padStart(4, "0");
-  return `/images/product/lawnmower-bot/frame_${paddedIndex}.jpg`;
+  return `/images/product/lawnmower-bot-clear/frame_${paddedIndex}.jpg`;
 };
 
 const preloadImages = (): HTMLImageElement[] => {

@@ -52,12 +52,22 @@ export default function Header() {
         </div>
         <nav className="hidden lg:flex">
           <ul className="flex space-x-8 items-center">
-            <li className="text-background text-lg font-semibold hover:text-secondary transition-colors duration-300">
+            <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
               <Link href="/">Home</Link>
             </li>
+            <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
+              <Link href="/solutions">Solutions</Link>
+            </li>
+            <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
+              <Link href="/about">About Us</Link>
+            </li>
             {!username && (
-              <li className="text-background text-lg font-semibold hover:text-secondary transition-colors duration-300">
-                <Link href="/login">Login</Link>
+              <li>
+                <Link href="/login">
+                  <a className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300">
+                    Login
+                  </a>
+                </Link>
               </li>
             )}
             {username && (
@@ -77,14 +87,31 @@ export default function Header() {
       </div>
       <AnimatePresence>
         {isOpen && (
-          <motion.nav key="mobile-menu" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }} className="lg:hidden bg-primary overflow-hidden">
+          <motion.nav 
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden bg-primary overflow-hidden"
+            >
             <ul className="flex flex-col space-y-2 p-4">
-              <li className="text-background text-lg font-semibold hover:text-secondary transition-colors duration-300">
+              <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
                 <Link href="/">Home</Link>
               </li>
+              <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
+                <Link href="/solutions">Solutions</Link>
+              </li>
+              <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
+                <Link href="/about">About Us</Link>
+              </li>
               {!username && (
-                <li className="text-background text-lg font-semibold hover:text-secondary transition-colors duration-300">
-                  <Link href="/login">Login</Link>
+                <li>
+                  <Link href="/login">
+                  <a className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300">
+                    Login
+                  </a>
+                  </Link>
                 </li>
               )}
               {username && (

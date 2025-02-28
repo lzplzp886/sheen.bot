@@ -18,19 +18,22 @@ import Image from "next/image";
 export default function LoginPage() {
   const router = useRouter();
 
-  // Global user context: if user is already logged in, skip the login page.
+  // 全局用户上下文：如果用户已登录则重定向到 dashboard
   const { username: globalUsername, role, loading, setUsername, setRole } = useUser();
 
-  // Local state for the login form
+  // Email 登录表单状态
   const [formUserInput, setFormUserInput] = useState("");
   const [formPassword, setFormPassword] = useState("");
 
-  // Additional UI states
+  // 其他 UI 状态
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
-  // 支持 Google 登录：构造托管 UI 登录 URL
+  // 当前使用的登录方式：email 或 google，默认使用 email
+  const [activeTab, setActiveTab] = useState<"email" | "google">("email");
+
+  // Google 登录处理：构造托管 UI 登录 URL
   const handleGoogleSignIn = () => {
     const domain = process.env.NEXT_PUBLIC_COGNITO_DOMAIN;
     const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
@@ -46,7 +49,7 @@ export default function LoginPage() {
     }
   }, [loading, globalUsername, role, router]);
 
-  // 本地登录表单提交处理
+  // Email 登录表单提交处理
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -69,8 +72,8 @@ export default function LoginPage() {
     });
 
     cognitoUser.authenticateUser(authDetails, {
-      onSuccess: (session) => {
-        console.log("Login success!", session);
+      onSuccess: (_session) => {
+        console.log("Login success!", _session);
         // 获取用户属性
         cognitoUser.getUserAttributes((attrErr, attrs: CognitoUserAttribute[] | undefined) => {
           setIsProcessing(false);
@@ -108,91 +111,106 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="p-5 text-center">
-      {!showReset ? (
-        <>
-          <h1 className="text-2xl font-bold mb-4">Account Login</h1>
-          {/* 本地登录模块 */}
-          <div
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              padding: "20px",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-              marginBottom: "20px",
-            }}
+    <div className="p-5 max-w-md mx-auto">
+      <h1 className="text-2xl font-bold text-center mb-6">Account Login</h1>
+
+      {/* Tab 区域 */}
+      <div className="w-full">
+        <div className="flex">
+          <button
+            className={`flex-1 px-4 py-2 rounded-tl-lg border border-light border-b-0 transition-colors duration-300 ${
+              activeTab === "email" ? "bg-body" : "bg-light"
+            }`}
+            onClick={() => setActiveTab("email")}
           >
-            <form onSubmit={handleLogin} className="max-w-md mx-auto text-left" autoComplete="on">
-              {/* 隐藏 username 字段，帮助密码管理器关联 */}
+            <div className="flex justify-center items-center">
+              <Image src="/images/login/email-sign-in.svg" alt="Email" width={24} height={24} />
+            </div>
+          </button>
+          <button
+            className={`flex-1 px-4 py-2 rounded-tr-lg border border-light border-b-0 transition-colors duration-300 ${
+              activeTab === "google" ? "bg-body" : "bg-light"
+            }`}
+            onClick={() => setActiveTab("google")}
+          >
+            <div className="flex justify-center items-center">
+              <Image src="/images/login/google-sign-in.svg" alt="Google" width={24} height={24} />
+            </div>
+          </button>
+        </div>
+
+        {/* 表单区域（仅下部圆角） */}
+        <div className="border border-light rounded-b-lg p-5 shadow">
+          {activeTab === "email" && (
+            <form onSubmit={handleLogin} className="space-y-4" autoComplete="on">
               <input type="hidden" name="username" value={formUserInput} autoComplete="username" />
-              <div className="mb-3">
-                <label>Username or Email:</label>
+              <div>
+                <label className="block mb-1">Username or Email:</label>
                 <input
                   type="text"
                   value={formUserInput}
                   onChange={(e) => setFormUserInput(e.target.value)}
-                  className="input-style"
+                  className="w-full border border-light rounded p-2"
                   autoComplete="username"
                 />
               </div>
-              <div className="mb-3">
-                <label>Password:</label>
+              <div>
+                <label className="block mb-1">Password:</label>
                 <input
                   type="password"
                   value={formPassword}
                   onChange={(e) => setFormPassword(e.target.value)}
-                  className="input-style"
+                  className="w-full border border-light rounded p-2"
                   autoComplete="current-password"
                 />
               </div>
-              {error && <p className="text-error mb-3">{error}</p>}
-              <div className="space-x-2 inline-block">
-                <Button type="submit" className="btn" isLoading={isProcessing} loadingText="Logging in...">
+              {error && <p className="text-error">{error}</p>}
+              <div className="flex space-x-2">
+                <Button type="submit" className="flex-1" isLoading={isProcessing} loadingText="Logging in...">
                   Log In
                 </Button>
-                <button type="button" onClick={() => setShowReset(true)}>
+                <button
+                  onClick={() => router.push("/registration")}
+                  className="flex-1 bg-primary text-background font-semibold shadow-md px-3 py-2 rounded-lg transition duration-300 hover:bg-secondary hover:text-background ease-in-out"
+                >
+                  Register
+                </button>
+              </div>
+              <div className="mt-2 text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowReset(true)}
+                  className="text-body underline"
+                >
                   Forgot password?
                 </button>
               </div>
             </form>
-          </div>
+          )}
 
-          {/* 分隔文本 "or" */}
-          <p className="my-4 text-center font-semibold text-body">or</p>
+          {activeTab === "google" && (
+            <div className="flex flex-col items-center">
+              <p className="mb-4">Click the button below to sign in with Google.</p>
+              <button onClick={handleGoogleSignIn} className="flex justify-center items-center">
+                <Image
+                  src="/images/login/Google-Sign-in.png"
+                  alt="Sign in with Google"
+                  width={175}
+                  height={40}
+                  className="cursor-pointer"
+                />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
 
-          {/* Google 登录模块 */}
-          <div
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              padding: "20px",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-            }}
-          >
-            <Image
-              src="/images/Google-Sign-in.png"
-              alt="Sign in with Google"
-              width={175}
-              height={40}
-              style={{ cursor: "pointer", maxWidth: "100%", height: "auto" }}
-              onClick={handleGoogleSignIn}
-            />
-          </div>
-        </>
-      ) : (
-        <>
-          <h1>Reset Password</h1>
-          <div
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              padding: "20px",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-            }}
-          >
-            <ResetPassword onResetComplete={() => setShowReset(false)} />
-          </div>
-        </>
+      {/* 重置密码区域 */}
+      {showReset && (
+        <div className="mt-4 border border-light rounded-lg p-5 shadow">
+          <h1 className="text-2xl font-bold text-center mb-4">Reset Password</h1>
+          <ResetPassword onResetComplete={() => setShowReset(false)} />
+        </div>
       )}
     </div>
   );
