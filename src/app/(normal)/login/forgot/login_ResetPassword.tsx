@@ -1,9 +1,9 @@
 // src/app/login/login_ResetPassword.tsx
 
-import React, { useState } from 'react';
-import { CognitoUser } from 'amazon-cognito-identity-js';
-import userPool from '@/lib/cognitoClient';
-import Button from '@/components/Button';
+import React, { useState } from 'react'
+import { CognitoUser } from 'amazon-cognito-identity-js'
+import userPool from '@/lib/cognitoClient'
+import Button from '@/components/Button'
 
 interface ResetPasswordProps {
   onResetComplete: () => void;  // Define the type of the onResetComplete function

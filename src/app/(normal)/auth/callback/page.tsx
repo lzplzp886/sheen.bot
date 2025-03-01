@@ -177,12 +177,16 @@ export default function AuthCallbackPage() {
   };
 
   if (isLoading) {
-    return <div>Processing login...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg font-medium">Processing login...</p>
+      </div>
+    );
   }
 
   if (needsSupplement) {
     return (
-      <div className="p-4 max-w-md mx-auto text-left rounded-lg shadow-md">
+      <div className="mt-4 p-4 max-w-md mx-auto text-left rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Complete Your Profile</h2>
         <p className="mb-4">Please select your role and enter your phone number to complete registration.</p>
         <div className="mb-3">

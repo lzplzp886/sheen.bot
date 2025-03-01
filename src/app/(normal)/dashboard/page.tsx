@@ -39,7 +39,7 @@ export default function Dashboard() {
             ? `${currentRole.charAt(0).toUpperCase() + currentRole.slice(1)} Dashboard`
             : "Dashboard"}
         </h1>
-        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="max-w-4xl mx-auto flex justify-center flex-wrap gap-8">
           {tiles.map((tile) => (
             <Tile
               key={tile.title}

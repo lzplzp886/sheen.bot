@@ -21,11 +21,10 @@ export default function Header() {
       cognitoUser.signOut();
     }
     setUsername(null);
+    // 点击 Sign Out 之后也将菜单收起
+    setIsOpen(false);
     router.push('/');
   };
-
-  // 如果全局状态还在 loading，可以选择不渲染或显示 Loading...
-  // 这里假设 UserContext 已经处理 loading 状态
 
   return (
     <header className="bg-primary shadow-lg">
@@ -37,34 +36,72 @@ export default function Header() {
             </a>
           </Link>
         </h1>
+        {/* 移动端下的汉堡按钮 */}
         <div className="lg:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-background focus:outline-none">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-background focus:outline-none"
+          >
             {isOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none" 
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg 
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             )}
           </button>
         </div>
+
+        {/* 桌面端导航 */}
         <nav className="hidden lg:flex">
           <ul className="flex space-x-8 items-center">
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
-              <Link href="/">Home</Link>
+              {/* 点击后可收起菜单的方式之一：给 Link 直接加 onClick */}
+              <Link href="/" onClick={() => setIsOpen(false)}>
+                Home
+              </Link>
             </li>
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
-              <Link href="/solutions">Solutions</Link>
+              <Link href="/solutions" onClick={() => setIsOpen(false)}>
+                Solutions
+              </Link>
             </li>
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
-              <Link href="/about">About Us</Link>
+              <Link href="/about" onClick={() => setIsOpen(false)}>
+                About Us
+              </Link>
             </li>
             {!username && (
               <li>
                 <Link href="/login">
-                  <a className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300">
+                  <a
+                    onClick={() => setIsOpen(false)}
+                    className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
+                  >
                     Login
                   </a>
                 </Link>
@@ -76,7 +113,10 @@ export default function Header() {
                   Welcome, {firstName ? firstName : username}!
                 </li>
                 <li>
-                  <button onClick={handleSignOut} className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300">
+                  <button
+                    onClick={handleSignOut}
+                    className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
+                  >
                     Sign Out
                   </button>
                 </li>
@@ -85,48 +125,65 @@ export default function Header() {
           </ul>
         </nav>
       </div>
+
+      {/* 移动端下拉菜单 */}
       <AnimatePresence>
         {isOpen && (
-          <motion.nav 
+          <motion.nav
             key="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-primary overflow-hidden"
-            >
-            <ul className="flex flex-col space-y-2 p-4">
-              <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
-                <Link href="/">Home</Link>
-              </li>
-              <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
-                <Link href="/solutions">Solutions</Link>
-              </li>
-              <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
-                <Link href="/about">About Us</Link>
-              </li>
-              {!username && (
-                <li>
-                  <Link href="/login">
-                  <a className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300">
-                    Login
-                  </a>
+          >
+            <div className="p-4">
+              {/* 主菜单项（带分隔线） */}
+              <ul className="flex flex-col space-y-2">
+                <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
+                  <Link href="/" onClick={() => setIsOpen(false)}>
+                    Home
                   </Link>
                 </li>
+                <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
+                  <Link href="/solutions" onClick={() => setIsOpen(false)}>
+                    Solutions
+                  </Link>
+                </li>
+                <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
+                  <Link href="/about" onClick={() => setIsOpen(false)}>
+                    About Us
+                  </Link>
+                </li>
+              </ul>
+
+              {/* 登录或欢迎信息与上方菜单保持间距，不再使用分隔线 */}
+              {!username && (
+                <div className="mt-4">
+                  <Link href="/login">
+                    <a
+                      onClick={() => setIsOpen(false)}
+                      className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
+                    >
+                      Login
+                    </a>
+                  </Link>
+                </div>
               )}
               {username && (
-                <>
-                  <li className="text-background text-lg font-semibold transition-colors duration-300">
+                <div className="mt-4">
+                  <p className="text-background text-lg font-semibold transition-colors duration-300">
                     Welcome, {firstName ? firstName : username}!
-                  </li>
-                  <li>
-                    <button onClick={handleSignOut} className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300">
-                      Sign Out
-                    </button>
-                  </li>
-                </>
+                  </p>
+                  <button
+                    onClick={handleSignOut}
+                    className="mt-2 bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
+                  >
+                    Sign Out
+                  </button>
+                </div>
               )}
-            </ul>
+            </div>
           </motion.nav>
         )}
       </AnimatePresence>
