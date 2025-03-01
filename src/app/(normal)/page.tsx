@@ -76,14 +76,14 @@ export default function HomePage() {
     <main className="relative flex flex-col min-h-screen overflow-hidden">
       {/* 背景视频：占满全屏，半透明 */}
       <video
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-50 z-[-1]"
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
+        style={{ filter: 'brightness(0.5)' }}
         autoPlay
         muted
         loop
         playsInline
       >
         <source src="/images/home/video.mp4" type="video/mp4" />
-        {/* 可以加个备用 source 或提示 */}
         Your browser does not support the video tag.
       </video>
 

@@ -9,7 +9,7 @@ export default function NotFoundPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-background p-8 select-none">
       <div className="flex flex-col items-center">
         <Image
           src="/images/404.svg"
@@ -28,6 +28,7 @@ export default function NotFoundPage() {
           Go Back
         </button>
       </div>
+      
     </div>
   );
 }
