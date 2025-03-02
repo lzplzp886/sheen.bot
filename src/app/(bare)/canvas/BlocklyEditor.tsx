@@ -1,24 +1,16 @@
-// src/app/canvas/BlocklyEditor.tsx
-
 "use client";
 
-import React, {
-  useRef,
-  useEffect,
-  useImperativeHandle,
-  forwardRef,
-} from "react";
+import React, { useRef, useEffect, useImperativeHandle, forwardRef } from "react";
 import * as Blockly from "blockly/core";
 import "blockly/blocks";
-import { javascriptGenerator } from "blockly/javascript"; // Support JS Generator
-import * as En from 'blockly/msg/en'; // Load EN language pack
+import { javascriptGenerator } from "blockly/javascript"; // 支持 JavaScript 代码生成
+import * as En from "blockly/msg/en"; // 加载英文语言包
+import toolboxXml from "./canvasToolbox";
 
+// 设置语言
 // @ts-expect-error just exception
 Blockly.setLocale(En);
 
-/**
- * Export interface to allow parent comonents to call
- */
 export interface BlocklyEditorRef {
   getWorkspaceXml: () => string;
   loadWorkspaceXml: (xml: string) => void;
@@ -33,26 +25,21 @@ interface BlocklyEditorProps {
   onWorkspaceChange?: () => void;
 }
 
-// Use forwardRef + useImperativeHandle methods so parent elements can call
-function BlocklyEditor(
-  { onWorkspaceChange }: BlocklyEditorProps,
-  ref: React.Ref<unknown>
-) {
+function BlocklyEditor({ onWorkspaceChange }: BlocklyEditorProps, ref: React.Ref<unknown>) {
   const blocklyDiv = useRef<HTMLDivElement>(null);
   const workspaceRef = useRef<Blockly.WorkspaceSvg | null>(null);
 
-  // Initialize workspace
+  // 初始化工作区并配置 toolbox
   useEffect(() => {
     if (!blocklyDiv.current) return;
     console.log("[BlocklyEditor] MOUNT");
     
-    // Removed toolbox
     workspaceRef.current = Blockly.inject(blocklyDiv.current, {
-      toolbox: undefined, // Not use in-house toolbox
+      toolbox: toolboxXml,
       trashcan: true,
       zoom: { 
         controls: true,
-        wheel: false, // Disable the wheel zoom
+        wheel: false,
         startScale: 1.0,
         maxScale: 2,
         minScale: 0.5,
@@ -61,7 +48,7 @@ function BlocklyEditor(
       move: {
         scrollbars: true,
         drag: true,
-        wheel: true,  // Keep wheel to control the canvas view
+        wheel: true,
       },
       grid: {
         spacing: 20,
@@ -71,18 +58,18 @@ function BlocklyEditor(
       }
     });
 
-    // Set background
+    // 设置背景图
     if (workspaceRef.current) {
       const svg = workspaceRef.current.getParentSvg();
       if (svg) {
         svg.style.backgroundImage = 'url("/images/canvas/background.svg")';
-        svg.style.backgroundSize = "cover"; // Fill the whole workspace with image
+        svg.style.backgroundSize = "cover";
         svg.style.backgroundPosition = "center";
         svg.style.backgroundRepeat = "no-repeat";
       }
     }
 
-    // Listen to workspace change, like block added or moved
+    // 监听工作区变化
     workspaceRef.current.addChangeListener(() => {
       onWorkspaceChange?.();
     });
@@ -93,7 +80,7 @@ function BlocklyEditor(
     };
   }, [onWorkspaceChange]);
 
-  // Methods exposed to external
+  // 通过 useImperativeHandle 向父组件暴露方法
   useImperativeHandle(ref, () => ({
     getWorkspaceXml: () => {
       if (!workspaceRef.current) return "";
@@ -103,26 +90,20 @@ function BlocklyEditor(
     loadWorkspaceXml: (xml: string) => {
       console.log("[BlocklyEditor] loadWorkspaceXml called with =>", xml);
       if (!workspaceRef.current) return;
-      console.log("[BlocklyEditor] clearing workspace...");
       workspaceRef.current.clear();
       if (xml) {
-        // Convert XML to DOM
-        console.log("[BlocklyEditor] now loading the given XML =>", xml.substring(0, 50));
         const xmlDom = Blockly.utils.xml.textToDom(xml);
-        // Load DOM to current workspace
         Blockly.Xml.domToWorkspace(xmlDom, workspaceRef.current);
       }
     },
-    // Insert block
     insertBlock: (type: string) => {
-      console.log("[BlocklyEditor] InsertBlock called with => type");
+      console.log("[BlocklyEditor] InsertBlock called with =>", type);
       if (!workspaceRef.current) return;
       const block = workspaceRef.current.newBlock(type);
       block.initSvg();
       block.render();
       block.moveBy(50, 50);
     },
-    // Use built-in undo and redo
     undo: () => {
       workspaceRef.current?.undo(false);
     },
@@ -131,15 +112,13 @@ function BlocklyEditor(
     },
     generateCode: () => {
       if (!workspaceRef.current) return "";
-      // Generate code based on JavaScript
       return javascriptGenerator.workspaceToCode(workspaceRef.current);
     },
     runCode: () => {
       if (!workspaceRef.current) return;
       const code = javascriptGenerator.workspaceToCode(workspaceRef.current);
       try {
-        // 在浏览器直接 eval
-        // 注意安全：生产环境要谨慎
+        // 直接在浏览器中执行 eval，注意安全问题
         eval(code);
       } catch (err) {
         alert("Error running code: " + err);
@@ -147,10 +126,7 @@ function BlocklyEditor(
     },
   }));
 
-  return (
-    <div className="w-full h-full" ref={blocklyDiv} />
-  );
+  return <div className="w-full h-full" ref={blocklyDiv} />;
 }
 
-// forwardRef包裹 + react.memo包裹，确保即使父组件重新渲染，BlocklyEditor 也不会重新挂载
 export default React.memo(forwardRef(BlocklyEditor));

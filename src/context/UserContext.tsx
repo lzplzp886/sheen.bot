@@ -7,7 +7,7 @@ import getCurrentUser from "@/lib/getCurrentUser";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 
 /** Type describing the user context data */
-type UserContextType = {
+export type UserContextType = {
   username: string | null;
   role: string | null;
   firstName: string | null;
@@ -20,10 +20,6 @@ type UserContextType = {
 /** Create the context, initially undefined */
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-/**
- * This provider wraps your entire app (e.g. in the RootLayout).
- * Any component inside can call `useUser()`.
- */
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
@@ -31,19 +27,16 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // When the component mounts, call getCurrentUser() to obtain Cognito session details.
     (async () => {
       try {
         const result = await getCurrentUser();
         if (!result) {
-          // Not logged in
           setUsername(null);
           setRole(null);
           setFirstName(null);
         } else {
           const { cognitoUser } = result;
           setUsername(cognitoUser.getUsername());
-          // Wrap getUserAttributes in a promise so that we wait for it before marking loading as false.
           const attributes = await new Promise<CognitoUserAttribute[] | null>((resolve) => {
             cognitoUser.getUserAttributes((err, attrs) => {
               if (err || !attrs) {
@@ -53,10 +46,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
               }
             });
           });
-          // Print to make sure correct attributes retrieved.
           console.log("UserContext - Retrieved attributes:", attributes);
           if (attributes) {
-            let userRole = "student"; // Default role
+            let userRole = "student"; // 默认角色
             let givenName: string | null = null;
             for (const attr of attributes) {
               if (attr.getName() === "custom:role") {
@@ -102,7 +94,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Custom hook to read/update the user context from global. */
+/** Custom hook to read/update the user context */
 export function useUser() {
   const context = useContext(UserContext);
   if (!context) {

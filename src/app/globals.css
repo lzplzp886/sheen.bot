@@ -44,3 +44,8 @@
 .blocklyMainWorkspaceScrollbar {
   display: none !important; /* Hide Blockly workspace scroll bar */
 }
+
+/*Blockly remove scroll bar for toolbox*/
+svg[display="none"] {
+  display: none;
+}

@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import userPool from '@/lib/cognitoClient';
 import { useUser } from '@/context/UserContext';
+import Avatar from '@/components/Avatar'; // 引入 Avatar 组件
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Header() {
@@ -21,14 +22,13 @@ export default function Header() {
       cognitoUser.signOut();
     }
     setUsername(null);
-    // 点击 Sign Out 之后也将菜单收起
     setIsOpen(false);
     router.push('/');
   };
 
   return (
     <header className="bg-primary shadow-lg">
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto px-4 flex items-center justify-between">
         <h1 className="m-0">
           <Link href="/" passHref>
             <a>
@@ -37,7 +37,7 @@ export default function Header() {
           </Link>
         </h1>
         {/* 移动端下的汉堡按钮 */}
-        <div className="lg:hidden">
+        <div className="lg:hidden pr-4">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-background focus:outline-none"
@@ -46,7 +46,7 @@ export default function Header() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
-                fill="none" 
+                fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
@@ -80,7 +80,6 @@ export default function Header() {
         <nav className="hidden lg:flex">
           <ul className="flex space-x-8 items-center">
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
-              {/* 点击后可收起菜单的方式之一：给 Link 直接加 onClick */}
               <Link href="/" onClick={() => setIsOpen(false)}>
                 Home
               </Link>
@@ -113,6 +112,9 @@ export default function Header() {
                   Welcome, {firstName ? firstName : username}!
                 </li>
                 <li>
+                  <Avatar size={40} onClick={() => console.log("Avatar clicked")} />
+                </li>
+                <li>
                   <button
                     onClick={handleSignOut}
                     className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
@@ -138,7 +140,6 @@ export default function Header() {
             className="lg:hidden bg-primary overflow-hidden"
           >
             <div className="p-4">
-              {/* 主菜单项（带分隔线） */}
               <ul className="flex flex-col space-y-2">
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
                   <Link href="/" onClick={() => setIsOpen(false)}>
@@ -156,8 +157,6 @@ export default function Header() {
                   </Link>
                 </li>
               </ul>
-
-              {/* 登录或欢迎信息与上方菜单保持间距，不再使用分隔线 */}
               {!username && (
                 <div className="mt-4">
                   <Link href="/login">
