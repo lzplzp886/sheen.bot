@@ -15,8 +15,8 @@ import Button from "@/components/Button";
 export default function ProfilePage() {
   const router = useRouter();
   const { username: globalUsername, role, loading } = useUser();
+  // 本页单独维护一个 attributes 状态，用于存储从 Cognito 获取的详细属性
   const [attributes, setAttributes] = useState<Record<string, string>>({});
-  const [avatarUrl, setAvatarUrl] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
 
   // For change password form
@@ -52,9 +52,6 @@ export default function ProfilePage() {
             map[a.getName()] = a.getValue();
           }
           setAttributes(map);
-          if (map["picture"]) {
-            setAvatarUrl(map["picture"]);
-          }
         });
       } catch (error) {
         console.error("getCurrentUser error:", error);
@@ -62,20 +59,17 @@ export default function ProfilePage() {
     })();
   }, []);
 
-  // 当头像上传完成后更新 avatarUrl，并自动调用更新 Cognito 属性（防抖处理）
+  // 当头像上传完成后更新 attributes 中的 picture 属性，并更新 Cognito（防抖处理）
   const onAvatarUploadComplete = (url: string) => {
-    setAvatarUrl(url);
-    // 如果已有定时器，先清除它
+    setAttributes(prev => ({ ...prev, picture: url }));
     if (updateDebounceTimer.current) {
       clearTimeout(updateDebounceTimer.current);
     }
-    // 延迟 1 秒后再调用更新操作，防止重复调用
     updateDebounceTimer.current = window.setTimeout(() => {
       handleUpdateProfile(url);
       setShowAvatarModal(false);
     }, 1000);
   };
-
 
   // 更新 Cognito 中的 picture 属性（传入新头像 URL）
   const handleUpdateProfile = async (newUrl?: string) => {
@@ -90,7 +84,7 @@ export default function ProfilePage() {
       const attrList = [
         new CognitoUserAttribute({
           Name: "picture",
-          Value: newUrl || avatarUrl,
+          Value: newUrl || (attributes.picture || ""),
         }),
       ];
       cognitoUser.updateAttributes(attrList, (err, result) => {
@@ -140,13 +134,16 @@ export default function ProfilePage() {
   };
 
   if (loading) {
-    return <div className="p-5 text-center">Loading user session...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg font-medium">Loading user session...</p>
+      </div>
+    );
   }
+  
   if (!globalUsername) {
     return null;
   }
-
-  const finalAvatarUrl = avatarUrl || "/images/profile/avatar.svg";
 
   return (
     <div className="p-5 max-w-lg mx-auto">
@@ -156,7 +153,6 @@ export default function ProfilePage() {
         globalUsername={globalUsername}
         role={role}
         updateMsg={updateMsg}
-        finalAvatarUrl={finalAvatarUrl}
         onAvatarClick={() => setShowAvatarModal(true)}
       />
       {showAvatarModal && (
@@ -177,7 +173,7 @@ export default function ProfilePage() {
         oldPassword={oldPassword}
         newPassword={newPassword}
         changePassMsg={changePassMsg}
-        isChangingPassword={false} // 如果不需要 loading 状态可设置为 false，否则传入 isChangingPassword 状态
+        isChangingPassword={false}
         setOldPassword={setOldPassword}
         setNewPassword={setNewPassword}
         onChangePassword={handleChangePassword}

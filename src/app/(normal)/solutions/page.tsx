@@ -2,11 +2,15 @@
 
 "use client";
 
-import React, { useRef } from "react";
-import { useInView } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { useInView, AnimatePresence, motion } from "framer-motion";
 import CountUp from "react-countup";
 import Link from "next/link";
 import Image from "next/image";
+import { Document, Page as PdfPage, pdfjs } from "react-pdf";
+
+// 指定 pdf.js worker 源
+pdfjs.GlobalWorkerOptions.workerSrc = "/pdf/pdf.worker.min.mjs";
 
 export default function Page() {
   return (
@@ -38,7 +42,7 @@ export default function Page() {
               </button>
             </Link>
             <a
-              href="#sheenbotacademy"
+              href="#architecture"
               className="inline-block text-white font-bold px-5 py-3 rounded transition-colors duration-300 hover:bg-transparent hover:underline"
             >
               Learn More →
@@ -57,7 +61,10 @@ export default function Page() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {/* Competition Consulting */}
-          <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+          <a
+            href="#competition-consulting"
+            className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          >
             <div className="mb-4">
               <Image
                 src="/images/solutions/competition-consulting.svg"
@@ -70,10 +77,13 @@ export default function Page() {
             <p className="text-base sm:text-lg">
               Expert guidance for AI and robotics competitions.
             </p>
-          </div>
+          </a>
 
           {/* Robotics Lab Sourcing */}
-          <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+          <a
+            href="#robotics-lab-sourcing"
+            className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          >
             <div className="mb-4">
               <Image
                 src="/images/solutions/lab-sourcing.svg"
@@ -86,10 +96,13 @@ export default function Page() {
             <p className="text-base sm:text-lg">
               Supply resources to set up and maintain the robotics lab.
             </p>
-          </div>
+          </a>
 
           {/* Public Services */}
-          <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+          <a
+            href="#public-services"
+            className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          >
             <div className="mb-4">
               <Image
                 src="/images/solutions/public-services.svg"
@@ -102,10 +115,13 @@ export default function Page() {
             <p className="text-base sm:text-lg">
               Teacher Training, Talent Development and STEM Events.
             </p>
-          </div>
+          </a>
 
           {/* Equipment Rental */}
-          <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+          <a
+            href="#equipment-rental"
+            className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          >
             <div className="mb-4">
               <Image
                 src="/images/solutions/equipment-rental.svg"
@@ -118,10 +134,13 @@ export default function Page() {
             <p className="text-base sm:text-lg">
               High-quality robots and equipment tailored to your on-demand needs.
             </p>
-          </div>
+          </a>
 
           {/* Learning Resources */}
-          <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+          <a
+            href="#learning-resources"
+            className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          >
             <div className="mb-4">
               <Image
                 src="/images/solutions/learning-resources.svg"
@@ -134,10 +153,13 @@ export default function Page() {
             <p className="text-base sm:text-lg">
               Coding &amp; Robotics Curriculums accessible from an online portal.
             </p>
-          </div>
+          </a>
 
           {/* Cloud Platform */}
-          <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+          <a
+            href="#cloud-platform"
+            className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          >
             <div className="mb-4">
               <Image
                 src="/images/solutions/cloud-platform.svg"
@@ -150,14 +172,19 @@ export default function Page() {
             <p className="text-base sm:text-lg">
               AI and IoT Cloud solutions to optimize efficiency and connectivity.
             </p>
-          </div>
+          </a>
         </div>
       </section>
+      
+      {/* 新增 Learning Resources Section：展示 PDF 文件并支持翻页 */}
+      <LearningResourcesSection />
 
-      {/* Sheen Academy 区块（放在 Architecture 前） */}
       <SheenAcademySection />
 
-      <section className="relative bg-white">
+      <section 
+        id="cloud-platform"
+        className="relative bg-white"
+        >
         <div className="relative w-full py-10">
           <div className="max-w-6xl mx-auto px-4">
             {/* 标题 + 图标 */}
@@ -173,7 +200,7 @@ export default function Page() {
             </div>
 
             {/* 段落介绍 */}
-            <p id="sheenbotarchitecture" className="text-black text-base sm:text-lg md:text-xl mb-6 text-center max-w-2xl mx-auto">
+            <p className="text-black text-base sm:text-lg md:text-xl mb-6 text-center max-w-2xl mx-auto">
               sheen.bot is built on AWS to deliver a secure, scalable environment where students can learn coding and robotics efficiently. The platform integrates robotics kits with cloud services to enable remote coding and intuitive device control.
             </p>
 
@@ -250,13 +277,76 @@ export default function Page() {
 }
 
 /**
+ * Learning Resources Section
+ * 利用 react-pdf 展示 PDF 文件并支持翻页（示例中假设 PDF 文件共 4 页）
+ */
+function LearningResourcesSection() {
+  const [numPages, setNumPages] = useState<number | null>(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
+    setNumPages(numPages);
+  };
+
+  return (
+    <section id="learning-resources" className="max-w-6xl mx-auto px-4 py-20 relative">
+      <h2 className="text-3xl sm:text-4xl text-black font-bold mb-8 text-center">
+        Learning Resources
+      </h2>
+      <div className="flex justify-center overflow-hidden" style={{ maxHeight: 680 }}>
+        <Document
+          file="/pdf/Sheen-Curriculum-20250303.pdf"
+          onLoadSuccess={onDocumentLoadSuccess}
+          className="shadow-lg"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={pageNumber}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <PdfPage pageNumber={pageNumber} width={480} />
+            </motion.div>
+          </AnimatePresence>
+        </Document>
+        {/* 左侧按钮 */}
+        <button
+          onClick={() => setPageNumber((prev) => Math.max(prev - 1, 1))}
+          disabled={pageNumber <= 1}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded disabled:opacity-50"
+        >
+          ←
+        </button>
+        {/* 右侧按钮 */}
+        <button
+          onClick={() =>
+            setPageNumber((prev) => (numPages && prev < numPages ? prev + 1 : prev))
+          }
+          disabled={numPages !== null && pageNumber >= numPages}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded disabled:opacity-50"
+        >
+          →
+        </button>
+      </div>
+      <div className="text-center mt-4">
+        <span>
+          Page {pageNumber} {numPages ? `of ${numPages}` : ""}
+        </span>
+      </div>
+    </section>
+  );
+}
+
+/**
  * Sheen Academy 区块
  * 背景图 + 半透明遮罩 + LOGO + 文本 + Book a Visit 按钮 + 计数器
  */
 function SheenAcademySection() {
   return (
     <section
-      id="sheenbotacademy"
+      id="robotics-lab-sourcing"
       className="relative w-full bg-cover bg-center text-white"
       style={{
         backgroundImage: "url('/images/solutions/stem-lab.webp')",

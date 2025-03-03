@@ -1,8 +1,13 @@
-// src/context/UserContext.tsx
-
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import getCurrentUser from "@/lib/getCurrentUser";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 
@@ -11,6 +16,7 @@ export type UserContextType = {
   username: string | null;
   role: string | null;
   firstName: string | null;
+  attributes: Record<string, string>;
   loading: boolean;
   setUsername: Dispatch<SetStateAction<string | null>>;
   setRole: Dispatch<SetStateAction<string | null>>;
@@ -24,8 +30,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
   const [firstName, setFirstName] = useState<string | null>(null);
+  const [attributes, setAttributes] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     (async () => {
       try {
@@ -34,10 +41,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
           setUsername(null);
           setRole(null);
           setFirstName(null);
+          setAttributes({});
         } else {
           const { cognitoUser } = result;
           setUsername(cognitoUser.getUsername());
-          const attributes = await new Promise<CognitoUserAttribute[] | null>((resolve) => {
+          const attrs = await new Promise<CognitoUserAttribute[] | null>((resolve) => {
             cognitoUser.getUserAttributes((err, attrs) => {
               if (err || !attrs) {
                 resolve(null);
@@ -46,24 +54,27 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
               }
             });
           });
-          console.log("UserContext - Retrieved attributes:", attributes);
-          if (attributes) {
+          console.log("UserContext - Retrieved attributes:", attrs);
+          if (attrs) {
+            const attrMap: Record<string, string> = {};
             let userRole = "student"; // 默认角色
             let givenName: string | null = null;
-            for (const attr of attributes) {
+            for (const attr of attrs) {
+              attrMap[attr.getName()] = attr.getValue();
               if (attr.getName() === "custom:role") {
                 userRole = attr.getValue();
-                break;
               }
               if (attr.getName() === "given_name") {
                 givenName = attr.getValue();
               }
             }
+            setAttributes(attrMap);
             setRole(userRole);
             setFirstName(givenName);
           } else {
             setRole(null);
             setFirstName(null);
+            setAttributes({});
           }
         }
       } catch (error) {
@@ -71,6 +82,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         setUsername(null);
         setRole(null);
         setFirstName(null);
+        setAttributes({});
       } finally {
         setLoading(false);
       }
@@ -83,6 +95,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         username,
         role,
         firstName,
+        attributes,
         loading,
         setUsername,
         setRole,

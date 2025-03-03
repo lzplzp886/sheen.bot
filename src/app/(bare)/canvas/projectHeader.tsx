@@ -3,7 +3,7 @@
 "use client";
 
 import React from "react";
-import { useUser, UserContextType } from "@/context/UserContext";
+import { useUser } from "@/context/UserContext";
 import ProjectDashboardPopup from "@/app/(bare)/onboarding/popup";
 import ProjectTabs from "./projectHeaderTabs";
 import Image from "next/image";
@@ -17,11 +17,6 @@ interface NavigationHeaderProps {
   onSaveProject: () => void;
 }
 
-// 扩展 UserContextType，增加可选的 attributes 属性
-interface ExtendedUserContextType extends UserContextType {
-  attributes?: Record<string, string>;
-}
-
 export default function NavigationHeader({
   projects,
   activeIndex,
@@ -29,15 +24,10 @@ export default function NavigationHeader({
   onNewProject,
   onSaveProject,
 }: NavigationHeaderProps) {
-  const user = useUser() as ExtendedUserContextType;
-  const { username, firstName } = user;
+  // 直接从 useUser() 获取信息
+  const { username, firstName } = useUser();
 
   const [showDashboard, setShowDashboard] = React.useState(false);
-
-  const handleAvatarClick = () => {
-    console.log("Avatar clicked");
-    // 此处可扩展为弹出头像编辑界面
-  };
 
   return (
     <div className="flex items-center justify-between bg-extralight p-2 border-light">
@@ -59,24 +49,7 @@ export default function NavigationHeader({
           Welcome, {firstName ? firstName : username || "Guest"}
         </span>
         <div className="relative ml-2">
-          <Avatar size={48} onClick={handleAvatarClick} />
-          {/* 编辑图标覆盖在头像右下角 */}
-          <div className="absolute bottom-0 right-0 bg-gray-800 text-white rounded-full p-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-3 w-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15.232 5.232l3.536 3.536M4 13.5V20h6.5l9.586-9.586a2 2 0 00-2.828-2.828L4 13.5z"
-              />
-            </svg>
-          </div>
+          <Avatar size={40} edit />
         </div>
       </div>
 

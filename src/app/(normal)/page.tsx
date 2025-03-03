@@ -77,7 +77,7 @@ export default function HomePage() {
       {/* 背景视频：占满全屏，半透明 */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
-        style={{ filter: 'brightness(0.5)' }}
+        style={{ filter: 'brightness(0.7)' }}
         autoPlay
         muted
         loop

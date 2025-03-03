@@ -49,3 +49,8 @@
 svg[display="none"] {
   display: none;
 }
+
+/*Smooth scroll behavior*/
+html {
+  scroll-behavior: smooth;
+}

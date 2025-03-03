@@ -112,7 +112,7 @@ export default function Header() {
                   Welcome, {firstName ? firstName : username}!
                 </li>
                 <li>
-                  <Avatar size={40} onClick={() => console.log("Avatar clicked")} />
+                  <Avatar size={40} edit />
                 </li>
                 <li>
                   <button
