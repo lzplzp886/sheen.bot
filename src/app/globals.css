@@ -54,3 +54,13 @@ svg[display="none"] {
 html {
   scroll-behavior: smooth;
 }
+
+/*Display angled background for hero section*/
+.angled-bg {
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
+}
+@media (max-width: 640px) {
+  .angled-bg {
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  }
+}
