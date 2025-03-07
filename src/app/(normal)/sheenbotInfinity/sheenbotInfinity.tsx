@@ -14,14 +14,14 @@ export default function SheenbotInfinitySection() {
         <h2 className="flex items-center justify-center gap-2 text-3xl sm:text-4xl font-bold text-center mb-8">
           Introducing <span className="text-primary">sheenbot</span>
           <Image
-              src="/images/solutions/icon-infinity.svg"
+              src="/images/sheenbotInfinity/icon-infinity.svg"
               alt="Infinity Icon"
               width={32}
               height={32}
           />
         </h2>
         <p className="text-center text-gray-700 max-w-2xl mx-auto mb-10">
-          sheenbot∞ is a revolutionary product that seamlessly blends hardware and software. With industrial-grade stability, multiple programming methods, and dozens of plug-and-play sensors and motors—combined with voice, camera, GPS modules, AI programming platform, and IoT interfaces—it creates endless scenario combinations.
+          sheenbot∞ is a revolutionary AI-native board that designed for young generations to learn coding and robotics. With industrial-grade stability, multiple programming methods, and dozens of plug-and-play sensors and motors—combined with voice, camera, GPS modules, AI programming platform, and IoT interfaces—it creates endless scenario combinations.
         </p>
 
         {/* 产品卡片 */}
@@ -29,26 +29,26 @@ export default function SheenbotInfinitySection() {
           {/* Card 1 */}
           <div className="flex flex-col items-center text-center">
             <Image
-              src="/images/solutions/sheenbot-ai-board.png"
+              src="/images/sheenbotInfinity/sheenbot-ai-board.png"
               alt="sheenbot∞ AI Board"
               width={400}
-              height={300}
-              className="rounded shadow mb-4"
+              height={400}
+              className="mb-4"
             />
             <h3 className="text-xl font-semibold mb-2">sheenbot∞ AI Board</h3>
             <p className="text-gray-600 mb-4">
-              Perfect for beginners to explore block-based coding and fundamental robotics principles. Plug-and-play sensors, quick assembly.
+              Perfect for beginners to explore block-based coding and fundamental robotics principles.
             </p>
           </div>
 
           {/* Card 2 */}
           <div className="flex flex-col items-center text-center">
             <Image
-              src="/images/solutions/sheenbot-pro.png"
+              src="/images/sheenbotInfinity/sheenbot-ai-board-2.png"
               alt="sheenbot∞ Pro"
               width={400}
-              height={300}
-              className="rounded shadow mb-4"
+              height={400}
+              className="mb-4"
             />
             <h3 className="text-xl font-semibold mb-2">sheenbot∞ Expansion Board</h3>
             <p className="text-gray-600 mb-4">
@@ -72,7 +72,7 @@ export default function SheenbotInfinitySection() {
             {/* Feature 1 */}
             <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
               <Image
-                src="/images/solutions/icon-stability.svg"
+                src="/images/sheenbotInfinity/icon-stability.svg"
                 alt="Industrial-grade stability Icon"
                 width={50}
                 height={50}
@@ -87,7 +87,7 @@ export default function SheenbotInfinitySection() {
             {/* Feature 2 */}
             <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
               <Image
-                src="/images/solutions/icon-plugplay.svg"
+                src="/images/sheenbotInfinity/icon-plugplay.svg"
                 alt="Plug and Play Icon"
                 width={50}
                 height={50}
@@ -102,7 +102,7 @@ export default function SheenbotInfinitySection() {
             {/* Feature 3 */}
             <div className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
               <Image
-                src="/images/solutions/icon-ai.svg"
+                src="/images/sheenbotInfinity/icon-ai.svg"
                 alt="AI Integration Icon"
                 width={50}
                 height={50}
