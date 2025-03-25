@@ -88,7 +88,7 @@ export default function HomePage() {
       </video>
 
       {/* 内容区：z-10 确保在视频之上 */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-5 text-center text-white">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-5 text-center text-background">
         <h1 className="text-4xl font-bold mb-4">{headline}</h1>
         <p className="text-xl">{subtext}</p>
       </div>

@@ -81,7 +81,7 @@ export default function Header() {
           <ul className="flex space-x-8 items-center">
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
               <Link href="/" onClick={() => setIsOpen(false)}>
-                Home
+                home
               </Link>
             </li>
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
@@ -91,12 +91,17 @@ export default function Header() {
             </li>
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
               <Link href="/solutions" onClick={() => setIsOpen(false)}>
-                Solutions
+                solutions
+              </Link>
+            </li>
+            <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
+              <Link href="/academy" onClick={() => setIsOpen(false)}>
+                academy
               </Link>
             </li>
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
               <Link href="/about" onClick={() => setIsOpen(false)}>
-                About Us
+                about
               </Link>
             </li>
             {!username && (
@@ -106,7 +111,7 @@ export default function Header() {
                     onClick={() => setIsOpen(false)}
                     className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
                   >
-                    Login
+                    login
                   </a>
                 </Link>
               </li>
@@ -124,7 +129,7 @@ export default function Header() {
                     onClick={handleSignOut}
                     className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
                   >
-                    Sign Out
+                    sign out
                   </button>
                 </li>
               </>
@@ -148,7 +153,7 @@ export default function Header() {
               <ul className="flex flex-col space-y-2">
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
                   <Link href="/" onClick={() => setIsOpen(false)}>
-                    Home
+                    home
                   </Link>
                 </li>
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
@@ -158,12 +163,17 @@ export default function Header() {
                 </li>
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
                   <Link href="/solutions" onClick={() => setIsOpen(false)}>
-                    Solutions
+                    solutions
+                  </Link>
+                </li>
+                <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
+                  <Link href="/academy" onClick={() => setIsOpen(false)}>
+                    academy
                   </Link>
                 </li>
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
                   <Link href="/about" onClick={() => setIsOpen(false)}>
-                    About Us
+                    about
                   </Link>
                 </li>
               </ul>
@@ -174,7 +184,7 @@ export default function Header() {
                       onClick={() => setIsOpen(false)}
                       className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
                     >
-                      Login
+                      login
                     </a>
                   </Link>
                 </div>
@@ -188,7 +198,7 @@ export default function Header() {
                     onClick={handleSignOut}
                     className="mt-2 bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
                   >
-                    Sign Out
+                    sign out
                   </button>
                 </div>
               )}

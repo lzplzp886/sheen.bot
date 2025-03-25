@@ -2,11 +2,11 @@
 
 "use client";
 import React from "react";
-import HeroSection from "./heroSection";
-import OfferSection from "./offerSection";
-import LearningResourcesSection from "./learningResources";
-import SheenAcademySection from "./sheenAcademy";
-import CloudPlatformSection from "./cloudPlatform";
+import HeroSection from "./components/heroSection";
+import OfferSection from "./components/offerSection";
+import LearningResourcesSection from "./components/learningResources";
+import SheenAcademySection from "./components/sheenAcademy";
+import CloudPlatformSection from "./components/cloudPlatform";
 
 export default function Page() {
   return (

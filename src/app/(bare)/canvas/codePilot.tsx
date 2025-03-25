@@ -33,18 +33,18 @@ const CodePilot: React.FC<CodePilotProps> = ({ code, onClose, onAnalyze }) => {
         <textarea
           readOnly
           value={code}
-          className="w-full h-60 border rounded p-2 font-mono text-sm bg-gray-100"
+          className="w-full h-60 border rounded p-2 font-mono text-sm bg-light"
         />
         <div className="mt-4 flex justify-between">
           <button
             onClick={handleCopy}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-primary text-background px-4 py-2 rounded hover:bg-secondary"
           >
             Copy Code
           </button>
           <button
             onClick={() => onAnalyze(code)}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            className="bg-green-500 text-background px-4 py-2 rounded hover:bg-green-600"
           >
             Analyze with AI
           </button>

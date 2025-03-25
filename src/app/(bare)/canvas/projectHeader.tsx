@@ -66,7 +66,7 @@ export default function NavigationHeader({
         <button
           type="button"
           onClick={onSaveProject}
-          className="px-3 py-1 bg-blue-500 text-white rounded"
+          className="px-3 py-1 bg-primary text-background rounded"
         >
           Save
         </button>

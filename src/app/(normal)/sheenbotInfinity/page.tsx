@@ -2,7 +2,7 @@
 
 "use client";
 import React from "react";
-import SheenBotInfinitySection from "./sheenbotInfinity";
+import SheenBotInfinitySection from "./components/sheenbotInfinity";
 
 export default function Page() {
   return (
