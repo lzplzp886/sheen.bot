@@ -1,4 +1,4 @@
-// src/app/canvas/projectHeaderTabs.tsx
+// src/app/(bare)/canvas/projectHeaderTabs.tsx
 
 "use client";
 

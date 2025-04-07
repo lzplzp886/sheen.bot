@@ -1,3 +1,5 @@
+// src/app/(normal)/about/page.tsx
+
 'use client';
 
 import React from 'react';
@@ -107,7 +109,7 @@ export default function AboutPage() {
           </div>
           <div className="mb-6">
             <h3 className="text-xl font-semibold">Call Us</h3>
-            <p>Tel: +27 659 008 570</p>
+            <p>Tel: +27659008570</p>
           </div>
           <div className="mb-6">
             <h3 className="text-xl font-semibold">Email Us</h3>

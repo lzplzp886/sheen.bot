@@ -1,4 +1,4 @@
-// src/app/canvas/loading.tsx
+// src/app/(bare)/canvas/loading.tsx
 
 import LoadingScreen from '@/components/LoadingScreen';
 

@@ -1,4 +1,4 @@
-// src/app/canvas/projectBottom.tsx
+// src/app/(bare)/canvas/projectBottom.tsx
 
 "use client";
 

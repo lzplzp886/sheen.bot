@@ -1,4 +1,4 @@
-// src/app/login/loginTabs.tsx
+// src/app/(normal)/login/loginTabs.tsx
 
 import React from 'react'
 import Image from 'next/image'

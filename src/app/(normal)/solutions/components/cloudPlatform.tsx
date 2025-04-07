@@ -1,4 +1,4 @@
-// src/app/solutions/cloudPlatformSection.tsx
+// src/app/(normal)/solutions/cloudPlatformSection.tsx
 
 "use client";
 import React from "react";

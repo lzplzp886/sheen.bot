@@ -1,4 +1,4 @@
-// src/app/iot/page.tsx
+// src/app/(normal)/iot/page.tsx
 
 "use client";
 import React from "react";

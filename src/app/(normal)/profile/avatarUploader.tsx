@@ -1,4 +1,4 @@
-// src/app/profile/avatarUploader.tsx
+// src/app/(normal)/profile/avatarUploader.tsx
 
 "use client";
 

@@ -1,4 +1,4 @@
-// src/app/canvas/connectDevice.tsx
+// src/app/(bare)/canvas/connectDevice.tsx
 
 "use client";
 

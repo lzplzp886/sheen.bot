@@ -1,4 +1,4 @@
-// src/app/profile/ChangePasswordForm.tsx
+// src/app/(normal)/profile/ChangePasswordForm.tsx
 
 "use client";
 

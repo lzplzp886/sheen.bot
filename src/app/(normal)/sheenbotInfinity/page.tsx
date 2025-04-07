@@ -1,4 +1,4 @@
-// src/app/sheenbotInfinity/page.tsx
+// src/app/(normal)/sheenbotInfinity/page.tsx
 
 "use client";
 import React from "react";

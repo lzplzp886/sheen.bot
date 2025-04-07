@@ -1,3 +1,5 @@
+// src/app/(normal)/academy/components/AcademyCarouselSection.tsx
+
 'use client';
 
 import React from 'react';

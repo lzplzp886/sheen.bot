@@ -1,4 +1,4 @@
-// src/app/canvas/codePilot.tsx
+// src/app/(bare)/canvas/codePilot.tsx
 
 "use client";
 

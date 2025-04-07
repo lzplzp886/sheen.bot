@@ -1,4 +1,4 @@
-// src/app/onboarding/page.tsx
+// src/app/(bare)/onboarding/page.tsx
 
 'use client';
 import React, { useState } from "react";

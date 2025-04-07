@@ -1,4 +1,4 @@
-// src/app/canvas/blockButton.tsx
+// src/app/(bare)/canvas/blockButton.tsx
 
 "use client";
 

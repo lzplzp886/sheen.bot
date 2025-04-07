@@ -1,4 +1,4 @@
-// src/app/canvas/canvasToolboxXml.ts
+// src/app/(bare)/canvas/canvasToolboxXml.ts
 
 const toolboxXml = `
 <xml id="toolbox" style="display: none">

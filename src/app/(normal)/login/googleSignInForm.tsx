@@ -1,4 +1,4 @@
-// src/app/login/googleSignInForm.tsx
+// src/app/(normal)/login/googleSignInForm.tsx
 
 import React from 'react'
 import Image from 'next/image'

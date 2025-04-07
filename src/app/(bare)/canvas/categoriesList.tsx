@@ -1,4 +1,4 @@
-// src/app/canvas/categoriesList.tsx
+// src/app/(bare)/canvas/categoriesList.tsx
 
 "use client";
 

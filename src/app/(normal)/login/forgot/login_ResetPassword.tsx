@@ -1,4 +1,4 @@
-// src/app/login/login_ResetPassword.tsx
+// src/app/(normal)/login/forgot/login_ResetPassword.tsx
 
 import React, { useState } from 'react'
 import { CognitoUser } from 'amazon-cognito-identity-js'

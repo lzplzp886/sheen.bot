@@ -1,3 +1,5 @@
+// src/app/(bare)/canvas/BlocklyEditor.tsx
+
 "use client";
 
 import React, { useRef, useEffect, useImperativeHandle, forwardRef } from "react";

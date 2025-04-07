@@ -1,4 +1,4 @@
-// src/app/class/page.tsx
+// src/app/(normal)/class/page.tsx
 
 "use client";
 import React from "react";

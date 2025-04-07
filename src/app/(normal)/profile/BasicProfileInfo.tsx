@@ -1,4 +1,4 @@
-// src/app/profile/BasicProfileInfo.tsx
+// src/app/(normal)/profile/BasicProfileInfo.tsx
 
 "use client";
 

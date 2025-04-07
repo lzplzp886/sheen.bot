@@ -1,4 +1,4 @@
-// src/app/auth/callback/page.tsx
+// src/app/(normal)/auth/callback/page.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";

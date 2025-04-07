@@ -1,4 +1,5 @@
-// src/app/solutions/LearningResourcesSection.tsx
+// src/app/(normal)/solutions/LearningResourcesSection.tsx
+
 "use client";
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";

@@ -1,4 +1,4 @@
-// src/app/registration/reg_UsernameGenerator.tsx
+// src/app/(normal)/registration/reg_UsernameGenerator.tsx
 
 import React from 'react';
 

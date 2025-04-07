@@ -1,4 +1,4 @@
-// src/app/solutions/heroSection.tsx
+// src/app/(normal)/solutions/heroSection.tsx
 
 "use client";
 import React from "react";

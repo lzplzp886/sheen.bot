@@ -1,4 +1,4 @@
-// src/app/registration/reg_CountryCodeSelect.tsx
+// src/app/(normal)/registration/reg_CountryCodeSelect.tsx
 
 import React, { ChangeEvent, CSSProperties } from 'react';
 

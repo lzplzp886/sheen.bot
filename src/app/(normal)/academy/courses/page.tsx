@@ -1,3 +1,5 @@
+// src/app/(normal)/academy/courses/page.tsx
+
 'use client';
 
 import React from 'react';

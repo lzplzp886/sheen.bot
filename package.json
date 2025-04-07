@@ -17,12 +17,14 @@
     "framer-motion": "^12.4.3",
     "gsap": "^3.12.7",
     "next": "15.1.4",
+    "prop-types": "^15.8.1",
     "query-string": "^9.1.1",
     "react": "^19.0.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
     "react-image-crop": "^11.0.7",
-    "react-pdf": "^9.2.1"
+    "react-pdf": "^9.2.1",
+    "react-signature-canvas": "^1.1.0-alpha.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

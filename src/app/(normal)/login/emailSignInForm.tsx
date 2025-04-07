@@ -1,4 +1,4 @@
-// src/app/login/emailSignInForm.tsx
+// src/app/(normal)/login/emailSignInForm.tsx
 
 import React from 'react';
 import Button from '@/components/Button';

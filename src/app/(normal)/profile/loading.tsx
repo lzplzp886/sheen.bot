@@ -1,4 +1,4 @@
-// src/app/profile/loading.tsx
+// src/app/(normal)/profile/loading.tsx
 
 import LoadingScreen from '@/components/LoadingScreen';
 

@@ -1,4 +1,4 @@
-// src/app/solutions/offerSection.tsx
+// src/app/(normal)/solutions/offerSection.tsx
 
 "use client";
 import React from "react";

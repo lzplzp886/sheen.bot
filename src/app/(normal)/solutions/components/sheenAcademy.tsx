@@ -1,4 +1,4 @@
-// src/app/solutions/sheenAcademy.tsx
+// src/app/(normal)/solutions/sheenAcademy.tsx
 
 "use client";
 import React, { useRef } from "react";

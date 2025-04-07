@@ -29,13 +29,11 @@ export default function Header() {
   return (
     <header className="bg-primary shadow-lg">
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <h1 className="m-0">
-          <Link href="/" passHref>
-            <a>
-              <Image src="/images/logo.png" alt="sheen.bot Logo" width={80} height={80} />
-            </a>
-          </Link>
-        </h1>
+      <h1 className="m-0">
+        <Link href="/" className="inline-block">
+          <Image src="/images/logo.png" alt="sheen.bot Logo" width={80} height={80} />
+        </Link>
+      </h1>
         {/* 移动端下的汉堡按钮 */}
         <div className="lg:hidden pr-4">
           <button
@@ -106,13 +104,12 @@ export default function Header() {
             </li>
             {!username && (
               <li>
-                <Link href="/login">
-                  <a
-                    onClick={() => setIsOpen(false)}
-                    className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
-                  >
-                    login
-                  </a>
+                <Link
+                  href="/login"
+                  onClick={() => setIsOpen(false)}
+                  className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
+                >
+                  login
                 </Link>
               </li>
             )}
@@ -179,13 +176,12 @@ export default function Header() {
               </ul>
               {!username && (
                 <div className="mt-4">
-                  <Link href="/login">
-                    <a
-                      onClick={() => setIsOpen(false)}
-                      className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
-                    >
-                      login
-                    </a>
+                  <Link
+                    href="/login"
+                    onClick={() => setIsOpen(false)}
+                    className="bg-background text-body px-4 py-2 rounded-full font-semibold shadow hover:bg-light transition duration-300"
+                  >
+                    login
                   </Link>
                 </div>
               )}
