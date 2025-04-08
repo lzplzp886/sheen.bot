@@ -10,7 +10,7 @@ interface ConnectButtonProps {
 
 const ConnectButton: React.FC<ConnectButtonProps> = ({ onConnect }) => {
   return (
-    <div className="absolute top-2 left-2 z-10 bg-white p-2 shadow">
+    <div className="absolute top-2 left-2 z-10 bg-background p-2 shadow">
       <button className="text-sm" onClick={onConnect}>
         Connect
       </button>

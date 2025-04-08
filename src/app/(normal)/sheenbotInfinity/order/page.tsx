@@ -37,7 +37,7 @@ export default function OrderPage() {
   };
 
   return (
-    <main className="bg-white text-black">
+    <main className="bg-background text-body">
       <section className="max-w-6xl mx-auto px-4 py-10">
         <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8">
           Order <span className="text-primary">sheenbot∞</span>
@@ -50,12 +50,12 @@ export default function OrderPage() {
             height={400}
             className="mb-4"
           />
-          <p className="text-gray-700 max-w-2xl mx-auto mb-10">
+          <p className="text-body max-w-2xl mx-auto mb-10">
             Experience next-gen AI board and start your infinite creations, order now to start the journey!
           </p>
           <button
             onClick={handleOrder}
-            className="px-8 py-3 bg-black text-background font-bold rounded shadow hover:bg-gray-800 transition"
+            className="px-8 py-3 bg-body text-background font-bold rounded shadow hover:bg-background transition"
             disabled={loading}
           >
             {loading ? "Processing" : "Order Now"}

@@ -24,11 +24,11 @@ export default function TileExpand({
     <div className="w-full">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="cursor-pointer flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+        className="cursor-pointer flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
       >
         <Image src={icon} alt={alt} width={50} height={50} className="mb-4" />
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600">{description}</p>
+        <p className="text-body">{description}</p>
       </div>
       {isOpen && (
         <div className="mt-4">

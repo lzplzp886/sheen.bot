@@ -177,14 +177,14 @@ export default function CarouselGallery({
         <button
           onClick={goToPrev}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 
-                     bg-gray-800 text-background p-2 rounded-full hover:bg-gray-700 z-10"
+                     bg-background text-background p-2 rounded-full hover:bg-background z-10"
         >
           &larr;
         </button>
         <button
           onClick={goToNext}
           className="absolute right-4 top-1/2 transform -translate-y-1/2 
-                     bg-gray-800 text-background p-2 rounded-full hover:bg-gray-700 z-10"
+                     bg-background text-background p-2 rounded-full hover:bg-background z-10"
         >
           &rarr;
         </button>
@@ -211,7 +211,7 @@ export default function CarouselGallery({
 
       {/* Lightbox Overlay */}
       {lightboxOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-body bg-opacity-80">
           {/* 关闭按钮 */}
           <button
             onClick={closeLightbox}

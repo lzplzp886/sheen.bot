@@ -13,7 +13,7 @@ export default function AboutPage() {
         <div>
           <h1 className="text-3xl font-bold mb-4">About Us</h1>
           
-          <p className="text-gray-700 mb-6">
+          <p className="text-body mb-6">
             We are passionate about building cutting-edge solutions for our clients. 
             Whether it’s AI, robotics, or software platforms, our team at Sheen Robotics 
             constantly pushes the boundaries to bring innovative technology to businesses 
@@ -91,7 +91,7 @@ export default function AboutPage() {
             </div>
             <button
               type="submit"
-              className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
+              className="bg-primary text-background px-6 py-2 rounded-md hover:bg-secondary"
             >
               Submit
             </button>

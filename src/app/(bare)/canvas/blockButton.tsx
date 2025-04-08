@@ -16,7 +16,7 @@ const BlockButton: React.FC<BlockButtonProps> = ({ blockType, editorRef }) => {
       onClick={() => {
         editorRef.current?.insertBlock(blockType);
       }}
-      className="block w-full text-left px-4 py-1 mb-1 bg-white hover:bg-gray-200"
+      className="block w-full text-left px-4 py-1 mb-1 bg-background hover:bg-light"
     >
       + {blockType}
     </button>

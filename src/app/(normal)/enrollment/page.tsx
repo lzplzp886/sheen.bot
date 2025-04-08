@@ -199,7 +199,7 @@ export default function EnrollmentPage() {
             canvasProps={{
               width: 500,
               height: 150,
-              className: "border border-gray-300 rounded",
+              className: "border border-light rounded",
             }}
           />
           <Button

@@ -52,7 +52,7 @@ export default function LearningResourcesSection() {
 
   return (
     <section id="learning-resources" className="max-w-6xl mx-auto px-4 py-20 relative">
-      <h2 className="text-3xl sm:text-4xl text-black font-bold mb-8 text-center">
+      <h2 className="text-3xl sm:text-4xl text-body font-bold mb-8 text-center">
         Learning Resources
       </h2>
       <div className="flex justify-center overflow-hidden relative" style={{ maxHeight: 680 }}>
@@ -79,7 +79,7 @@ export default function LearningResourcesSection() {
         <button
           onClick={handlePrevious}
           disabled={pageNumber <= 1}
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded disabled:opacity-50"
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-light p-2 rounded disabled:opacity-50"
         >
           ←
         </button>
@@ -87,7 +87,7 @@ export default function LearningResourcesSection() {
         <button
           onClick={handleNext}
           disabled={numPages !== null && pageNumber >= numPages}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded disabled:opacity-50"
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-light p-2 rounded disabled:opacity-50"
         >
           →
         </button>

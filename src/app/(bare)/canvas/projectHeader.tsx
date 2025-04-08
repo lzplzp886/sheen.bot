@@ -73,7 +73,7 @@ export default function NavigationHeader({
         <button
           type="button"
           onClick={() => console.log("Open logic not implemented.")}
-          className="px-3 py-1 bg-white border rounded"
+          className="px-3 py-1 bg-background border rounded"
         >
           Open
         </button>
@@ -83,10 +83,10 @@ export default function NavigationHeader({
       {showDashboard && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
           <div
-            className="absolute top-0 left-0 w-full h-full bg-black opacity-50"
+            className="absolute top-0 left-0 w-full h-full bg-body opacity-50"
             onClick={() => setShowDashboard(false)}
           />
-          <div className="relative bg-white w-[80%] h-[80%] p-4 rounded shadow-lg">
+          <div className="relative bg-background w-[80%] h-[80%] p-4 rounded shadow-lg">
             <ProjectDashboardPopup onClose={() => setShowDashboard(false)} />
           </div>
         </div>

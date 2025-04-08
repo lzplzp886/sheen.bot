@@ -8,7 +8,7 @@ export default function CloudPlatformSection() {
   return (
     <section 
         id="cloud-platform"
-        className="relative bg-white"
+        className="relative bg-background"
         >
         <div className="relative w-full py-10">
         <div className="max-w-6xl mx-auto px-4">
@@ -21,11 +21,11 @@ export default function CloudPlatformSection() {
                 height={32}
                 className="mr-2"
             />
-            <h2 className="text-3xl sm:text-4xl text-black font-bold">sheen.bot Architecture</h2>
+            <h2 className="text-3xl sm:text-4xl text-body font-bold">sheen.bot Architecture</h2>
             </div>
 
             {/* 段落介绍 */}
-            <p className="text-black text-base sm:text-lg md:text-xl mb-6 text-center max-w-2xl mx-auto">
+            <p className="text-body text-base sm:text-lg md:text-xl mb-6 text-center max-w-2xl mx-auto">
             sheen.bot is built on AWS to deliver a secure, scalable environment where students can learn coding and robotics efficiently. The platform integrates robotics kits with cloud services to enable remote coding and intuitive device control.
             </p>
 

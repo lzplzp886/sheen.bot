@@ -16,7 +16,7 @@ export default function SheenAcademySection() {
       }}
     >
       {/* 半透明遮罩 */}
-      <div className="absolute inset-0 bg-black bg-opacity-50 z-0" />
+      <div className="absolute inset-0 bg-body bg-opacity-50 z-0" />
       {/* 内容 */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 text-center">
         <div className="mb-6 flex justify-center">

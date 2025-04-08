@@ -133,16 +133,16 @@ function BlocklyEditor({ onWorkspaceChange }: BlocklyEditorProps, ref: React.Ref
       {/* Blockly 编辑器容器 */}
       <div className="w-full h-full" ref={blocklyDiv} />
       {/* 底部工具栏 */}
-      <div className="absolute bottom-5 left-5 w-full flex justify-center space-x-2 p-2 bg-white bg-opacity-75">
+      <div className="absolute bottom-5 left-5 w-full flex justify-center space-x-2 p-2 bg-background bg-opacity-75">
         <button
           onClick={() => workspaceRef.current?.undo(false)}
-          className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+          className="px-3 py-1 bg-light rounded hover:bg-light"
         >
           Undo
         </button>
         <button
           onClick={() => workspaceRef.current?.undo(true)}
-          className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+          className="px-3 py-1 bg-light rounded hover:bg-light"
         >
           Redo
         </button>

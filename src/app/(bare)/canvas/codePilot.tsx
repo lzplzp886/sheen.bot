@@ -19,13 +19,13 @@ const CodePilot: React.FC<CodePilotProps> = ({ code, onClose, onAnalyze }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-3/4 max-w-4xl p-6">
+    <div className="fixed inset-0 bg-body bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-background rounded-lg shadow-lg w-3/4 max-w-4xl p-6">
         <div className="flex justify-between items-center mb-4">
           <h1>Generated Code</h1>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-black text-lg"
+            className="text-body hover:text-body text-lg"
           >
             ✖
           </button>

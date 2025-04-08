@@ -27,7 +27,7 @@ export default function HeroSection() {
         </p>
         <div className="space-x-4">
           <Link href="/login">
-            <button className="inline-block border border-black bg-black text-background font-bold px-5 py-3 rounded shadow hover:bg-gray-800 hover:border-gray-800">
+            <button className="inline-block border border-body bg-body text-background font-bold px-5 py-3 rounded shadow hover:bg-light hover:border-light hover:text-body">
               Start For Free
             </button>
           </Link>

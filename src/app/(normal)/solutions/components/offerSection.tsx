@@ -7,17 +7,17 @@ import Image from "next/image";
 export default function OfferSection() {
   return (
     <section className="max-w-6xl mx-auto px-4 py-20">
-      <h2 className="text-3xl sm:text-4xl text-black font-bold mb-8 text-center">
+      <h2 className="text-3xl sm:text-4xl text-body font-bold mb-8 text-center">
         What We Offer
       </h2>
-      <p className="text-black text-base sm:text-lg md:text-xl mb-10 text-center max-w-2xl mx-auto">
+      <p className="text-body text-base sm:text-lg md:text-xl mb-10 text-center max-w-2xl mx-auto">
         We provide a comprehensive suite of educational resources, competitions, and AI-driven tools that empower learners of all ages to embrace the future of robotics.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {/* Competition Consulting */}
         <a
           href="#competition-consulting"
-          className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
         >
           <div className="mb-4">
             <Image
@@ -35,7 +35,7 @@ export default function OfferSection() {
         {/* Robotics Lab Sourcing */}
         <a
           href="#robotics-lab-sourcing"
-          className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
         >
           <div className="mb-4">
             <Image
@@ -53,7 +53,7 @@ export default function OfferSection() {
         {/* Public Services */}
         <a
           href="#public-services"
-          className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
         >
           <div className="mb-4">
             <Image
@@ -71,7 +71,7 @@ export default function OfferSection() {
         {/* Equipment Rental */}
         <a
           href="#equipment-rental"
-          className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
         >
           <div className="mb-4">
             <Image
@@ -89,7 +89,7 @@ export default function OfferSection() {
         {/* Learning Resources */}
         <a
           href="#learning-resources"
-          className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
         >
           <div className="mb-4">
             <Image
@@ -107,7 +107,7 @@ export default function OfferSection() {
         {/* Cloud Platform */}
         <a
           href="#cloud-platform"
-          className="flex flex-col items-center text-center p-5 bg-white rounded-lg shadow hover:shadow-md transition"
+          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
         >
           <div className="mb-4">
             <Image

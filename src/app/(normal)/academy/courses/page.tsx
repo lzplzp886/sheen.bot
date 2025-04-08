@@ -19,7 +19,7 @@ export default function AcademyCoursesPage() {
           <li>Receive comprehensive evaluation after the session.</li>
           <li>Align objectives and expectations with parents for a fulfilling learning experience.</li>
         </ul>
-        <button className="bg-blue-600 text-background px-4 py-2 rounded">
+        <button className="bg-primary text-background px-4 py-2 rounded">
           Book Now
         </button>
       </section>

@@ -156,8 +156,8 @@ export default function ProfilePage() {
         onAvatarClick={() => setShowAvatarModal(true)}
       />
       {showAvatarModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-4 rounded shadow-lg max-w-md w-full">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-body bg-opacity-50">
+          <div className="bg-background p-4 rounded shadow-lg max-w-md w-full">
             <h2 className="text-xl mb-4">Crop and Upload Avatar</h2>
             <AvatarUploader onUploadComplete={onAvatarUploadComplete} />
             <Button

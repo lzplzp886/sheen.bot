@@ -11,7 +11,7 @@ export default function FeatureInfoCardsSection() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8">
         
         {/* Card 1 */}
-        <div className="flex items-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+        <div className="flex items-center p-5 bg-background rounded-lg shadow hover:shadow-md transition">
           <Image
             src="/images/academy/Highlights/InspiringEnvironment.svg"
             alt="Inspiring Environment Icon"
@@ -29,7 +29,7 @@ export default function FeatureInfoCardsSection() {
         </div>
 
         {/* Card 2 */}
-        <div className="flex items-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+        <div className="flex items-center p-5 bg-background rounded-lg shadow hover:shadow-md transition">
           <Image
             src="/images/academy/Highlights/StoryBasedContent.svg"
             alt="Story-Based Content Icon"
@@ -47,7 +47,7 @@ export default function FeatureInfoCardsSection() {
         </div>
 
         {/* Card 3 */}
-        <div className="flex items-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+        <div className="flex items-center p-5 bg-background rounded-lg shadow hover:shadow-md transition">
           <Image
             src="/images/academy/Highlights/MakersLab.svg"
             alt="Makers’ Lab Icon"
@@ -65,7 +65,7 @@ export default function FeatureInfoCardsSection() {
         </div>
 
         {/* Card 4 */}
-        <div className="flex items-center p-5 bg-white rounded-lg shadow hover:shadow-md transition">
+        <div className="flex items-center p-5 bg-background rounded-lg shadow hover:shadow-md transition">
           <Image
             src="/images/academy/Highlights/EnjoyAI.svg"
             alt="Enjoy AI™ Icon"

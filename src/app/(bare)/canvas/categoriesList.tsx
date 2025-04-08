@@ -19,7 +19,7 @@ interface CategoriesListProps {
 
 const CategoriesList: React.FC<CategoriesListProps> = ({ categories, editorRef }) => {
   return (
-    <div className="w-1/6 bg-gray-50 border-r border-gray-300 p-2 overflow-auto">
+    <div className="w-1/6 bg-light border-r border-light p-2 overflow-auto">
       <h2 className="text-md font-bold mb-2">Categories</h2>
       {categories.map((cat) => (
         <div key={cat.name} className="mb-4">
