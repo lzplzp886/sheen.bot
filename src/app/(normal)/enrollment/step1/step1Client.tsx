@@ -1,3 +1,5 @@
+// src/app/(normal)/enrollment/step1/step1Client.tsx
+
 "use client";
 
 import React, { useEffect } from "react";
@@ -62,3 +64,4 @@ export default function Step1Client() {
     </div>
   );
 }
+

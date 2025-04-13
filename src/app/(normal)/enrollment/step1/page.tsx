@@ -1,3 +1,5 @@
+// src/app/(normal)/enrollment/step1/page.tsx
+
 import React, { Suspense } from "react";
 import Step1Client from "./step1Client";
 

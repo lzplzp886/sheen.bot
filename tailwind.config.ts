@@ -30,6 +30,17 @@ const config: Config = {
         success: '#008000', // Success message font color
         extralight: '#f2f2f2', // Menu items background compared to normal background color.
       },
+      // Progress bar for enrollment form
+      keyframes: {
+        progressStripes: {
+          "0%": { backgroundPosition: "0 0" },
+          "100%": { backgroundPosition: "40px 0" },
+        },
+      },
+      animation: {
+        // 使背景在水平方向平移，呈现斜纹滚动效果
+        "striped-progress": "progressStripes 1s linear infinite",
+      },
     },
   },
 

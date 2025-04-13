@@ -1,3 +1,5 @@
+// src/app/(normal)/enrollment/step9/page.tsx
+
 "use client";
 
 import React, { useRef } from "react";
@@ -21,6 +23,8 @@ export default function Step9() {
 
   const handleSubmit = async () => {
     // 收集签名
+    console.log("[Step10] Submit button clicked!");
+    console.log("signatureRef.current =", signatureRef.current);
     const signatureData = signatureRef.current?.getTrimmedCanvas().toDataURL("image/png") || "";
     setData((prev) => ({ ...prev, signatureData }));
 
@@ -58,21 +62,21 @@ export default function Step9() {
       <div
         className="border border-gray-300 rounded p-2 mb-3"
         style={{
-          backgroundImage: 'url("/images/sign-here.png")', // 这里放你想要的“Sign Here + 钢笔”背景
+          backgroundImage: 'url("/images/enrollment/sign-here.png")', // 这里放你想要的“Sign Here + 钢笔”背景
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "contain",
-          width: "500px",
+          width: "400px",
           height: "180px",
           margin: "0 auto",
         }}
       >
         <SignatureCanvas
           ref={signatureRef}
-          penColor="blue"
+          penColor="#4790FC"
           canvasProps={{
             // 让 canvas 100% 撑满这个容器
-            width: 500,
+            width: 400,
             height: 180,
             className: "rounded",
           }}

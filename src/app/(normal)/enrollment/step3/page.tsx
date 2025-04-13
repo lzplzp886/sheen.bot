@@ -1,3 +1,5 @@
+// src/app/(normal)/enrollment/step3/page.tsx
+
 "use client";
 
 import React from "react";

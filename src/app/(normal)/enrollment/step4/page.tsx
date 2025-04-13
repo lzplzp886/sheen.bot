@@ -1,3 +1,5 @@
+// src/app/(normal)/enrollment/step4/page.tsx
+
 "use client";
 
 import React from "react";
@@ -6,10 +8,10 @@ import { useWizardContext } from "../context";
 import Button from "@/components/Button";
 
 const ALL_SLOTS = [
-  { day: "Tuesday", times: ["11-12 AM", "3-4 PM", "4:30-5:30 PM"] },
-  { day: "Wednesday", times: ["11-12 AM", "3-4 PM", "4:30-5:30 PM"] },
-  { day: "Thursday", times: ["11-12 AM", "3-4 PM", "4:30-5:30 PM"] },
-  { day: "Friday", times: ["11-12 AM", "3-4 PM", "4:30-5:30 PM"] },
+  { day: "Tuesday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
+  { day: "Wednesday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
+  { day: "Thursday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
+  { day: "Friday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
   { day: "Saturday", times: ["9:30-10:30 AM", "11:00-12:00 AM"] },
 ];
 
