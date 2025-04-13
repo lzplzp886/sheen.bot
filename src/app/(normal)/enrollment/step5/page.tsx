@@ -48,7 +48,7 @@ export default function Step5() {
   return (
     <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Section 5: Parent / Guardian Details
+        Step 5: Parent / Guardian Details
       </h1>
 
       <div className="mb-3">

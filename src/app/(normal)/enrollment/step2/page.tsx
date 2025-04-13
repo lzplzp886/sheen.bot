@@ -7,9 +7,6 @@ import { useRouter } from "next/navigation";
 import { useWizardContext, ChildInfo } from "../context";
 import Button from "@/components/Button";
 
-/**
- * 用于显示单个 Child 的表单
- */
 function ChildForm({
   index,
   child,
@@ -21,7 +18,7 @@ function ChildForm({
   onChange: (idx: number, field: string, value: string | number) => void;
   onRemove: (idx: number) => void;
 }) {
-  // 当用户更新 firstName、surname后，如果有值，就在 title显示
+  // 当用户更新 firstName、surname 后，如果有值，就在标题显示
   const childTitle = child.firstName
     ? `${child.firstName} ${child.surname || ""}`
     : `Child ${index + 1}`;
@@ -73,7 +70,7 @@ function ChildForm({
           <option value="">Select Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="Other">Other / Non-binary</option>
+          <option value="Rather not say">Rather not say</option>
         </select>
       </div>
 
@@ -138,14 +135,16 @@ function ChildForm({
         />
       </div>
 
-      {/** 仅当有2个或以上孩子时，才显示删除按钮 */}
-      <Button
-        type="button"
-        className="btn bg-red-500 mt-2"
-        onClick={() => onRemove(index)}
-      >
-        Remove
-      </Button>
+      {/* 当有 2 个或以上孩子时，显示删除链接 */}
+      {/** 删除按钮使用普通文字链接，前面显示 "-" */}
+      {onRemove && (
+        <div
+          onClick={() => onRemove(index)}
+          className="text-red-500 font-medium cursor-pointer select-none mt-2"
+        >
+          - Remove
+        </div>
+      )}
     </div>
   );
 }
@@ -154,7 +153,7 @@ export default function Step2() {
   const router = useRouter();
   const { data, setData } = useWizardContext();
 
-  // 如果没孩子，就初始化至少 1 个
+  // 如果没有孩子，则初始化至少 1 个
   React.useEffect(() => {
     if (data.children.length === 0) {
       setData((prev) => ({
@@ -182,7 +181,7 @@ export default function Step2() {
   ) => {
     setData((prev) => {
       const newChildren = [...prev.children];
-      // @ts-expect-error: test purpose
+      // @ts-expect-error: for test purpose
       newChildren[index][field] = value;
       return { ...prev, children: newChildren };
     });
@@ -215,7 +214,7 @@ export default function Step2() {
     });
   };
 
-  // 简单校验：必须至少有1个孩子且必填项都有
+  // 简单校验：确保至少有 1 个孩子且必填项均填写
   const isFormValid = data.children.every(
     (c) => c.firstName && c.surname && c.age !== null
   );
@@ -235,7 +234,7 @@ export default function Step2() {
   return (
     <div className="p-5 max-w-2xl mx-auto bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Section 2: Child&rsquo;s Details
+        Step2: Child&rsquo;s Details
       </h1>
 
       {data.children.map((child, index) => (
@@ -248,11 +247,15 @@ export default function Step2() {
         />
       ))}
 
-      <Button type="button" className="btn mb-4" onClick={handleAddChild}>
-        Add Another Child
-      </Button>
+      {/* 普通文字链接，前面添加 "+" 符号 */}
+      <div
+        className="mb-4 text-primary font-medium cursor-pointer select-none"
+        onClick={handleAddChild}
+      >
+        + Add Another Child
+      </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-4">
         <Button onClick={handleBack} className="btn">
           Back
         </Button>

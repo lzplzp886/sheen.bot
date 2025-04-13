@@ -39,7 +39,7 @@ export default function Step7() {
   return (
     <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Section 7: Authorized Persons for Child Pick-up
+        Step 7: Authorized Persons for Child Pick-up
       </h1>
       <p className="mb-4 text-sm">
         Please provide the names of at least two people authorized to collect

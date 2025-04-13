@@ -4,10 +4,10 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { WizardProvider } from "./context";      // 你的WizardContext
-import ProgressBar from "./progress-bar";        // 进度条组件
+import { WizardProvider } from "./context";
+import ProgressBar from "./progress-bar";
 
-// 如果你想防止Next.js对本路由做静态导出，添加以下行
+// 如果你想防止 Next.js 静态预渲染，可以添加：
 // export const dynamic = "force-dynamic";
 
 export default function EnrollmentLayout({
@@ -16,15 +16,23 @@ export default function EnrollmentLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-
-  // 只有当路径里包含 "/step" （如 /enrollment/step1、/enrollment/step2...）时显示进度条
+  // 只有当路径里包含 "/step" 时显示进度条
   const shouldShowProgress = pathname.includes("/enrollment/step");
 
   return (
     <WizardProvider>
-      <div className="p-5">
-        {shouldShowProgress && <ProgressBar />}
-        {children}
+      {/* 整个页面铺满屏幕 */}
+      <div className="min-h-screen flex flex-col">
+        {/* 顶部区域：进度条区域，可保持一定高度 */}
+        {shouldShowProgress && (
+          <div className="mb-4">
+            <ProgressBar />
+          </div>
+        )}
+        {/* 主体区域：填充剩余高度，采用 flex 居中 */}
+        <div className="flex-grow flex items-center justify-center">
+          {children}
+        </div>
       </div>
     </WizardProvider>
   );

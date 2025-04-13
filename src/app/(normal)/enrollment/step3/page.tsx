@@ -54,7 +54,7 @@ export default function Step3() {
   return (
     <div className="p-5 max-w-xl mx-auto bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Section 3: Age Confirmation
+        Step 3: Age Confirmation
       </h1>
       <p className="mb-6 text-center">
         Please reconfirm your child&rsquo;s age range for course identification

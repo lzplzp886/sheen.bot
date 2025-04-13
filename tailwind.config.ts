@@ -23,7 +23,7 @@ const config: Config = {
         secondary: '#90caf9', // Comparison to primary
         background: '#ffffff', // General background color
         body: '#1a1a1a', // Body font color when background is white
-        darklight: '8c8c8c', // Icons, headlines with less black than body 
+        darklight: '#8c8c8c', // Icons, headlines with less black than body 
         light: '#d9d9d9', // Slightly darker background
         highlight: '#ffc107', // Emphasize or highlight
         error: '#ff0000', // Error message font color or mandatory field

@@ -46,7 +46,7 @@ export default function Step4() {
   return (
     <div className="p-5 max-w-2xl mx-auto bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Section 4: Class Schedule
+        Step 4: Class Schedule
       </h1>
       <p className="mb-6 text-center">
         Please choose your child&rsquo;s preferred day and time for class.

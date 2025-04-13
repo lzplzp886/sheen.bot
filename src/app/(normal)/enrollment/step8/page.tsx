@@ -34,7 +34,7 @@ export default function Step8() {
   return (
     <div className="p-5 max-w-xl mx-auto bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Section 8: Consent & Agreement
+        Step 8: Consent & Agreement
       </h1>
 
       {/* 8.1 */}
@@ -53,7 +53,7 @@ export default function Step8() {
             checked={data.consentConfirmed}
             onChange={(e) => handleChange("consentConfirmed", e.target.checked)}
           />
-          <span className="ml-2">Confirm</span>
+          <span className="ml-2">I agree to all mentioned above</span>
         </label>
       </div>
 

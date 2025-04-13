@@ -39,7 +39,7 @@ export default function Step6() {
   return (
     <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Section 6: Emergency Contact
+        Step 6: Emergency Contact
       </h1>
       <p className="mb-4 text-sm">
         Please provide details of someone we can contact in case of an emergency
