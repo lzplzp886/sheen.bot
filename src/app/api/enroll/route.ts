@@ -1,9 +1,13 @@
+// src/app/api/enroll/route.ts
+
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import PDFDocument from "pdfkit";
 import { Buffer } from "buffer";
 import path from "path";
 import fs from "fs";
+import { saveEnrollmentData } from "./saveEnrollmentData";
+import type { FormDataType } from "./type";
 
 // ========== 1) 定义接口 ==========
 interface ExtendedPDFDocument extends PDFKit.PDFDocument {
@@ -19,34 +23,6 @@ export interface ChildInfo {
   medicalConditions?: string;
   allergies?: string;
   gender?: string;
-}
-
-export interface FormDataType {
-  referralCode?: string;
-  children?: ChildInfo[];
-  parentFirstName?: string;
-  parentSurname?: string;
-  parentContactNumber?: string;
-  parentEmail?: string;
-  parentRelationship?: string;
-  emergencyFirstName?: string;
-  emergencySurname?: string;
-  emergencyContactNumber?: string;
-  emergencyRelationship?: string;
-  pickup1FirstName?: string;
-  pickup1Surname?: string;
-  pickup1ContactNumber?: string;
-  pickup1Relationship?: string;
-  pickup2FirstName?: string;
-  pickup2Surname?: string;
-  pickup2ContactNumber?: string;
-  pickup2Relationship?: string;
-  consentConfirmed?: boolean;
-  popiaConfirmed?: boolean;
-  signatureData?: string;
-  selectedTimeslots?: string[];
-  preferredContactMethod?: string;
-  subscribeNewsletter?: string;
 }
 
 // ========== 2) Hacky 方案：复制 PDFKit 的 Helvetica.afm 文件 ==========
@@ -215,6 +191,10 @@ export async function POST(request: Request) {
   try {
     const formData: FormDataType = await request.json();
     console.log("Received formData:", formData);
+
+    // 保存到 DynamoDB
+    const recordId = await saveEnrollmentData(formData);
+    console.log("Data stored with recordId:", recordId);
 
     ensureHelveticaAFM();
     ensureHelveticaBoldAFM();

@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.788.0",
     "@aws-sdk/client-s3": "^3.749.0",
+    "@aws-sdk/lib-dynamodb": "^3.789.0",
     "@aws-sdk/s3-request-presigner": "^3.749.0",
     "@next/font": "^14.2.15",
     "@types/react-signature-canvas": "^1.0.7",
@@ -27,7 +29,8 @@
     "react-dom": "^19.0.0",
     "react-image-crop": "^11.0.7",
     "react-pdf": "^9.2.1",
-    "react-signature-canvas": "^1.0.7"
+    "react-signature-canvas": "^1.0.7",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
