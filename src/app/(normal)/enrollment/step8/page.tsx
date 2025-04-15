@@ -83,7 +83,7 @@ export default function Step8() {
         </div>
       )}
 
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-4">
         <Button onClick={handleBack} className="btn">
           Back
         </Button>

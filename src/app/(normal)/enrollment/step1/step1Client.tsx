@@ -40,7 +40,7 @@ export default function Step1Client() {
   return (
     <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Section 1: Referral Code
+        Step 1: Referral Code
       </h1>
 
       <label className="block mb-1 font-semibold">Referral Code</label>
@@ -53,7 +53,7 @@ export default function Step1Client() {
       />
       <p className="text-sm mb-6">
         If you were referred by someone, you can see their code here. Otherwise,
-        feel free to edit.
+        feel free to edit or leave it empty.
       </p>
 
       <div className="flex justify-end">

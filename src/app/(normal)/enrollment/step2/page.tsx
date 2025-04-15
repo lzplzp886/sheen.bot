@@ -6,15 +6,18 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useWizardContext, ChildInfo } from "../context";
 import Button from "@/components/Button";
+import Image from "next/image";
 
 function ChildForm({
   index,
   child,
+  totalCount,
   onChange,
   onRemove,
 }: {
   index: number;
   child: ChildInfo;
+  totalCount: number;
   onChange: (idx: number, field: string, value: string | number) => void;
   onRemove: (idx: number) => void;
 }) {
@@ -23,8 +26,26 @@ function ChildForm({
     ? `${child.firstName} ${child.surname || ""}`
     : `Child ${index + 1}`;
 
+  // 根据年龄计算班级及对应图片
+  let classification = "";
+  let classImage = "";
+  if (child.age !== null && child.age >= 4 && child.age <= 17) {
+    if (child.age <= 8) {
+      classification = "Intro Class";
+      classImage = "/images/enrollment/intro-class.png";
+    } else if (child.age >= 9 && child.age <= 11) {
+      classification = "Junior Class";
+      classImage = "/images/enrollment/junior-class.png";
+    } else if (child.age >= 12) {
+      classification = "Explorer Class";
+      classImage = "/images/enrollment/explorer-class.png";
+    }
+  } else if (child.age !== null) {
+    classification = "Invalid age (must be between 4-17)";
+  }
+
   return (
-    <div className="p-4 mb-4 bg-gray-50 border rounded shadow-sm">
+    <div className="p-4 mb-4 bg-extralight border border-extralight rounded shadow-sm">
       <h3 className="text-lg font-bold mb-2">{childTitle}</h3>
 
       <div className="mb-3">
@@ -135,12 +156,30 @@ function ChildForm({
         />
       </div>
 
-      {/* 当有 2 个或以上孩子时，显示删除链接 */}
-      {/** 删除按钮使用普通文字链接，前面显示 "-" */}
-      {onRemove && (
+      {/* 显示班级信息及对应图片（如果年龄有效） */}
+      {child.age !== null && child.age >= 0 && child.age < 18 && (
+        <div className="mb-3">
+          <p className="text-sm font-medium">{`Class: ${classification}`}</p>
+          {classImage && (
+            <Image
+              src={classImage}
+              alt={classification}
+              className="w-32 h-32 mt-1 rounded-lg border shadow-sm"
+            />
+          )}
+        </div>
+      )}
+      {child.age !== null && (child.age < 0 || child.age >= 18) && (
+        <p className="text-sm text-error">
+          Age must be between 0 and 17.
+        </p>
+      )}
+
+      {/* 删除链接：如果总孩子数大于1，则显示删除链接 */}
+      {onRemove && totalCount > 1 && (
         <div
           onClick={() => onRemove(index)}
-          className="text-red-500 font-medium cursor-pointer select-none mt-2"
+          className="text-error font-medium cursor-pointer select-none mt-2"
         >
           - Remove
         </div>
@@ -214,14 +253,21 @@ export default function Step2() {
     });
   };
 
-  // 简单校验：确保至少有 1 个孩子且必填项均填写
+  // 验证所有孩子信息：确保至少有 1 个孩子且必填项均填写，同时年龄必须在 0 ~ 17 之间
   const isFormValid = data.children.every(
-    (c) => c.firstName && c.surname && c.age !== null
+    (c) =>
+      c.firstName &&
+      c.surname &&
+      c.age !== null &&
+      c.age >= 0 &&
+      c.age < 18
   );
 
   const handleNext = () => {
     if (!isFormValid) {
-      alert("Please fill all required child info fields before proceeding.");
+      alert(
+        "Please fill all required child info fields (age must be between 0 and 17) before proceeding."
+      );
       return;
     }
     router.push("/enrollment/step3");
@@ -242,6 +288,7 @@ export default function Step2() {
           key={index}
           index={index}
           child={child}
+          totalCount={data.children.length}
           onChange={handleChange}
           onRemove={handleRemoveChild}
         />

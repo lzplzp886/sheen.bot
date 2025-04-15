@@ -136,7 +136,7 @@ export default function Step7() {
         />
       </div>
 
-      <div className="flex justify-between mt-5">
+      <div className="flex justify-between gap-4">
         <Button onClick={handleBack} className="btn">
           Back
         </Button>

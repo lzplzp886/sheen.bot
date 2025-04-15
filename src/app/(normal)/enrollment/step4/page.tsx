@@ -8,11 +8,13 @@ import { useWizardContext } from "../context";
 import Button from "@/components/Button";
 
 const ALL_SLOTS = [
+  { day: "Monday", times: ["Academy Closed"] },
   { day: "Tuesday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
   { day: "Wednesday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
   { day: "Thursday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
   { day: "Friday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
   { day: "Saturday", times: ["9:30-10:30 AM", "11:00-12:00 AM"] },
+  { day: "Sunday", times: ["Academy Closed"] },
 ];
 
 export default function Step4() {
@@ -32,13 +34,13 @@ export default function Step4() {
   };
 
   const handleNext = () => {
-    // 没有限制多选上限，但至少选1个？
     if (data.selectedTimeslots.length === 0) {
       alert("Please choose at least one timeslot.");
       return;
     }
     router.push("/enrollment/step5");
   };
+
   const handleBack = () => {
     router.push("/enrollment/step3");
   };
@@ -67,6 +69,15 @@ export default function Step4() {
               <td className="py-2 px-2 font-semibold">{slot.day}</td>
               <td className="py-2 px-2">
                 {slot.times.map((t) => {
+                  // 当时段为 "Academy Closed" 时，直接显示文本，不生成复选框
+                  if (t === "Academy Closed") {
+                    return (
+                      <span key={t} className="text-sm text-gray-500">
+                        {t}
+                      </span>
+                    );
+                  }
+                  // 否则显示复选框和时段文本
                   const label = `${slot.day} ${t}`;
                   const checked = data.selectedTimeslots.includes(label);
                   return (
@@ -87,7 +98,7 @@ export default function Step4() {
         </tbody>
       </table>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-4">
         <Button onClick={handleBack} className="btn">
           Back
         </Button>

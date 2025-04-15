@@ -5,15 +5,16 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useWizardContext } from "../context";
-import CountryCodeSelect from "@/app/(normal)/registration/reg_CountryCodeSelect"; 
+import CountryCodeSelect from "@/app/(normal)/registration/reg_CountryCodeSelect";
 import Button from "@/components/Button";
 
 export default function Step5() {
   const router = useRouter();
   const { data, setData } = useWizardContext();
 
-  const [countryCode, setCountryCode] = useState("+27"); // 示例: South Africa
+  const [countryCode, setCountryCode] = useState("+27"); // 例如南非
 
+  // 修改时统一使用 handleChange 更新父 context
   const handleChange = (field: string, value: string) => {
     setData((prev) => ({
       ...prev,
@@ -21,8 +22,8 @@ export default function Step5() {
     }));
   };
 
+  // 提交前将电话号码正则化（移除前导 0）并拼上国家码
   const handleNext = () => {
-    // 验证必填
     if (
       !data.parentFirstName ||
       !data.parentSurname ||
@@ -32,7 +33,7 @@ export default function Step5() {
       alert("Please fill in all required fields.");
       return;
     }
-    // 将 phone 拼上 countryCode
+    // 处理电话号码：假设 data.parentContactNumber 中已存储输入的号码（不含国家码）
     setData((prev) => ({
       ...prev,
       parentContactNumber: countryCode + prev.parentContactNumber.replace(/^0/, ""),
@@ -51,6 +52,7 @@ export default function Step5() {
         Step 5: Parent / Guardian Details
       </h1>
 
+      {/* First Name */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">First Name *</label>
         <input
@@ -62,6 +64,7 @@ export default function Step5() {
         />
       </div>
 
+      {/* Surname */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Surname *</label>
         <input
@@ -73,31 +76,46 @@ export default function Step5() {
         />
       </div>
 
+      {/* Relationship to Child：单选 */}
       <div className="mb-3">
-        <label className="block mb-1 font-semibold">Relationship to Child *</label>
+        <label className="block mb-1 font-semibold">
+          Relationship to Child *
+        </label>
+        <div>
+          {["Mother", "Father", "Grandparent", "Others"].map((option) => (
+            <label key={option} className="mr-4 inline-flex items-center">
+              <input
+                type="radio"
+                name="parentRelationship"
+                value={option}
+                checked={data.parentRelationship === option}
+                onChange={(e) => handleChange("parentRelationship", e.target.value)}
+                required
+              />
+              <span className="ml-1">{option}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Contact Number 分两行 */}
+      <div className="mb-3">
+        <label className="block mb-1 font-semibold">Contact Number *</label>
+        <div className="mb-2">
+          <CountryCodeSelect value={countryCode} onChange={setCountryCode} />
+        </div>
         <input
-          type="text"
+          type="tel"
           className="input-style w-full"
-          value={data.parentRelationship}
-          onChange={(e) => handleChange("parentRelationship", e.target.value)}
+          placeholder="Enter your phone number"
+          // 假设 data.parentContactNumber 存储的是不含国家码的号码
+          value={data.parentContactNumber.replace(/^\+\d+/, "")}
+          onChange={(e) => handleChange("parentContactNumber", e.target.value)}
           required
         />
       </div>
 
-      <div className="mb-3">
-        <label className="block mb-1 font-semibold">Contact Number *</label>
-        <div className="flex items-center">
-          <CountryCodeSelect value={countryCode} onChange={setCountryCode} />
-          <input
-            type="tel"
-            className="input-style flex-1"
-            value={data.parentContactNumber.replace(/^\+\d+/, "")} // 去掉之前拼的区号
-            onChange={(e) => handleChange("parentContactNumber", e.target.value)}
-            required
-          />
-        </div>
-      </div>
-
+      {/* Email Address */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Email Address *</label>
         <input
@@ -109,16 +127,17 @@ export default function Step5() {
         />
       </div>
 
+      {/* Preferred Contact Method for General Information */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">
-          Preferred Contact Method *
+          Preferred contact method for general information *
         </label>
         <div>
           {["EMAIL", "PHONE", "WHATSAPP"].map((method) => (
-            <label key={method} className="mr-4">
+            <label key={method} className="mr-4 inline-flex items-center">
               <input
                 type="radio"
-                name="contactMethod"
+                name="preferredContactMethod"
                 value={method}
                 checked={data.preferredContactMethod === method}
                 onChange={(e) =>
@@ -126,19 +145,20 @@ export default function Step5() {
                 }
                 required
               />
-              {method}
+              <span className="ml-1">{method}</span>
             </label>
           ))}
         </div>
       </div>
 
+      {/* Subscribe Newsletter */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">
           Would you like to subscribe to our newsletter? *
         </label>
         <div>
           {["Yes", "No"].map((val) => (
-            <label key={val} className="mr-4">
+            <label key={val} className="mr-4 inline-flex items-center">
               <input
                 type="radio"
                 name="subscribeNewsletter"
@@ -149,13 +169,13 @@ export default function Step5() {
                 }
                 required
               />
-              {val}
+              <span className="ml-1">{val}</span>
             </label>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-between mt-5">
+      <div className="flex justify-between gap-4">
         <Button onClick={handleBack} className="btn">
           Back
         </Button>
