@@ -88,7 +88,7 @@ export default function OfferSection() {
         </a>
         {/* Learning Resources */}
         <a
-          href="#learning-resources"
+          href="/academy/courses"
           className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
         >
           <div className="mb-4">

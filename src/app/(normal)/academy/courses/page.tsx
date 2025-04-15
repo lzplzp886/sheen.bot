@@ -3,9 +3,11 @@
 'use client';
 
 import React from 'react';
+import LearningResourcesSection from './learningResources';
 
 export default function AcademyCoursesPage() {
   return (
+    
     <div className="max-w-5xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Courses</h1>
 
@@ -76,6 +78,8 @@ export default function AcademyCoursesPage() {
         </div>
         {/* ... add more FAQs as needed ... */}
       </section>
+      <LearningResourcesSection />
+
     </div>
   );
 }
