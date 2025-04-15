@@ -1,5 +1,4 @@
 // src/app/(normal)/enrollment/step8/page.tsx
-
 "use client";
 
 import React from "react";
@@ -11,7 +10,10 @@ export default function Step8() {
   const router = useRouter();
   const { data, setData } = useWizardContext();
 
-  const handleChange = (field: "consentConfirmed" | "popiaConfirmed", value: boolean) => {
+  const handleChange = (
+    field: "consentConfirmed" | "popiaConfirmed",
+    value: boolean
+  ) => {
     setData((prev) => ({
       ...prev,
       [field]: value,
@@ -23,7 +25,7 @@ export default function Step8() {
   };
 
   const handleNext = () => {
-    // 只有当 popiaConfirmed=true 时才允许进入 step9
+    // 只有 popiaConfirmed=true 时，才能进入 step9
     if (!data.popiaConfirmed) {
       alert("Please consent to POPIA to proceed.");
       return;
@@ -37,7 +39,7 @@ export default function Step8() {
         Step 8: Consent & Agreement
       </h1>
 
-      {/* 8.1 */}
+      {/* 8.1：consentConfirmed */}
       <div className="mb-6">
         <p className="mb-2">
           I, the undersigned, confirm that all the information provided is
@@ -51,16 +53,20 @@ export default function Step8() {
           <input
             type="checkbox"
             checked={data.consentConfirmed}
-            onChange={(e) => handleChange("consentConfirmed", e.target.checked)}
+            onChange={(e) =>
+              handleChange("consentConfirmed", e.target.checked)
+            }
           />
           <span className="ml-2">I agree to all mentioned above</span>
         </label>
       </div>
 
-      {/* 8.2 只有当 consentConfirmed 时显示 */}
+      {/* 8.2：只有当 consentConfirmed 为 true 时才显示下方 POPIA */}
       {data.consentConfirmed && (
         <div className="mb-6">
-          <h2 className="font-bold mb-2">PROTECTION OF PERSONAL INFORMATION ACT (POPIA) COMPLIANCE</h2>
+          <h2 className="font-bold mb-2">
+            PROTECTION OF PERSONAL INFORMATION ACT (POPIA) COMPLIANCE
+          </h2>
           <p className="mb-2 text-sm">
             By completing this form, you acknowledge that you understand and
             agree to the collection and processing of personal information in
@@ -73,7 +79,9 @@ export default function Step8() {
             <input
               type="checkbox"
               checked={data.popiaConfirmed}
-              onChange={(e) => handleChange("popiaConfirmed", e.target.checked)}
+              onChange={(e) =>
+                handleChange("popiaConfirmed", e.target.checked)
+              }
             />
             <span className="ml-2">
               I consent to my personal information being collected and used as
@@ -87,8 +95,8 @@ export default function Step8() {
         <Button onClick={handleBack} className="btn">
           Back
         </Button>
-        {/* 当 consentConfirmed=false 时，也可以不显示Next */}
-        {data.consentConfirmed && (
+        {/* 只有当 consentConfirmed && popiaConfirmed 都为true 时，才显示 Next。 */}
+        {data.consentConfirmed && data.popiaConfirmed && (
           <Button onClick={handleNext} className="btn">
             Next
           </Button>

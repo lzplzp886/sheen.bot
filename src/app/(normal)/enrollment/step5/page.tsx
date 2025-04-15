@@ -1,5 +1,4 @@
 // src/app/(normal)/enrollment/step5/page.tsx
-
 "use client";
 
 import React, { useState } from "react";
@@ -12,31 +11,36 @@ export default function Step5() {
   const router = useRouter();
   const { data, setData } = useWizardContext();
 
-  const [countryCode, setCountryCode] = useState("+27"); // 例如南非
+  // 从全局 context 取初始值
+  const [countryCode, setCountryCode] = useState(data.parentCountryCode || "27");
+  const [parentNumber, setParentNumber] = useState(data.parentContactNumber || "");
 
-  // 修改时统一使用 handleChange 更新父 context
-  const handleChange = (field: string, value: string) => {
+  // 其他字段直接从 data 读写
+  const handleChange = (field: keyof typeof data, value: string) => {
     setData((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  // 提交前将电话号码正则化（移除前导 0）并拼上国家码
+  // 点击下一步：做必填校验 & 只允许数字
   const handleNext = () => {
-    if (
-      !data.parentFirstName ||
-      !data.parentSurname ||
-      !data.parentRelationship ||
-      !data.parentEmail
-    ) {
-      alert("Please fill in all required fields.");
+    if (!data.parentFirstName || !data.parentSurname || !data.parentRelationship || !data.parentEmail) {
+      alert("Please fill in all required fields (first name, surname, relationship, email).");
       return;
     }
-    // 处理电话号码：假设 data.parentContactNumber 中已存储输入的号码（不含国家码）
+
+    // 简单数值校验
+    if (!/^\d+$/.test(parentNumber)) {
+      alert("Please enter digits only for phone number.");
+      return;
+    }
+
+    // 将选择的区号和用户输入的原始数字分别保存
     setData((prev) => ({
       ...prev,
-      parentContactNumber: countryCode + prev.parentContactNumber.replace(/^0/, ""),
+      parentCountryCode: countryCode,
+      parentContactNumber: parentNumber,
     }));
 
     router.push("/enrollment/step6");
@@ -48,9 +52,7 @@ export default function Step5() {
 
   return (
     <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-center">
-        Step 5: Parent / Guardian Details
-      </h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Step 5: Parent / Guardian Details</h1>
 
       {/* First Name */}
       <div className="mb-3">
@@ -78,9 +80,7 @@ export default function Step5() {
 
       {/* Relationship to Child：单选 */}
       <div className="mb-3">
-        <label className="block mb-1 font-semibold">
-          Relationship to Child *
-        </label>
+        <label className="block mb-1 font-semibold">Relationship to Child *</label>
         <div>
           {["Mother", "Father", "Grandparent", "Others"].map((option) => (
             <label key={option} className="mr-4 inline-flex items-center">
@@ -98,19 +98,27 @@ export default function Step5() {
         </div>
       </div>
 
-      {/* Contact Number 分两行 */}
+      {/* Contact Number: 分两行（区号 + 纯数字） */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Contact Number *</label>
         <div className="mb-2">
-          <CountryCodeSelect value={countryCode} onChange={setCountryCode} />
+          <CountryCodeSelect
+            value={"+" + countryCode}
+            onChange={(val) => {
+              // val 形如 "+27"
+              setCountryCode(val.replace("+", "")); 
+            }}
+          />
         </div>
         <input
           type="tel"
           className="input-style w-full"
           placeholder="Enter your phone number"
-          // 假设 data.parentContactNumber 存储的是不含国家码的号码
-          value={data.parentContactNumber.replace(/^\+\d+/, "")}
-          onChange={(e) => handleChange("parentContactNumber", e.target.value)}
+          value={parentNumber}
+          onChange={(e) => {
+            const numericValue = e.target.value.replace(/\D/g, "");
+            setParentNumber(numericValue);
+          }}
           required
         />
       </div>
@@ -127,22 +135,20 @@ export default function Step5() {
         />
       </div>
 
-      {/* Preferred Contact Method for General Information */}
+      {/* Preferred Contact Method */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">
           Preferred contact method for general information *
         </label>
         <div>
-          {["EMAIL", "PHONE", "WHATSAPP"].map((method) => (
+          {["Email", "Phone", "WhatsApp"].map((method) => (
             <label key={method} className="mr-4 inline-flex items-center">
               <input
                 type="radio"
                 name="preferredContactMethod"
                 value={method}
                 checked={data.preferredContactMethod === method}
-                onChange={(e) =>
-                  handleChange("preferredContactMethod", e.target.value)
-                }
+                onChange={(e) => handleChange("preferredContactMethod", e.target.value)}
                 required
               />
               <span className="ml-1">{method}</span>
@@ -164,9 +170,7 @@ export default function Step5() {
                 name="subscribeNewsletter"
                 value={val}
                 checked={data.subscribeNewsletter === val}
-                onChange={(e) =>
-                  handleChange("subscribeNewsletter", e.target.value)
-                }
+                onChange={(e) => handleChange("subscribeNewsletter", e.target.value)}
                 required
               />
               <span className="ml-1">{val}</span>

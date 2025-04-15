@@ -1,5 +1,4 @@
 // src/app/(normal)/enrollment/step6/page.tsx
-
 "use client";
 
 import React, { useState } from "react";
@@ -11,10 +10,12 @@ import Button from "@/components/Button";
 export default function Step6() {
   const router = useRouter();
   const { data, setData } = useWizardContext();
-  // 新增一个 state 用于存储 emergency contact 的国家码，默认以 "+27" 为例
-  const [emergencyCountryCode, setEmergencyCountryCode] = useState("+27");
 
-  const handleChange = (field: string, value: string) => {
+  // 初始区号 & 电话
+  const [emergencyCode, setEmergencyCode] = useState(data.emergencyCountryCode || "27");
+  const [emergencyNumber, setEmergencyNumber] = useState(data.emergencyContactNumber || "");
+
+  const handleChange = (field: keyof typeof data, value: string) => {
     setData((prev) => ({
       ...prev,
       [field]: value,
@@ -23,20 +24,22 @@ export default function Step6() {
 
   const handleNext = () => {
     // 检查必填项
-    if (
-      !data.emergencyFirstName ||
-      !data.emergencySurname ||
-      !data.emergencyRelationship ||
-      !data.emergencyContactNumber
-    ) {
-      alert("Please fill emergency contact info.");
+    if (!data.emergencyFirstName || !data.emergencySurname || !data.emergencyRelationship) {
+      alert("Please fill in all required emergency contact fields.");
       return;
     }
-    // 在提交前，组合国家码和号码（移除号码开头的 "0"）
+
+    // 数字校验
+    if (!/^\d+$/.test(emergencyNumber)) {
+      alert("Emergency contact number must contain digits only.");
+      return;
+    }
+
+    // 将最新输入保存到 Context
     setData((prev) => ({
       ...prev,
-      emergencyContactNumber:
-        emergencyCountryCode + prev.emergencyContactNumber.replace(/^0/, ""),
+      emergencyCountryCode: emergencyCode,
+      emergencyContactNumber: emergencyNumber,
     }));
 
     router.push("/enrollment/step7");
@@ -48,9 +51,7 @@ export default function Step6() {
 
   return (
     <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-center">
-        Step 6: Emergency Contact
-      </h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Step 6: Emergency Contact</h1>
       <p className="mb-4 text-sm text-center">
         Please provide details of someone we can contact in case of an emergency
         if the parent/guardian is unavailable.
@@ -80,11 +81,9 @@ export default function Step6() {
         />
       </div>
 
-      {/* Emergency Relationship：单选 */}
+      {/* Emergency Relationship：单选/或输入框，根据需求 */}
       <div className="mb-3">
-        <label className="block mb-1 font-semibold">
-          Relationship to Child *
-        </label>
+        <label className="block mb-1 font-semibold">Relationship to Child *</label>
         <div>
           {["Mother", "Father", "Grandparent", "Others"].map((option) => (
             <label key={option} className="mr-4 inline-flex items-center">
@@ -93,9 +92,7 @@ export default function Step6() {
                 name="emergencyRelationship"
                 value={option}
                 checked={data.emergencyRelationship === option}
-                onChange={(e) =>
-                  handleChange("emergencyRelationship", e.target.value)
-                }
+                onChange={(e) => handleChange("emergencyRelationship", e.target.value)}
                 required
               />
               <span className="ml-1">{option}</span>
@@ -104,26 +101,26 @@ export default function Step6() {
         </div>
       </div>
 
-      {/* Emergency Contact Number：分两行显示 */}
+      {/* Emergency Contact Number */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Contact Number *</label>
-        {/* 第一行：国家码选择 */}
         <div className="mb-2">
           <CountryCodeSelect
-            value={emergencyCountryCode}
-            onChange={setEmergencyCountryCode}
+            value={"+" + emergencyCode}
+            onChange={(val) => {
+              setEmergencyCode(val.replace("+", ""));
+            }}
           />
         </div>
-        {/* 第二行：电话号码输入 */}
         <input
           type="tel"
           className="input-style w-full"
-          placeholder="Enter your phone number"
-          // 去掉已存在的国家码（假设 data.emergencyContactNumber 只存号码部分）
-          value={data.emergencyContactNumber.replace(/^\+\d+/, "")}
-          onChange={(e) =>
-            handleChange("emergencyContactNumber", e.target.value)
-          }
+          placeholder="Enter phone number"
+          value={emergencyNumber}
+          onChange={(e) => {
+            const numericValue = e.target.value.replace(/\D/g, "");
+            setEmergencyNumber(numericValue);
+          }}
           required
         />
       </div>

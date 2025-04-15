@@ -13,59 +13,119 @@ export default function Step9() {
   const router = useRouter();
   const { data, setData } = useWizardContext();
   const signatureRef = useRef<SignatureCanvas | null>(null);
+
   const [isSignatureEmpty, setIsSignatureEmpty] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState("");
 
-  // 当用户开始签字时立即隐藏背景
+  // 当用户开始签名
   const handleSignatureBegin = () => {
+    console.log("[Step9] handleSignatureBegin() -> User started signing");
     setIsSignatureEmpty(false);
   };
 
-  // 当签名结束后，检测是否为空（用于后续判断，如果需要可以保留）
+  // 当签名结束后，检测是否为空
   const handleSignatureEnd = () => {
     if (signatureRef.current) {
       const empty = signatureRef.current.isEmpty();
+      console.log("[Step9] handleSignatureEnd() -> isSignatureEmpty:", empty);
       setIsSignatureEmpty(empty);
     }
   };
 
-  // 清除签名，并重新显示背景
+  // 清除签名
   const handleClear = () => {
+    console.log("[Step9] handleClear() -> Clearing signature");
     signatureRef.current?.clear();
     setIsSignatureEmpty(true);
   };
 
+  // 点击Back
   const handleBack = () => {
+    console.log("[Step9] handleBack() -> Going back to step8");
     router.push("/enrollment/step8");
   };
 
+  // 点击Submit
   const handleSubmit = async () => {
-    console.log("[Step10] Submit button clicked!");
-    console.log("signatureRef.current =", signatureRef.current);
+    console.log("[Step9] handleSubmit() -> Submit button clicked");
+
+    // 0. 调试：打印当前 wizardContext.data
+    console.log("[Step9] Current context data:", data);
+
+    // 1. 强制检查签名是否为空
+    if (signatureRef.current?.isEmpty()) {
+      console.warn("[Step9] handleSubmit() -> Signature is empty, prompt user");
+      alert("Please provide your signature before submitting.");
+      return;
+    }
+
+    // 2. 获取签名 DataURL
     const signatureData =
       signatureRef.current?.getTrimmedCanvas().toDataURL("image/png") || "";
+    console.log("[Step9] signatureData length:", signatureData?.length);
+
+    // 3. 回写到全局 Context（如果 step10 需要展示签名）
+    console.log("[Step9] Writing signatureData back to context...");
     setData((prev) => ({ ...prev, signatureData }));
-    const payload = { ...data, signatureData };
+
+    // 4. 电话号码最终正则化（只保留数字 + 去掉开头零 + 拼接 +号区号）
+    const finalParentNumber = "+" + data.parentCountryCode + data.parentContactNumber.replace(/^0+/, "");
+    const finalEmergencyNumber = "+" + data.emergencyCountryCode + data.emergencyContactNumber.replace(/^0+/, "");
+    const finalPickup1Number = "+" + data.pickup1CountryCode + data.pickup1ContactNumber.replace(/^0+/, "");
+    const finalPickup2Number = "+" + data.pickup2CountryCode + data.pickup2ContactNumber.replace(/^0+/, "");
+
+    console.log("[Step9] finalParentNumber:", finalParentNumber);
+    console.log("[Step9] finalEmergencyNumber:", finalEmergencyNumber);
+    console.log("[Step9] finalPickup1Number:", finalPickup1Number);
+    console.log("[Step9] finalPickup2Number:", finalPickup2Number);
+
+    // 5. 构造最终 payload
+    const payload = {
+      ...data,
+      signatureData,
+      parentContactNumber: finalParentNumber,
+      emergencyContactNumber: finalEmergencyNumber,
+      pickup1ContactNumber: finalPickup1Number,
+      pickup2ContactNumber: finalPickup2Number,
+    };
+
+    console.log("[Step9] Final payload to /api/enroll:", payload);
+
     try {
+      console.log("[Step9] Sending fetch POST request to /api/enroll...");
       setIsLoading(true);
       setProgress(`Sending enrollment form to '${data.parentEmail}'...`);
+
       const res = await fetch("/api/enroll", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
+      console.log("[Step9] fetch /api/enroll -> response.status:", res.status);
+      console.log("[Step9] fetch /api/enroll -> response.ok:", res.ok);
+
       if (!res.ok) {
+        console.error("[Step9] fetch /api/enroll -> not ok, throwing Error");
         throw new Error("Form submission failed");
       }
+
+      // 后端返回的 JSON 结果
       const result = await res.json();
+      console.log("[Step9] fetch /api/enroll -> response JSON:", result);
+
       setProgress("Sent");
       alert(result.message || "Enrollment form submitted successfully!");
+
+      // 6. 跳转下一步
+      console.log("[Step9] handleSubmit() -> Going to step10");
       router.push("/enrollment/step10");
     } catch (err) {
-      console.error(err);
+      console.error("[Step9] handleSubmit() -> Caught Error:", err);
       alert("Error occurred while submitting the form.");
     } finally {
+      console.log("[Step9] handleSubmit() -> finally block, setIsLoading(false)");
       setIsLoading(false);
     }
   };
@@ -80,11 +140,9 @@ export default function Step9() {
       </p>
 
       {/* 显示加载提示 */}
-      {isLoading && (
-        <p className="mb-4 text-center text-success">{progress}</p>
-      )}
+      {isLoading && <p className="mb-4 text-center text-success">{progress}</p>}
 
-      {/* 签名区域容器：hover 时边框显示 primary 颜色，且背景图片仅在 isSignatureEmpty 为 true 时显示 */}
+      {/* 签名区域容器 */}
       <div
         className="border border-darklight hover:border-primary rounded mb-3 transition"
         style={{
