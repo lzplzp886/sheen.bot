@@ -29,19 +29,19 @@ function ChildForm({
   // 根据年龄计算班级及对应图片
   let classification = "";
   let classImage = "";
-  if (child.age !== null && child.age >= 4 && child.age <= 17) {
-    if (child.age <= 8) {
+  if (child.age !== null && child.age >= 6 && child.age <= 15) {
+    if (child.age >=6 && child.age <= 8) {
       classification = "Intro Class";
       classImage = "/images/enrollment/intro-class.png";
     } else if (child.age >= 9 && child.age <= 11) {
       classification = "Junior Class";
       classImage = "/images/enrollment/junior-class.png";
-    } else if (child.age >= 12) {
+    } else if (child.age >= 12 && child.age <=15 ) {
       classification = "Explorer Class";
       classImage = "/images/enrollment/explorer-class.png";
     }
   } else if (child.age !== null) {
-    classification = "Invalid age (must be between 4-17)";
+    classification = "Invalid age (must be between 6-15)";
   }
 
   return (
@@ -171,7 +171,7 @@ function ChildForm({
       )}
       {child.age !== null && (child.age < 0 || child.age >= 18) && (
         <p className="text-sm text-error">
-          Age must be between 0 and 17.
+          Age needs to be between 6 and 15.
         </p>
       )}
 

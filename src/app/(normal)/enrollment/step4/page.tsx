@@ -53,7 +53,7 @@ export default function Step4() {
       <p className="mb-6 text-center">
         Please choose your child&rsquo;s preferred day and time for class.
         <br />
-        Note: one class per week, but you may indicate multiple possible slots.
+        Note: You may indicate multiple possible slots, but we will communicate with you and fix one slot per week for your child.
       </p>
 
       <table className="w-full border mb-6">

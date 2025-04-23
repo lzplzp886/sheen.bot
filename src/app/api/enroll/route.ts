@@ -351,7 +351,8 @@ By completing this form, you acknowledge that you understand and agree to the co
         doc.text("[No signature provided]", { align: "left" });
       }
       const now = new Date();
-      const timeString = now.toLocaleString();
+      const timeString = now.toUTCString();
+      // 指定输出UTC时间
       doc.moveDown(0.5);
       doc.fillColor("#D9D9D9").fontSize(10).text(`Signed at ${timeString}`, { align: "left" });
 
@@ -376,8 +377,7 @@ By completing this form, you acknowledge that you understand and agree to the co
 
     const pdfFileName = `sheen academy - Enrollment form - ${childNames}.pdf`.replace(/\s+/, " ");
     const subjectLine = `sheen academy - Enrollment form for ${childNames}`;
-    const emailText = `
-Hello ${formData.parentFirstName},
+    const emailText = `Hello ${formData.parentFirstName},
 
 Thank you for enrolling your child(ren) ${childNames} at Sheen Academy!
 
