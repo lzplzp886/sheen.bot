@@ -6,6 +6,7 @@ import IntroducingSection from "./components/IntroducingSection";
 import ProductPCBLayoutSection from "./components/ProductPCBLayoutSection";
 import WhySheenbotSection from "./components/WhySheenbotSection";
 import BuyNowSection from "./components/BuyNowSection";
+import KitSelectionSection from "./components/KitSelectionSection";
 
 export default function Page() {
   return (
@@ -13,6 +14,7 @@ export default function Page() {
       <IntroducingSection />
       <ProductPCBLayoutSection />
       <WhySheenbotSection />
+      <KitSelectionSection />
       <BuyNowSection />
     </main>
   );

@@ -50,7 +50,7 @@ export default function Step4() {
       <h1 className="text-2xl font-bold mb-4 text-center">
         Step 4: Class Schedule
       </h1>
-      <p className="mb-6 text-center">
+      <p className="mb-6 text-center max-w-2xl">
         Please choose your child&rsquo;s preferred day and time for class.
         <br />
         Note: You may indicate multiple possible slots, but we will communicate with you and fix one slot per week for your child.

@@ -1,3 +1,5 @@
+// src/app/(normal)/sheenbotInfinity/components/BuyNowSection.tsx
+
 "use client";
 import React from "react";
 import Image from "next/image";

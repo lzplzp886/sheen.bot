@@ -1,3 +1,5 @@
+// src/app/(normal)/sheenbotInfinity/components/WhySheenbotSection.tsx
+
 "use client";
 import React from "react";
 import Image from "next/image";
