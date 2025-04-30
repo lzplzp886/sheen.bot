@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const kits = [
   { id: "basic", label: "∞ Block Basic" },
@@ -30,8 +31,8 @@ export default function KitSelectionSection() {
             <Image
               src="/images/sheenbotInfinity/kit/block-basic-kit.png"
               alt="∞ Block Basic Kit"
-              width={300}
-              height={300}
+              width={360}
+              height={360}
               className="mx-auto"
             />
             <h3 className="text-xl text-center font-semibold">Starter kit for coding and robotics with blocks</h3>
@@ -46,8 +47,8 @@ export default function KitSelectionSection() {
             <Image
               src="/images/sheenbotInfinity/kit/block-tinker-kit.png"
               alt="∞ Block Tinker Kit"
-              width={300}
-              height={300}
+              width={360}
+              height={360}
               className="mx-auto"
             />
             <h3 className="text-xl text-center font-semibold">Advanced kit for coding and robotics with blocks</h3>
@@ -62,8 +63,8 @@ export default function KitSelectionSection() {
             <Image
               src="/images/sheenbotInfinity/kit/smart-home-kit.png"
               alt="∞ Smart Home Kit"
-              width={300}
-              height={300}
+              width={360}
+              height={360}
               className="mx-auto"
             />
             <h3 className="text-xl text-center font-semibold">Smart home sandbox experience kit</h3>
@@ -78,8 +79,8 @@ export default function KitSelectionSection() {
             <Image
               src="/images/sheenbotInfinity/kit/ai-car-kit.png"
               alt="∞ AI Car Kit"
-              width={300}
-              height={300}
+              width={360}
+              height={360}
               className="mx-auto"
             />
             <h3 className="text-xl text-center font-semibold">Vision-enabled AI car with mecanum wheels</h3>
@@ -94,8 +95,8 @@ export default function KitSelectionSection() {
             <Image
               src="/images/sheenbotInfinity/kit/quadruped-kit.png"
               alt="∞ Quadruped Kit"
-              width={300}
-              height={300}
+              width={360}
+              height={360}
               className="mx-auto"
             />
             <h3 className="text-xl text-center font-semibold">Robotic dog kit for gait experiments.</h3>
@@ -110,7 +111,7 @@ export default function KitSelectionSection() {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-10">
+    <section className="max-w-6xl mx-auto px-4 py-10 text-center">
       {/* Desktop Tabs */}
       <h2
         className="
@@ -122,8 +123,34 @@ export default function KitSelectionSection() {
           font-bold mb-4
         "
       >
-        <span>Unlock infinite possibilities</span>
+        <span>Unlock infinite creations</span>
       </h2>
+      <h2
+        className="
+          flex flex-wrap 
+          md:flex-nowrap 
+          items-center justify-center 
+          gap-2 
+          text-2xl sm:text-3xl 
+          font-bold mb-4
+        "
+      >
+        <span>with</span>
+        <span className="text-primary">sheenbot</span>
+        <Image
+          src="/images/sheenbotInfinity/icon-infinity.svg"
+          alt="Infinity Icon"
+          width={36}
+          height={36}
+          className="inline-block"
+        />
+      </h2>      
+      <Link
+        href="/sheenbotInfinity/order"
+        className="px-8 py-3 bg-body text-background font-bold rounded shadow hover:bg-light transition-colors inline-block"
+      >
+        Order Now
+      </Link>
       <div className="flex flex-col items-center text-center">
         <video
           src="/images/sheenbotInfinity/Infinite-Possibilities.mp4"

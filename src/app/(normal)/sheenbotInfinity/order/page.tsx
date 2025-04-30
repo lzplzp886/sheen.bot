@@ -46,8 +46,8 @@ export default function OrderPage() {
           <Image
             src="/images/sheenbotInfinity/sheenbot-ai-board.png"
             alt="sheenbot∞ AI Board"
-            width={400}
-            height={400}
+            width={360}
+            height={360}
             className="mb-4"
           />
           <p className="text-body max-w-2xl mx-auto mb-10">
