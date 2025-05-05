@@ -11,7 +11,7 @@ export default function HeroSection() {
       <div className="max-w-6xl mx-auto px-4 py-20 text-background">
         <h1 className="text-4xl sm:text-5xl font-bold mb-4">Coding & Robotics Class</h1>
         <p className="text-base sm:text-lg max-w-xl mb-6">
-          For ages 6 and above — from R280/lesson
+          For ages 6-15 only R280/lesson
         </p>
         <div className="space-x-4">
           <Link href="/academy/courses">
@@ -19,7 +19,7 @@ export default function HeroSection() {
               Our Courses
             </button>
           </Link>
-          <Link href="https://outlook.office365.com/book/bookings@sheen.co.za/s/pn4V6HNV7E-ajbG5wbfAzw2">
+          <Link href="/academy/trial">
             <button className="inline-block text-background font-bold px-5 py-3 rounded transition-colors duration-300 hover:bg-transparent hover:underline">
               Book a Trial →
             </button>

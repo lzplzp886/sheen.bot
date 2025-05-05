@@ -32,7 +32,7 @@ export default function HeroSection() {
             </button>
           </Link>
           <a
-            href="#architecture"
+            href="#cloud-platform"
             className="inline-block text-background font-bold px-5 py-3 rounded transition-colors duration-300 hover:bg-transparent hover:underline"
           >
             Learn More →

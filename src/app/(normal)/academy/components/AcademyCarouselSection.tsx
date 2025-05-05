@@ -16,7 +16,7 @@ interface AcademyCarouselProps {
 export default function AcademyCarouselSection({ images }: AcademyCarouselProps) {
   return (
     <section className="max-w-5xl mx-auto px-4 py-8">
-      <CarouselGallery images={images} thumbnailsToShow={5} />
+      <CarouselGallery images={images}/>
     </section>
   );
 }

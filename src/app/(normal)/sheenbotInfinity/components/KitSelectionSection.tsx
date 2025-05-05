@@ -145,12 +145,21 @@ export default function KitSelectionSection() {
           className="inline-block"
         />
       </h2>      
-      <Link
-        href="/sheenbotInfinity/order"
-        className="px-8 py-3 bg-body text-background font-bold rounded shadow hover:bg-light transition-colors inline-block"
-      >
-        Order Now
-      </Link>
+      {/* Buy Now + Brochure */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
+        <Link
+          href="/sheenbotInfinity/order"
+          className="px-8 py-3 bg-body text-background font-bold rounded shadow hover:bg-light transition-colors"
+        >
+          Order Now
+        </Link>
+        <Link
+          href="/sheenbotInfinity/brochure"
+          className="flex items-center text-body font-semibold hover:text-primary transition"
+        >
+          Product Brochure
+        </Link>
+      </div>
       <div className="flex flex-col items-center text-center">
         <video
           src="/images/sheenbotInfinity/Infinite-Possibilities.mp4"

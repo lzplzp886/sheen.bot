@@ -3,7 +3,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import TileExpand from "./tileExpand";
+import TileExpand from "@/components/tileExpand";
 
 export default function WhySheenbotSection() {
   return (
