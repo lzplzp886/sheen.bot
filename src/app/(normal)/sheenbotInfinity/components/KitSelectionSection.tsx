@@ -125,26 +125,6 @@ export default function KitSelectionSection() {
       >
         <span>Unlock infinite creations</span>
       </h2>
-      <h2
-        className="
-          flex flex-wrap 
-          md:flex-nowrap 
-          items-center justify-center 
-          gap-2 
-          text-2xl sm:text-3xl 
-          font-bold mb-4
-        "
-      >
-        <span>with</span>
-        <span className="text-primary">sheenbot</span>
-        <Image
-          src="/images/sheenbotInfinity/icon-infinity.svg"
-          alt="Infinity Icon"
-          width={36}
-          height={36}
-          className="inline-block"
-        />
-      </h2>      
       {/* Buy Now + Brochure */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
         <Link

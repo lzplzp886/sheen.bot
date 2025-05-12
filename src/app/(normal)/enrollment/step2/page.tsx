@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useWizardContext, ChildInfo } from "../context";
 import Button from "@/components/Button";
 import Image from "next/image";
+import StepContainer from "../stepContainer";
 
 function ChildForm({
   index,
@@ -278,7 +279,7 @@ export default function Step2() {
   };
 
   return (
-    <div className="p-5 max-w-2xl mx-auto bg-white rounded-lg shadow-md">
+    <StepContainer>
       <h1 className="text-2xl font-bold mb-4 text-center">
         Step2: Child&rsquo;s Details
       </h1>
@@ -310,6 +311,6 @@ export default function Step2() {
           Next
         </Button>
       </div>
-    </div>
+    </StepContainer>
   );
 }
