@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useWizardContext } from "../context";
 import CountryCodeSelect from "@/app/(normal)/registration/reg_CountryCodeSelect";
 import Button from "@/components/Button";
+import StepContainer from "../stepContainer";
 
 export default function Step7() {
   const router = useRouter();
@@ -101,7 +102,7 @@ export default function Step7() {
   };
 
   return (
-    <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
+    <StepContainer>
       <h1 className="text-2xl font-bold mb-4 text-center">
         Step 7: Authorized Persons for Child Pick-up
       </h1>
@@ -253,6 +254,6 @@ export default function Step7() {
           Next
         </Button>
       </div>
-    </div>
+    </StepContainer>
   );
 }

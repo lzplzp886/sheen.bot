@@ -2,13 +2,16 @@
 
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useWizardContext, ChildInfo } from "../context";
 import Button from "@/components/Button";
 import Image from "next/image";
 import StepContainer from "../stepContainer";
+import Modal from "../components/modal";
+import { nz } from "../utils/validate";
 
+/* ──────────────────────────  Child Card  ────────────────────────── */
 function ChildForm({
   index,
   child,
@@ -19,40 +22,38 @@ function ChildForm({
   index: number;
   child: ChildInfo;
   totalCount: number;
-  onChange: (idx: number, field: string, value: string | number) => void;
+  onChange: (idx: number, field: keyof ChildInfo, value: string | number | null) => void;
   onRemove: (idx: number) => void;
 }) {
-  // 当用户更新 firstName、surname 后，如果有值，就在标题显示
+  /* dynamic card title */
   const childTitle = child.firstName
     ? `${child.firstName} ${child.surname || ""}`
     : `Child ${index + 1}`;
 
-  // 根据年龄计算班级及对应图片
+  /* age → class visual (no error text anymore) */
   let classification = "";
   let classImage = "";
   if (child.age !== null && child.age >= 6 && child.age <= 15) {
-    if (child.age >=6 && child.age <= 8) {
+    if (child.age <= 8) {
       classification = "Intro Class";
       classImage = "/images/enrollment/intro-class.png";
-    } else if (child.age >= 9 && child.age <= 11) {
+    } else if (child.age <= 11) {
       classification = "Junior Class";
       classImage = "/images/enrollment/junior-class.png";
-    } else if (child.age >= 12 && child.age <=15 ) {
+    } else {
       classification = "Explorer Class";
       classImage = "/images/enrollment/explorer-class.png";
     }
-  } else if (child.age !== null) {
-    classification = "Invalid age (must be between 6-15)";
   }
 
   return (
-    <div className="p-4 mb-4 bg-extralight border border-extralight rounded shadow-sm">
+    <div className="p-4 mb-4 bg-extralight border rounded shadow-sm">
       <h3 className="text-lg font-bold mb-2">{childTitle}</h3>
 
+      {/* first name */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">First Name</label>
         <input
-          type="text"
           className="input-style w-full"
           value={child.firstName}
           onChange={(e) => onChange(index, "firstName", e.target.value)}
@@ -60,10 +61,10 @@ function ChildForm({
         />
       </div>
 
+      {/* surname */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Surname</label>
         <input
-          type="text"
           className="input-style w-full"
           value={child.surname}
           onChange={(e) => onChange(index, "surname", e.target.value)}
@@ -71,17 +72,23 @@ function ChildForm({
         />
       </div>
 
+      {/* age – allows blank (null) */}
       <div className="mb-3">
-        <label className="block mb-1 font-semibold">Age</label>
+        <label className="block mb-1 font-semibold">Age (6 – 15)</label>
         <input
           type="number"
+          min={6}
+          max={15}
           className="input-style w-full"
           value={child.age ?? ""}
-          onChange={(e) => onChange(index, "age", Number(e.target.value))}
+          onChange={(e) =>
+            onChange(index, "age", e.target.value === "" ? null : Number(e.target.value))
+          }
           required
         />
       </div>
 
+      {/* gender */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Gender</label>
         <select
@@ -90,22 +97,23 @@ function ChildForm({
           onChange={(e) => onChange(index, "gender", e.target.value)}
         >
           <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Rather not say">Rather not say</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Rather not say</option>
         </select>
       </div>
 
+      {/* school */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">School Name</label>
         <input
-          type="text"
           className="input-style w-full"
           value={child.schoolName}
           onChange={(e) => onChange(index, "schoolName", e.target.value)}
         />
       </div>
 
+      {/* grade */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Grade</label>
         <select
@@ -115,32 +123,18 @@ function ChildForm({
         >
           <option value="">Select Grade</option>
           {[
-            "Grade R",
-            "Grade 1",
-            "Grade 2",
-            "Grade 3",
-            "Grade 4",
-            "Grade 5",
-            "Grade 6",
-            "Grade 7",
-            "Grade 8",
-            "Grade 9",
-            "Grade 10",
-            "Grade 11",
-            "Grade 12",
-            "Out of School",
+            "Grade R","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5",
+            "Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12","Out of School",
           ].map((g) => (
-            <option key={g} value={g}>
-              {g}
-            </option>
+            <option key={g}>{g}</option>
           ))}
         </select>
       </div>
 
+      {/* medical + allergies */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Medical Conditions</label>
         <input
-          type="text"
           className="input-style w-full"
           value={child.medicalConditions}
           onChange={(e) => onChange(index, "medicalConditions", e.target.value)}
@@ -150,50 +144,47 @@ function ChildForm({
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Allergies</label>
         <input
-          type="text"
           className="input-style w-full"
           value={child.allergies}
           onChange={(e) => onChange(index, "allergies", e.target.value)}
         />
       </div>
 
-      {/* 显示班级信息及对应图片（如果年龄有效） */}
-      {child.age !== null && child.age >= 0 && child.age < 18 && (
+      {/* class preview */}
+      {classification && (
         <div className="mb-3">
-          <p className="text-sm font-medium">{`Class: ${classification}`}</p>
-          {classImage && (
-            <Image
-              src={classImage}
-              alt={classification}
-              className="w-32 h-32 mt-1 rounded-lg border shadow-sm"
-            />
-          )}
+          <p className="text-sm font-medium">Class: {classification}</p>
+          <Image
+            src={classImage}
+            alt={classification}
+            className="w-32 h-32 mt-1 rounded-lg border shadow-sm"
+          />
         </div>
       )}
-      {child.age !== null && (child.age < 0 || child.age >= 18) && (
-        <p className="text-sm text-error">
-          Age needs to be between 6 and 15.
-        </p>
-      )}
 
-      {/* 删除链接：如果总孩子数大于1，则显示删除链接 */}
-      {onRemove && totalCount > 1 && (
+      {/* remove link */}
+      {totalCount > 1 && (
         <div
           onClick={() => onRemove(index)}
           className="text-error font-medium cursor-pointer select-none mt-2"
         >
-          - Remove
+          – Remove
         </div>
       )}
     </div>
   );
 }
 
+/* ──────────────────────────  Step-2 Page  ────────────────────────── */
 export default function Step2() {
   const router = useRouter();
   const { data, setData } = useWizardContext();
 
-  // 如果没有孩子，则初始化至少 1 个
+  /* add error + modal state */
+  const [errors, setErrors] = useState<string[]>([]);
+  const [showModal, setShowModal] = useState(false);
+
+  /* ensure at least one child exists */
   React.useEffect(() => {
     if (data.children.length === 0) {
       setData((prev) => ({
@@ -214,24 +205,26 @@ export default function Step2() {
     }
   }, [data.children.length, setData]);
 
+  /* field updater */
   const handleChange = (
     index: number,
-    field: string,
-    value: string | number
+    field: keyof ChildInfo,
+    value: string | number | null
   ) => {
     setData((prev) => {
-      const newChildren = [...prev.children];
-      // @ts-expect-error: for test purpose
-      newChildren[index][field] = value;
-      return { ...prev, children: newChildren };
+      const children = [...prev.children];
+      // @ts-expect-error deliberate
+      children[index][field] = value;
+      return { ...prev, children };
     });
   };
 
+  /* add & remove child */
   const handleAddChild = () => {
-    setData((prev) => ({
-      ...prev,
+    setData((p) => ({
+      ...p,
       children: [
-        ...prev.children,
+        ...p.children,
         {
           firstName: "",
           surname: "",
@@ -246,48 +239,55 @@ export default function Step2() {
     }));
   };
 
-  const handleRemoveChild = (index: number) => {
-    setData((prev) => {
-      const newChildren = [...prev.children];
-      newChildren.splice(index, 1);
-      return { ...prev, children: newChildren };
+  const handleRemoveChild = (idx: number) =>
+    setData((p) => {
+      const children = [...p.children];
+      children.splice(idx, 1);
+      return { ...p, children };
     });
+
+  /* ------------- VALIDATION ------------- */
+  const validate = (): string[] => {
+    const e: string[] = [];
+    if (data.children.length === 0) e.push("Add at least one child.");
+
+    data.children.forEach((c, i) => {
+      const tag = `Child ${i + 1}:`;
+      if (!nz(c.firstName) || !nz(c.surname))
+        e.push(`${tag} first name & surname are required.`);
+      if (c.age === null)
+        e.push(`${tag} age is required.`);
+      else if (c.age < 6 || c.age > 15)
+        e.push(`${tag} age must be between 6 and 15.`);
+      if (!nz(c.grade)) e.push(`${tag} grade is required.`);
+    });
+    return e;
   };
 
-  // 验证所有孩子信息：确保至少有 1 个孩子且必填项均填写，同时年龄必须在 0 ~ 17 之间
-  const isFormValid = data.children.every(
-    (c) =>
-      c.firstName &&
-      c.surname &&
-      c.age !== null &&
-      c.age >= 0 &&
-      c.age < 18
-  );
-
+  /* nav buttons */
   const handleNext = () => {
-    if (!isFormValid) {
-      alert(
-        "Please fill all required child info fields (age must be between 0 and 17) before proceeding."
-      );
+    const list = validate();
+    if (list.length) {
+      setErrors(list);
+      setShowModal(true);
       return;
     }
     router.push("/enrollment/step3");
   };
 
-  const handleBack = () => {
-    router.push("/enrollment/step1");
-  };
+  const handleBack = () => router.push("/enrollment/step1");
 
+  /* ──────────────────────────  UI  ────────────────────────── */
   return (
     <StepContainer>
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Step2: Child&rsquo;s Details
+        Step 2: Child&rsquo;s Details
       </h1>
 
-      {data.children.map((child, index) => (
+      {data.children.map((child, idx) => (
         <ChildForm
-          key={index}
-          index={index}
+          key={idx}
+          index={idx}
           child={child}
           totalCount={data.children.length}
           onChange={handleChange}
@@ -295,13 +295,21 @@ export default function Step2() {
         />
       ))}
 
-      {/* 普通文字链接，前面添加 "+" 符号 */}
       <div
         className="mb-4 text-primary font-medium cursor-pointer select-none"
         onClick={handleAddChild}
       >
         + Add Another Child
       </div>
+
+      {/* bottom inline errors */}
+      {errors.length > 0 && (
+        <div className="space-y-1 text-sm text-red-600 mb-4">
+          {errors.map((m, i) => (
+            <p key={i}>{m}</p>
+          ))}
+        </div>
+      )}
 
       <div className="flex justify-between gap-4">
         <Button onClick={handleBack} className="btn">
@@ -311,6 +319,16 @@ export default function Step2() {
           Next
         </Button>
       </div>
+
+      {showModal && (
+        <Modal title="Please fix the following" onClose={() => setShowModal(false)}>
+          <ul className="list-disc pl-5 text-red-600 space-y-1">
+            {errors.map((m, i) => (
+              <li key={i}>{m}</li>
+            ))}
+          </ul>
+        </Modal>
+      )}
     </StepContainer>
   );
 }

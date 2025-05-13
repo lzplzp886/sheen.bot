@@ -30,7 +30,7 @@ interface EnrollmentData {
   parentSurname: string;
   parentRelationship: string;
   parentEmail: string;
-  preferredContactMethod: string;
+  preferredContactMethods: string[];
   subscribeNewsletter: string;
 
   // (以下是紧急联系人) Section 6
@@ -76,7 +76,7 @@ const initialData: EnrollmentData = {
   parentSurname: "",
   parentRelationship: "",
   parentEmail: "",
-  preferredContactMethod: "",
+  preferredContactMethods: [],
   subscribeNewsletter: "",
 
   // 紧急联系人（step6）

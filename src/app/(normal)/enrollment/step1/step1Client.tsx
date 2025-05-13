@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useWizardContext } from "../context";
 import Button from "@/components/Button";
+import StepContainer from "../stepContainer";
 
 /**
  * Client Component: 包含 useSearchParams()、useEffect() 等纯前端逻辑
@@ -38,7 +39,7 @@ export default function Step1Client() {
   };
 
   return (
-    <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
+    <StepContainer>
       <h1 className="text-2xl font-bold mb-4 text-center">
         Step 1: Referral Code
       </h1>
@@ -61,6 +62,6 @@ export default function Step1Client() {
           Next
         </Button>
       </div>
-    </div>
+    </StepContainer>
   );
 }

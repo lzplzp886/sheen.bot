@@ -1,4 +1,5 @@
 // src/app/(normal)/enrollment/step5/page.tsx
+
 "use client";
 
 import React, { useState } from "react";
@@ -6,187 +7,202 @@ import { useRouter } from "next/navigation";
 import { useWizardContext } from "../context";
 import CountryCodeSelect from "@/app/(normal)/registration/reg_CountryCodeSelect";
 import Button from "@/components/Button";
+import StepContainer from "../stepContainer";
+import Modal from "../components/modal";
+import { emailOK, phoneOK, nz } from "../utils/validate";
 
 export default function Step5() {
   const router = useRouter();
   const { data, setData } = useWizardContext();
 
-  // 从全局 context 取初始值
-  const [countryCode, setCountryCode] = useState(data.parentCountryCode || "27");
-  const [parentNumber, setParentNumber] = useState(data.parentContactNumber || "");
+  /* local state for code & digits */
+  const [countryCode,   setCountryCode] = useState(data.parentCountryCode || "27");
+  const [parentNumber,  setParentNumber] = useState(data.parentContactNumber || "");
 
-  // 其他字段直接从 data 读写
-  const handleChange = (field: keyof typeof data, value: string) => {
-    setData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+  /* error / modal */
+  const [errors,    setErrors]    = useState<string[]>([]);
+  const [showModal, setShowModal] = useState(false);
+
+  /* helper to update plain string fields */
+  const update = (field: keyof typeof data, value: string) =>
+    setData(prev => ({ ...prev, [field]: value }));
+
+  /* toggle preferred-contact check-box */
+  const togglePreferred = (method: string) =>
+    setData(prev => {
+      const list = prev.preferredContactMethods || [];
+      const next = list.includes(method)
+        ? list.filter(m => m !== method)
+        : [...list, method];
+      return { ...prev, preferredContactMethods: next };
+    });
+
+  /* ───────────── validation ───────────── */
+  const validate = (): string[] => {
+    const e: string[] = [];
+    if (!nz(data.parentFirstName) || !nz(data.parentSurname))
+      e.push("First name & surname are required.");
+    if (!nz(data.parentRelationship))
+      e.push("Relationship to child is required.");
+    if (!emailOK(data.parentEmail))
+      e.push("Please enter a valid e-mail address.");
+    if (!phoneOK(parentNumber))
+      e.push("Phone number must contain 8–15 digits.");
+    if (!data.preferredContactMethods?.length)
+      e.push("Select at least one preferred contact method.");
+    if (!nz(data.subscribeNewsletter))
+      e.push("Please indicate newsletter preference.");
+    return e;
   };
 
-  // 点击下一步：做必填校验 & 只允许数字
-  const handleNext = () => {
-    if (!data.parentFirstName || !data.parentSurname || !data.parentRelationship || !data.parentEmail) {
-      alert("Please fill in all required fields (first name, surname, relationship, email).");
-      return;
-    }
+  /* nav buttons */
+  const next = () => {
+    const list = validate();
+    if (list.length) { setErrors(list); setShowModal(true); return; }
 
-    // 简单数值校验
-    if (!/^\d+$/.test(parentNumber)) {
-      alert("Please enter digits only for phone number.");
-      return;
-    }
-
-    // 将选择的区号和用户输入的原始数字分别保存
-    setData((prev) => ({
-      ...prev,
+    /* save phone parts */
+    setData(p => ({
+      ...p,
       parentCountryCode: countryCode,
       parentContactNumber: parentNumber,
     }));
-
     router.push("/enrollment/step6");
   };
 
-  const handleBack = () => {
-    router.push("/enrollment/step4");
-  };
+  const back = () => router.push("/enrollment/step4");
 
+  /* ───────────── UI ───────────── */
   return (
-    <div className="p-5 max-w-md mx-auto bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-center">Step 5: Parent / Guardian Details</h1>
+    <StepContainer>
+      <h1 className="text-2xl font-bold mb-4 text-center">
+        Step 5: Parent / Guardian Details
+      </h1>
 
-      {/* First Name */}
+      {/* first + surname */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">First Name *</label>
         <input
-          type="text"
           className="input-style w-full"
           value={data.parentFirstName}
-          onChange={(e) => handleChange("parentFirstName", e.target.value)}
+          onChange={e => update("parentFirstName", e.target.value)}
           required
         />
       </div>
-
-      {/* Surname */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Surname *</label>
         <input
-          type="text"
           className="input-style w-full"
           value={data.parentSurname}
-          onChange={(e) => handleChange("parentSurname", e.target.value)}
+          onChange={e => update("parentSurname", e.target.value)}
           required
         />
       </div>
 
-      {/* Relationship to Child：单选 */}
+      {/* relationship */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Relationship to Child *</label>
-        <div>
-          {["Mother", "Father", "Grandparent", "Others"].map((option) => (
-            <label key={option} className="mr-4 inline-flex items-center">
-              <input
-                type="radio"
-                name="parentRelationship"
-                value={option}
-                checked={data.parentRelationship === option}
-                onChange={(e) => handleChange("parentRelationship", e.target.value)}
-                required
-              />
-              <span className="ml-1">{option}</span>
-            </label>
-          ))}
-        </div>
+        {["Mother","Father","Grandparent","Others"].map(r => (
+          <label key={r} className="mr-4 inline-flex items-center">
+            <input
+              type="radio"
+              name="parentRelationship"
+              value={r}
+              checked={data.parentRelationship === r}
+              onChange={e => update("parentRelationship", e.target.value)}
+              required
+            />
+            <span className="ml-1">{r}</span>
+          </label>
+        ))}
       </div>
 
-      {/* Contact Number: 分两行（区号 + 纯数字） */}
+      {/* contact number */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Contact Number *</label>
         <div className="mb-2">
           <CountryCodeSelect
             value={"+" + countryCode}
-            onChange={(val) => {
-              // val 形如 "+27"
-              setCountryCode(val.replace("+", "")); 
-            }}
+            onChange={v => setCountryCode(v.replace("+", ""))}
           />
         </div>
         <input
           type="tel"
           className="input-style w-full"
-          placeholder="Enter your phone number"
+          placeholder="Enter digits only"
           value={parentNumber}
-          onChange={(e) => {
-            const numericValue = e.target.value.replace(/\D/g, "");
-            setParentNumber(numericValue);
-          }}
+          onChange={e => setParentNumber(e.target.value.replace(/\D/g, ""))}
           required
         />
       </div>
 
-      {/* Email Address */}
+      {/* e-mail */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Email Address *</label>
         <input
           type="email"
           className="input-style w-full"
           value={data.parentEmail}
-          onChange={(e) => handleChange("parentEmail", e.target.value)}
+          onChange={e => update("parentEmail", e.target.value)}
           required
         />
       </div>
 
-      {/* Preferred Contact Method */}
+      {/* preferred contact – multi-select */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">
           Preferred contact method for general information *
         </label>
-        <div>
-          {["Email", "Phone", "WhatsApp"].map((method) => (
-            <label key={method} className="mr-4 inline-flex items-center">
-              <input
-                type="radio"
-                name="preferredContactMethod"
-                value={method}
-                checked={data.preferredContactMethod === method}
-                onChange={(e) => handleChange("preferredContactMethod", e.target.value)}
-                required
-              />
-              <span className="ml-1">{method}</span>
-            </label>
-          ))}
-        </div>
+        {["Email","Phone","WhatsApp"].map(m => (
+          <label key={m} className="mr-4 inline-flex items-center">
+            <input
+              type="checkbox"
+              checked={data.preferredContactMethods?.includes(m) || false}
+              onChange={() => togglePreferred(m)}
+            />
+            <span className="ml-1">{m}</span>
+          </label>
+        ))}
       </div>
 
-      {/* Subscribe Newsletter */}
+      {/* newsletter yes / no */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">
           Would you like to subscribe to our newsletter? *
         </label>
-        <div>
-          {["Yes", "No"].map((val) => (
-            <label key={val} className="mr-4 inline-flex items-center">
-              <input
-                type="radio"
-                name="subscribeNewsletter"
-                value={val}
-                checked={data.subscribeNewsletter === val}
-                onChange={(e) => handleChange("subscribeNewsletter", e.target.value)}
-                required
-              />
-              <span className="ml-1">{val}</span>
-            </label>
-          ))}
-        </div>
+        {["Yes","No"].map(v => (
+          <label key={v} className="mr-4 inline-flex items-center">
+            <input
+              type="radio"
+              name="subscribeNewsletter"
+              value={v}
+              checked={data.subscribeNewsletter === v}
+              onChange={e => update("subscribeNewsletter", e.target.value)}
+              required
+            />
+            <span className="ml-1">{v}</span>
+          </label>
+        ))}
       </div>
 
+      {/* inline errors */}
+      {errors.length > 0 && (
+        <div className="text-sm text-red-600 mb-4 space-y-1">
+          {errors.map((m,i)=><p key={i}>{m}</p>)}
+        </div>
+      )}
+
       <div className="flex justify-between gap-4">
-        <Button onClick={handleBack} className="btn">
-          Back
-        </Button>
-        <Button onClick={handleNext} className="btn">
-          Next
-        </Button>
+        <Button onClick={back} className="btn">Back</Button>
+        <Button onClick={next} className="btn">Next</Button>
       </div>
-    </div>
+
+      {showModal && (
+        <Modal title="Please fix the following" onClose={()=>setShowModal(false)}>
+          <ul className="list-disc pl-5 text-red-600 space-y-1">
+            {errors.map((m,i)=><li key={i}>{m}</li>)}
+          </ul>
+        </Modal>
+      )}
+    </StepContainer>
   );
 }

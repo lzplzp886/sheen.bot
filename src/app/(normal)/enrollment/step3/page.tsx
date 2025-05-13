@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useWizardContext } from "../context";
 import Button from "@/components/Button";
 import Image from "next/image";
+import StepContainer from "../stepContainer";
 
 // 根据 age 返回班级信息和对应图标
 const getClassInfo = (age: number) => {
@@ -70,7 +71,7 @@ export default function Step3() {
   };
 
   return (
-    <div className="p-5 max-w-xl mx-auto bg-white rounded-lg shadow-md">
+    <StepContainer>
       <h1 className="text-2xl font-bold mb-4 text-center">
         Step 3: Age Group Confirmation
       </h1>
@@ -98,6 +99,6 @@ export default function Step3() {
           Next
         </Button>
       </div>
-    </div>
+    </StepContainer>
   );
 }

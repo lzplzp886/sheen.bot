@@ -35,7 +35,7 @@ export interface ChildInfo {
     popiaConfirmed?: boolean;
     signatureData?: string;
     selectedTimeslots?: string[];
-    preferredContactMethod?: string;
+    preferredContactMethods?: string[];
     subscribeNewsletter?: string;
   }
   

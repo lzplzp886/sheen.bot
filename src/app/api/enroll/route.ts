@@ -244,7 +244,7 @@ export async function POST(request: Request) {
         ["Parent/Guardian Relationship", formData.parentRelationship || ""],
         ["Contact Number", formData.parentContactNumber || ""],
         ["Email Address", formData.parentEmail || ""],
-        ["Preferred Contact Method", formData.preferredContactMethod || ""],
+        ["Preferred Contact Method(s)", (formData.preferredContactMethods || []).join(", ")],
         ["Subscribe Newsletter", formData.subscribeNewsletter || ""],
       ];
       const generalRowsData = generalRows.map(row => [row[0], row[1]]) as Array<[string, string, string?]>;
@@ -362,6 +362,14 @@ By completing this form, you acknowledge that you understand and agree to the co
     console.log(`Sending PDF to '${formData.parentEmail}'...`);
 
     // ========== 7) 使用 nodemailer 发送邮件 ==========
+
+    // 从环境变量里读抄送，按逗号分割成数组
+    const ccEnv = process.env.SMTP_CC || "";
+    const ccList = ccEnv
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean);
+    
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,
@@ -392,6 +400,7 @@ Sheen Academy
     const mailOptions = {
       from: '"Sheen Academy Enrollment" <info@sheen.co.za>',
       to: formData.parentEmail,
+      ...(ccList.length > 0 && { cc: ccList }),
       subject: subjectLine,
       text: emailText,
       attachments: [

@@ -6,6 +6,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useWizardContext } from "../context";
 import Button from "@/components/Button";
+import StepContainer from "../stepContainer";
 
 export default function Step8() {
   const router = useRouter();
@@ -35,7 +36,7 @@ export default function Step8() {
   };
 
   return (
-    <div className="p-5 max-w-xl mx-auto bg-white rounded-lg shadow-md">
+    <StepContainer>
       <h1 className="text-2xl font-bold mb-4 text-center">
         Step 8: Consent & Agreement
       </h1>
@@ -103,6 +104,6 @@ export default function Step8() {
           </Button>
         )}
       </div>
-    </div>
+    </StepContainer>
   );
 }
