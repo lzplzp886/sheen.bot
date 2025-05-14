@@ -15,7 +15,7 @@ const ALL_SLOTS = [
   { day: "Wednesday", times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
   { day: "Thursday",  times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
   { day: "Friday",    times: ["11:00-12:00 AM", "3:00-4:00 PM", "4:30-5:30 PM"] },
-  { day: "Saturday",  times: ["9:30-10:30 AM", "11:00-12:00 AM"] },
+  { day: "Saturday",  times: ["9:30-10:30 AM", "11:00-12:00 AM", "1:00-2:00 PM"] },
   { day: "Sunday",    times: ["Academy Closed"] },
 ];
 

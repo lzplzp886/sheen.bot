@@ -10,7 +10,7 @@ export default function IntroducingSection() {
       <h2 className="flex items-center justify-center gap-2 text-3xl sm:text-4xl font-bold text-center mb-8">
         Introducing <span className="text-primary">sheenbot</span>
         <Image
-          src="/images/sheenbotInfinity/icon-infinity.svg"
+          src="/images/sheenbotInfinity/icon/icon-infinity.svg"
           alt="Infinity Icon"
           width={48}
           height={48}

@@ -8,9 +8,10 @@ export default function ProductPCBLayoutSection() {
   return (
     <section className="max-w-6xl mx-auto px-4 py-10">
         <h2 className="text-2xl sm:text-3xl font-bold mb-6 inline-flex items-center justify-center gap-2 w-full">
-          <span className="text-primary">Inside sheenbot</span>
+          <span>Inside</span>
+          <span className="text-primary">sheenbot</span>
           <Image
-            src="/images/sheenbotInfinity/icon-infinity.svg"
+            src="/images/sheenbotInfinity/icon/icon-infinity.svg"
             alt="Infinity Icon"
             width={36}
             height={36}
@@ -35,7 +36,7 @@ export default function ProductPCBLayoutSection() {
         {/* Plus Sign */}
         <div className="flex flex-col items-center justify-center text-center md:mb-20">
           <Image
-            src="/images/sheenbotInfinity/icon-plus-sign.svg"
+            src="/images/sheenbotInfinity/icon/icon-plus-sign.svg"
             alt="icon-plus-sign"
             width={50}
             height={50}
