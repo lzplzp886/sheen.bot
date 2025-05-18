@@ -1,4 +1,4 @@
-# 5.1.1 遥控器模块（Infrared Remote）
+# 9 light senSor
 
 Sheenbot 支持标准 38 kHz 红外遥控协议。
 

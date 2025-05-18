@@ -10,21 +10,26 @@ export default function ManualShell({
   current,
   children,
 }: {
-  items: { title: string; slug: string }[]
+  items: { slug: string; label: string }[]
   current?: string
   children: ReactNode
 }) {
   const [open, setOpen] = useState(false)
+  const closeSidebar = () => setOpen(false)
 
   return (
-    <div className="flex h-screen">
-      {/* hamburger toggle */}
+    <div className="flex h-screen relative">
+      {/* toggle button, always rendered */}
       <button
         aria-label={open ? 'Close menu' : 'Open menu'}
         onClick={() => setOpen((v) => !v)}
-        className="fixed top-4 left-4 z-30 p-2 bg-white rounded shadow-md md:hidden"
+        className={`
+          fixed top-24 p-2 bg-white rounded shadow-md z-30 md:hidden
+          transition-all duration-200 ease-in-out
+          ${open ? 'left-[66.666667%] sm:left-[33.333333%]' : 'left-4'}
+        `}
       >
-        {open ? '×' : '☰'}
+        {open ? '←' : '☰'}
       </button>
 
       {/* sidebar drawer */}
@@ -33,17 +38,27 @@ export default function ManualShell({
           fixed top-0 left-0 h-full bg-white z-20 transform
           transition-transform duration-200 ease-in-out
           ${open ? 'translate-x-0' : '-translate-x-full'}
-          w-2/3        /* mobile: ~66% */
-          sm:w-1/3     /* ≥640px: ~33% */
-          md:relative md:translate-x-0 md:w-64 /* ≥768px: fixed 256px */
+          w-2/3         /* mobile */
+          sm:w-1/3      /* ≥640px */
+          md:relative md:translate-x-0 md:top-0 md:w-64
           border-r overflow-auto
         `}
       >
-        <Sidebar items={items} current={current} />
+        {/* push nav down below the button/header on mobile */}
+        <div>
+          <Sidebar
+            items={items}
+            current={current}
+            onItemClick={closeSidebar}   // closes when a link is clicked
+          />
+        </div>
       </aside>
 
-      {/* main content */}
-      <main className="flex-1 p-6 overflow-auto prose max-w-none">
+      {/* main content; clicking here also closes sidebar if open */}
+      <main
+        className="flex-1 p-6 overflow-auto prose max-w-none"
+        onClick={() => open && closeSidebar()}
+      >
         {children}
       </main>
     </div>

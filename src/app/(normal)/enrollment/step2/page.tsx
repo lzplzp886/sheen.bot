@@ -95,11 +95,11 @@ function ChildForm({
           className="input-style w-full"
           value={child.gender}
           onChange={(e) => onChange(index, "gender", e.target.value)}
+          required
         >
           <option value="">Select Gender</option>
           <option>Male</option>
           <option>Female</option>
-          <option>Rather not say</option>
         </select>
       </div>
 
@@ -120,8 +120,9 @@ function ChildForm({
           className="input-style w-full"
           value={child.grade}
           onChange={(e) => onChange(index, "grade", e.target.value)}
+          required
         >
-          <option value="">Select Grade</option>
+          <option value="" disabled hidden>Select Grade</option>
           {[
             "Grade R","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5",
             "Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12","Out of School",
@@ -259,6 +260,8 @@ export default function Step2() {
         e.push(`${tag} age is required.`);
       else if (c.age < 6 || c.age > 15)
         e.push(`${tag} age must be between 6 and 15.`);
+      if (!nz(c.gender))
+        e.push(`${tag} gender is required.`);
       if (!nz(c.grade)) e.push(`${tag} grade is required.`);
     });
     return e;

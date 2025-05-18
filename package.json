@@ -31,6 +31,8 @@
     "react-markdown": "^10.1.0",
     "react-pdf": "^9.2.1",
     "react-signature-canvas": "^1.0.7",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
