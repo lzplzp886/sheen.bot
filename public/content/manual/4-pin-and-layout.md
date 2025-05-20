@@ -1,9 +1,4 @@
-
----
-
-### `4-layout-interfaces.md`
-```markdown
-# 4. 板子布局 & 接口说明
+# 4. Layout & Interfaces
 
 下面示意的是 Sheenbot Infinity 顶视图，各接口标号对应功能说明。
 

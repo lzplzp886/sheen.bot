@@ -1,10 +1,14 @@
 // src/app/(normal)/sheenbotInfinity/manual/[slug]/page.tsx
+
 import React from 'react'
-import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
-import { getManualItems, getManualContent, ManualItem } from '@/lib/manual'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeHighlight from 'rehype-highlight'
+import { getManualItems, getManualContent } from '@/lib/manual'
+import type { ManualItem } from '@/lib/manual'
 
 export default async function ManualPage({
   params,
@@ -23,34 +27,43 @@ export default async function ManualPage({
     <article className="p-6 prose max-w-none flex flex-col">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
+        rehypePlugins={[
+          rehypeRaw,
+          rehypeSlug,
+          rehypeAutolinkHeadings,
+          rehypeHighlight,
+        ]}
       >
         {markdown}
       </ReactMarkdown>
 
       <nav className="mt-8 flex justify-between text-sm">
         {prev ? (
-          <Link
-            href={`/sheenbotInfinity/manual/${prev.slug}`}
+          <a
+            href={`/sheenbotInfinity/manual/${encodeURIComponent(
+              prev.slug
+            )}`}
             className="hover:underline"
           >
             ← {prev.label}
-          </Link>
+          </a>
         ) : (
           <span />
         )}
 
         {next ? (
-          <Link
-            href={`/sheenbotInfinity/manual/${next.slug}`}
+          <a
+            href={`/sheenbotInfinity/manual/${encodeURIComponent(
+              next.slug
+            )}`}
             className="hover:underline"
           >
             {next.label} →
-          </Link>
+          </a>
         ) : (
           <span />
         )}
       </nav>
     </article>
-  )
+  )  // ← this closing parenthesis was missing
 }

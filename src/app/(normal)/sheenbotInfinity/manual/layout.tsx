@@ -1,29 +1,36 @@
 // src/app/(normal)/sheenbotInfinity/manual/layout.tsx
 
 import React from 'react'
-import { getManualItems } from '@/lib/manual'
+import { getManualTree, getManualContent } from '@/lib/manual'
 import ManualShell from './ManualShell'
 
-// 1. Define the shape of the props Next will pass you.
-//    Note: In Next 15, both `params` and `searchParams` come in as Promises.
-type ManualLayoutProps = {
+// 简易 slugify，用于生成锚点 id
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^\w]+/g, '-').replace(/(^-|-$)/g, '')
+}
+
+type LayoutProps = {
   children: React.ReactNode
   params: Promise<{ slug?: string }>
 }
 
-export default async function ManualLayout({
-  children,
-  params,
-}: ManualLayoutProps) {
-  // 2. You can now await `params` to pull out slug
+export default async function ManualLayout({ children, params }: LayoutProps) {
   const { slug } = await params
+  const tree = await getManualTree()
 
-  // 3. Fetch your items server-side
-  const items = await getManualItems()
+  // only load headings if we have a slug
+  let headings: { depth: number; text: string; id: string }[] = []
+  if (slug) {
+    const md = await getManualContent(slug)
+    headings = Array.from(md.matchAll(/^(#{1,6})\s+(.*)$/gm)).map((m) => ({
+      depth: m[1].length,
+      text: m[2].trim(),
+      id: slugify(m[2].trim()),
+    }))
+  }
 
-  // 4. Render your client shell with no further type errors
   return (
-    <ManualShell items={items} current={slug}>
+    <ManualShell tree={tree} current={slug} headings={headings}>
       {children}
     </ManualShell>
   )

@@ -1,4 +1,4 @@
-# 8 Gear test
+# 8 Gear
 
 Sheenbot 支持标准 38 kHz 红外遥控协议。
 
