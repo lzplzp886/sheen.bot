@@ -1,4 +1,4 @@
-# 5 Infrared Remote
+# 5. Infrared Remote
 
 Sheenbot 支持标准 38 kHz 红外遥控协议。
 

@@ -1,4 +1,4 @@
-# 11 Lego Spike
+# 11. Lego Spike
 
 Sheenbot 支持标准 38 kHz 红外遥控协议。
 

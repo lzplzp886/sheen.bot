@@ -15,13 +15,17 @@ export default async function ManualPage({
 }: {
   params: Promise<{ slug: string }>
 }) {
-  const { slug } = await params
+  const { slug:raw } = await params
+  const slug = decodeURIComponent(raw)     // ← decode percent-escapes
   const items: ManualItem[] = await getManualItems()
   const markdown = await getManualContent(slug)
 
   const idx = items.findIndex((i) => i.slug === slug)
   const prev = idx > 0 ? items[idx - 1] : null
   const next = idx < items.length - 1 ? items[idx + 1] : null
+  
+  // 去掉行首所有 # 和空格
+  const clean = (s: string) => s.replace(/^#+\s*/, '')
 
   return (
     <article className="p-6 prose max-w-none flex flex-col">
@@ -45,7 +49,7 @@ export default async function ManualPage({
             )}`}
             className="hover:underline"
           >
-            ← {prev.label}
+            ← {clean(prev.label)}
           </a>
         ) : (
           <span />
@@ -58,7 +62,7 @@ export default async function ManualPage({
             )}`}
             className="hover:underline"
           >
-            {next.label} →
+            {clean(next.label)} →
           </a>
         ) : (
           <span />

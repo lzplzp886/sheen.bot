@@ -1,4 +1,4 @@
-# 9 Light SenSor
+# 9. Light SenSor
 
 Sheenbot 支持标准 38 kHz 红外遥控协议。
 

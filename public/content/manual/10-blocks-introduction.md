@@ -1,4 +1,4 @@
-# 10 Block Intro
+# 10. Block Intro
 
 Sheenbot 支持标准 38 kHz 红外遥控协议。
 

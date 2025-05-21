@@ -1,4 +1,4 @@
-# 7 Servo Motor
+# 7. Servo Motor
 
 Sheenbot 支持标准 38 kHz 红外遥控协议。
 
