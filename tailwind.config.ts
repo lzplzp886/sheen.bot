@@ -4,7 +4,6 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
@@ -46,15 +45,16 @@ const config: Config = {
 
   /* include these specific styles for <body>, <h1>, <p>, etc.” and makes them consistent with the Tailwind theme */
   plugins: [
+    require('@tailwindcss/typography'), //This adds a bunch of .prose styles—everything from heading sizes & weights, to list-styles, code blocks, tables, blockquotes, etc.
     function ({ addBase, theme }: { addBase: (base: Record<string, any>) => void; theme: (key: string) => any }) {
       addBase({
         body: {
           margin: '0',
           padding: '0',
           fontSize: theme('fontSize.base'),
-          fontWeight: theme('fontWeight.regular'),
+          fontWeight: theme('fontWeight.normal'),
           backgroundColor: theme('colors.background'),
-          color: ('colors.text.body'),
+          color: theme('colors.body'),
         },
         h1: {
           margin: '0',
@@ -66,7 +66,7 @@ const config: Config = {
           margin: '0',
           padding: '0',
           fontSize: theme('fontSize.sm'),
-          fontWeight: theme('fontWeight.regular'),
+          fontWeight: theme('fontWeight.normal'),
         },
       });
     },
