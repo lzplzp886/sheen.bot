@@ -1,7 +1,6 @@
 // src/app/(normal)/academy/courses/page.tsx
 
 import React from 'react';
-import Script from 'next/script';
 import TrialDetailsSection from './components/trialDetailsSection';
 import CourseDetailsSection from './components/courseDetailsSection';
 import FAQSection from './components/FAQSection';
@@ -17,13 +16,6 @@ export default function AcademyCoursesPage() {
       <TrialDetailsSection />
       <CourseDetailsSection />
       <FAQSection />
-
-      {/* Embedded WhatsApp Consult Widget */}
-      <Script
-        id="respondio__growth_tool"
-        src="https://cdn.respond.io/widget/widget.js?wId=924bc47c-3fee-478f-b4d6-4f39df8d09e1"
-        strategy="afterInteractive"
-      />
     </div>
   );
 }

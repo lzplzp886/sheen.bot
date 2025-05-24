@@ -24,7 +24,7 @@ export default function DownloadsPage() {
     },
     {
       title: 'Mobile App',
-      description: 'sheenbot∞ Mobile App for Android (.apk)，break free from computer dependency with mobile block-based coding, perfectly suited for dynamic classroom and outdoor coding sessions. ',
+      description: 'sheenbot∞ Mobile App for Android (.apk), break free from computer dependency with mobile block-based coding, perfectly suited for dynamic classroom and outdoor coding sessions. ',
       link: '/content/downloads/sheenbot-infinity.apk',
       fileName: 'sheenbot-infinity.apk',
       iconSrc: '/images/downloads/sheenbot-icon.png',

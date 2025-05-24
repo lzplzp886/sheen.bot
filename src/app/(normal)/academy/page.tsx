@@ -6,6 +6,7 @@ import OfferCampusSection from './components/OfferCampusSection';
 import AcademyCarouselSection from './components/AcademyCarouselSection';
 import FeatureInfoCardsSection from './components/FeatureInfoCardsSection';
 import SocialMediaSection from './components/SocialMediaSection';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Sheen Academy | Coding & Robotics Classes for Kids',
@@ -20,6 +21,12 @@ export default function AcademyHomePage() {
       <AcademyCarouselSection />
       <FeatureInfoCardsSection />
       <SocialMediaSection />
+      {/* Embedded WhatsApp Consult Widget */}
+      <Script
+        id="respondio__growth_tool"
+        src="https://cdn.respond.io/widget/widget.js?wId=924bc47c-3fee-478f-b4d6-4f39df8d09e1"
+        strategy="afterInteractive"
+      />
     </div>
   );
 }
