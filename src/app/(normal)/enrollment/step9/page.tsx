@@ -236,7 +236,7 @@ export default function Step9() {
           title="Please fix the following"
           onClose={() => setShowModal(false)}
         >
-          <ul className="list-disc pl-5 text-red-600 space-y-1">
+          <ul className="list-disc pl-5 text-error space-y-1">
             {errors.map((m, i) => (
               <li key={i}>{m}</li>
             ))}

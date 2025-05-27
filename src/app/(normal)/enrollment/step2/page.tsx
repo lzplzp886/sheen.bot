@@ -307,7 +307,7 @@ export default function Step2() {
 
       {/* bottom inline errors */}
       {errors.length > 0 && (
-        <div className="space-y-1 text-sm text-red-600 mb-4">
+        <div className="space-y-1 text-sm text-error mb-4">
           {errors.map((m, i) => (
             <p key={i}>{m}</p>
           ))}
@@ -325,7 +325,7 @@ export default function Step2() {
 
       {showModal && (
         <Modal title="Please fix the following" onClose={() => setShowModal(false)}>
-          <ul className="list-disc pl-5 text-red-600 space-y-1">
+          <ul className="list-disc pl-5 text-error space-y-1">
             {errors.map((m, i) => (
               <li key={i}>{m}</li>
             ))}

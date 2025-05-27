@@ -84,7 +84,7 @@ export default function TileExpand({ icon, alt, title, description, videoSrc }: 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-body/50 flex items-center justify-center z-50"
             onClick={() => setIsOpen(false)}
           >
             <motion.div

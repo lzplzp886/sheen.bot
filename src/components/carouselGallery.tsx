@@ -111,13 +111,13 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
         {/* nav arrows */}
         <button
           onClick={goToPrev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white text-primary p-2 rounded-full shadow-lg hover:bg-primary hover:text-white z-20"
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-background text-primary p-2 rounded-full shadow-lg hover:bg-primary hover:text-background z-20"
         >
           &larr;
         </button>
         <button
           onClick={goToNext}
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-primary p-2 rounded-full shadow-lg hover:bg-primary hover:text-white z-20"
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-background text-primary p-2 rounded-full shadow-lg hover:bg-primary hover:text-background z-20"
         >
           &rarr;
         </button>
@@ -153,7 +153,7 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
                 e.stopPropagation();
                 goToPrev();
               }}
-              className="absolute left-[-2rem] top-1/2 -translate-y-1/2 bg-white text-primary p-2 rounded-full shadow-lg hover:bg-primary hover:text-white z-20"
+              className="absolute left-[-2rem] top-1/2 -translate-y-1/2 bg-background text-primary p-2 rounded-full shadow-lg hover:bg-primary hover:text-background z-20"
             >
               &larr;
             </button>
@@ -165,7 +165,7 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
                 e.stopPropagation();
                 goToNext();
               }}
-              className="absolute right-[-2rem] top-1/2 -translate-y-1/2 bg-white text-primary p-2 rounded-full shadow-lg hover:bg-primary hover:text-white z-20"
+              className="absolute right-[-2rem] top-1/2 -translate-y-1/2 bg-background text-primary p-2 rounded-full shadow-lg hover:bg-primary hover:text-background z-20"
             >
               &rarr;
             </button>

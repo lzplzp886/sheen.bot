@@ -62,7 +62,7 @@ export default function DownloadsPage() {
   };
 
   return (
-    <section className="py-12 bg-gray-50 min-h-screen">
+    <section className="py-12 bg-extralight min-h-screen">
       <div className="max-w-5xl mx-auto px-4">
         {/* Title */}
         <div className="flex items-center justify-center mb-4">
@@ -70,7 +70,7 @@ export default function DownloadsPage() {
         </div>
 
         {/* Page Description (~80 words) */}
-        <p className="text-center text-gray-700 mb-8">
+        <p className="text-center text-darklight mb-8">
           Welcome to the downloads page for sheenbot∞, where you’ll find essential software and resources to power your robotics and coding projects.
         </p>
 
@@ -106,7 +106,7 @@ export default function DownloadsPage() {
                 key={idx}
                 onClick={() => setSelected(idx)}
                 className={`p-2 rounded-full ${
-                  idx === selected ? 'bg-white shadow-md' : 'bg-transparent'
+                  idx === selected ? 'bg-background shadow-md' : 'bg-transparent'
                 }`}
               >
                 <Image

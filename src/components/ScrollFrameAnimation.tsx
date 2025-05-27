@@ -105,7 +105,7 @@ const ScrollFrameAnimator: React.FC<ScrollFrameAnimatorProps> = ({
       ease: "none",
       scrollTrigger: {
         trigger: container,
-        start: "top bottom",
+        start: "top top",
         end: `+=${totalScrollPx}`,
         scrub: true,
         invalidateOnRefresh: true,

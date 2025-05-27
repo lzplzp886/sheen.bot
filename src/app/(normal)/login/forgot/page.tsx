@@ -14,7 +14,7 @@ export default function ForgotPasswordPage() {
       {!done ? (
         <ResetPassword onResetComplete={() => setDone(true)} />
       ) : (
-        <p className="text-green-600 text-center mt-4">
+        <p className="text-success text-center mt-4">
           Your password has been reset successfully.
         </p>
       )}

@@ -44,7 +44,7 @@ const CodePilot: React.FC<CodePilotProps> = ({ code, onClose, onAnalyze }) => {
           </button>
           <button
             onClick={() => onAnalyze(code)}
-            className="bg-green-500 text-background px-4 py-2 rounded hover:bg-green-600"
+            className="bg-success text-background px-4 py-2 rounded hover:bg-success"
           >
             Analyze with AI
           </button>

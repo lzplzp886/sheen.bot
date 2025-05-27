@@ -4,7 +4,7 @@ import React from "react";
 
 export default function BrochurePage() {
   return (
-    <div className="min-h-screen p-8 bg-white text-black">
+    <div className="min-h-screen p-8 bg-background text-body">
       <iframe
         src="/pdf/sheenbot-flyer-v5.pdf"
         className="w-full h-[calc(100vh-4rem)] border"

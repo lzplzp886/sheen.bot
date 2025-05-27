@@ -161,7 +161,7 @@ export default function KitSelectionSection() {
               px-4 py-2 font-medium
               ${selectedTab === kit.id
                 ? "border-b-2 border-primary text-primary"
-                : "border-b-2 border-transparent text-gray-700"}
+                : "border-b-2 border-transparent text-darklight"}
               hover:text-primary transition
             `}
           >
@@ -171,16 +171,16 @@ export default function KitSelectionSection() {
       </div>
 
       {/* Mobile Accordion */}
-      <div className="sm:hidden divide-y divide-gray-200">
+      <div className="sm:hidden divide-y divide-light">
         {kits.map((kit) => (
           <div key={kit.id} className="">
             <button
               onClick={() => setOpenId(openId === kit.id ? "" : kit.id)}
-              className="w-full flex justify-between items-center px-4 py-3 bg-white hover:bg-gray-50 focus:outline-none"
+              className="w-full flex justify-between items-center px-4 py-3 bg-background hover:bg-extralight focus:outline-none"
             >
               <span
                 className={`font-medium transition-colors ${
-                  openId === kit.id ? "text-primary" : "text-gray-700"
+                  openId === kit.id ? "text-primary" : "text-darklight"
                 }`}
               >
                 {kit.label}
@@ -203,7 +203,7 @@ export default function KitSelectionSection() {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-4 py-6 bg-gray-50">
+                  <div className="px-4 py-6 bg-extralight">
                     {renderContent(kit.id)}
                   </div>
                 </motion.div>

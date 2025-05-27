@@ -26,13 +26,13 @@ export default function ManualShell({
       <button
         aria-label={open ? 'Close menu' : 'Open menu'}
         onClick={() => setOpen(v => !v)}
-        className={`fixed top-24 p-2 bg-white rounded shadow-md z-30 md:hidden transition-all duration-200 ease-in-out ${
+        className={`fixed top-24 p-2 bg-background rounded shadow-md z-30 md:hidden transition-all duration-200 ease-in-out ${
           open ? 'left-[66.666667%] sm:left-[33.333333%]' : 'left-4'
         }`}
       >{open ? '←' : '☰'}</button>
 
       {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 h-full bg-white z-20 transform transition-transform duration-200 ease-in-out ${
+      <aside className={`fixed top-0 left-0 h-full bg-background z-20 transform transition-transform duration-200 ease-in-out ${
           open ? 'translate-x-0' : '-translate-x-full'
         } w-2/3 sm:w-1/3 md:relative md:translate-x-0 md:top-0 md:w-64 border-r overflow-auto`}>
         <div>

@@ -7,10 +7,10 @@ export default function HeroSection() {
       className="relative h-96 md:h-[500px] bg-cover bg-center"
       style={{ backgroundImage: "url('/images/about/about-sheen.webp')" }}
     >
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-body/50" />
       <div className="relative z-10 container mx-auto h-full flex
                       items-center justify-center px-4">
-        <div className="text-white text-center max-w-xl">
+        <div className="text-background text-center max-w-xl">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
             Building&nbsp;for&nbsp;Future
           </h1>

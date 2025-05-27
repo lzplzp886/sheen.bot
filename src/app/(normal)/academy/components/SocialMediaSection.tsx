@@ -10,7 +10,7 @@ export default function SocialMediaSection() {
     <section className="py-8">
       <div className="max-w-5xl mx-auto px-4">
         {/* Rounded card wrapper */}
-        <div className="rounded-2xl bg-white shadow-xl p-6">
+        <div className="rounded-2xl bg-background shadow-xl p-6">
           <h2 className="text-2xl font-bold mb-4 text-center md:text-left">
             Check Our Activities
           </h2>

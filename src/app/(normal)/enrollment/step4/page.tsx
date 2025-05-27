@@ -80,7 +80,7 @@ export default function Step4() {
                   {slot.times.map(t => {
                     if (t === "Academy Closed")
                       return (
-                        <span key={t} className="text-sm text-gray-500">
+                        <span key={t} className="text-sm text-light">
                           {t}
                         </span>
                       );
@@ -109,7 +109,7 @@ export default function Step4() {
 
       {/* inline error list */}
       {errors.length > 0 && (
-        <div className="text-sm text-red-600 mb-4">
+        <div className="text-sm text-error mb-4">
           {errors.map((m, i) => (
             <p key={i}>{m}</p>
           ))}
@@ -128,7 +128,7 @@ export default function Step4() {
       {/* modal popup */}
       {showModal && (
         <Modal title="Please fix the following" onClose={() => setShowModal(false)}>
-          <ul className="list-disc pl-5 text-red-600 space-y-1">
+          <ul className="list-disc pl-5 text-error space-y-1">
             {errors.map((m, i) => (
               <li key={i}>{m}</li>
             ))}

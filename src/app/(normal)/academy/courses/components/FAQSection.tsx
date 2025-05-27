@@ -39,7 +39,7 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-white shadow rounded-xl p-6">
+    <section className="bg-background shadow rounded-xl p-6">
       <h2 className="text-2xl font-semibold mb-4">FAQs</h2>
       <div className="space-y-2">
         {FAQ_ITEMS.map((item, idx) => {
@@ -71,7 +71,7 @@ export default function FAQSection() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden pb-3"
                   >
-                    <p className="text-gray-700">{item.answer}</p>
+                    <p className="text-darklight">{item.answer}</p>
                   </motion.div>
                 )}
               </AnimatePresence>

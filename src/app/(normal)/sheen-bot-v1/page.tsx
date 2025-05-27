@@ -11,9 +11,9 @@ export default function Page() {
       {/* 
         - folder: 帧图所在目录 
         - frameCount: 总帧数 
-        - framesPerViewport: 1 窗口推进 5 帧 
-        - viewportHeight: 动画窗口高 400px 
-        - viewportWidth: 动画窗口宽 600px 
+        - framesPerViewport: 窗口推进帧数 
+        - viewportHeight: 动画窗口高
+        - viewportWidth: 动画窗口宽
       */}
       <ScrollFrameAnimator
         folder="/images/product/lawnmower-bot-clear"

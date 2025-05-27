@@ -1,8 +1,8 @@
 // src/app/(normal)/solutions/offerSection.tsx
 
-"use client";
-import React from "react";
-import Image from "next/image";
+'use client';
+import React from 'react';
+import FeatureCardVertical from '@/components/FeatureCardVertical';
 
 export default function OfferSection() {
   return (
@@ -14,114 +14,48 @@ export default function OfferSection() {
         We provide a comprehensive suite of educational resources, competitions, and AI-driven tools that empower learners of all ages to embrace the future of robotics.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {/* Competition Consulting */}
-        <a
+        <FeatureCardVertical
           href="#competition-consulting"
-          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
-        >
-          <div className="mb-4">
-            <Image
-              src="/images/solutions/competition-consulting.svg"
-              alt="Competition Consulting Icon"
-              width={50}
-              height={50}
-            />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Competition Consulting</h3>
-          <p className="text-base sm:text-lg">
-            Expert guidance for AI and robotics competitions.
-          </p>
-        </a>
-        {/* Robotics Lab Sourcing */}
-        <a
+          iconSrc="/images/solutions/competition-consulting.svg"
+          iconAlt="Competition Consulting Icon"
+          title="Competition Consulting"
+          description="Expert guidance for AI and robotics competitions."
+        />
+        <FeatureCardVertical
           href="#robotics-lab-sourcing"
-          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
-        >
-          <div className="mb-4">
-            <Image
-              src="/images/solutions/lab-sourcing.svg"
-              alt="Robotics Lab Sourcing Icon"
-              width={50}
-              height={50}
-            />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Robotics Lab Sourcing</h3>
-          <p className="text-base sm:text-lg">
-            Supply resources to set up and maintain the robotics lab.
-          </p>
-        </a>
-        {/* Public Services */}
-        <a
+          iconSrc="/images/solutions/lab-sourcing.svg"
+          iconAlt="Robotics Lab Sourcing Icon"
+          title="Robotics Lab Sourcing"
+          description="Supply resources to set up and maintain the robotics lab."
+        />
+        <FeatureCardVertical
           href="#public-services"
-          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
-        >
-          <div className="mb-4">
-            <Image
-              src="/images/solutions/public-services.svg"
-              alt="Public Services Icon"
-              width={50}
-              height={50}
-            />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Public Services</h3>
-          <p className="text-base sm:text-lg">
-            Teacher Training, Talent Development and STEM Events.
-          </p>
-        </a>
-        {/* Equipment Rental */}
-        <a
+          iconSrc="/images/solutions/public-services.svg"
+          iconAlt="Public Services Icon"
+          title="Public Services"
+          description="In-school training, workshops and events for students & teachers."
+        />
+        <FeatureCardVertical
           href="#equipment-rental"
-          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
-        >
-          <div className="mb-4">
-            <Image
-              src="/images/solutions/equipment-rental.svg"
-              alt="Equipment Rental Icon"
-              width={50}
-              height={50}
-            />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Equipment Rental</h3>
-          <p className="text-base sm:text-lg">
-            High-quality robots and equipment tailored to your on-demand needs.
-          </p>
-        </a>
-        {/* Learning Resources */}
-        <a
-          href="/academy/courses"
-          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
-        >
-          <div className="mb-4">
-            <Image
-              src="/images/solutions/learning-resources.svg"
-              alt="Learning Resources Icon"
-              width={50}
-              height={50}
-            />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Learning Resources</h3>
-          <p className="text-base sm:text-lg">
-            Coding &amp; Robotics Curriculums accessible from an online portal.
-          </p>
-        </a>
-        {/* Cloud Platform */}
-        <a
+          iconSrc="/images/solutions/equipment-rental.svg"
+          iconAlt="Equipment Rental Icon"
+          title="Equipment Rental"
+          description="High-quality robots and equipment tailored to your on-demand needs."
+        />
+        <FeatureCardVertical
+          href="/academy/curriculum"
+          iconSrc="/images/solutions/learning-resources.svg"
+          iconAlt="Learning Resources Icon"
+          title="Learning Resources"
+          description="Coding & Robotics Curriculums accessible from an online portal."
+        />
+        <FeatureCardVertical
           href="#cloud-platform"
-          className="flex flex-col items-center text-center p-5 bg-background rounded-lg shadow hover:shadow-md transition"
-        >
-          <div className="mb-4">
-            <Image
-              src="/images/solutions/cloud-platform.svg"
-              alt="Cloud Platform Icon"
-              width={50}
-              height={50}
-            />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Cloud Platform</h3>
-          <p className="text-base sm:text-lg">
-            AI and IoT Cloud solutions to optimize efficiency and connectivity.
-          </p>
-        </a>
+          iconSrc="/images/solutions/cloud-platform.svg"
+          iconAlt="Cloud Platform Icon"
+          title="Cloud Platform"
+          description="AI and IoT Cloud solutions to optimize efficiency and connectivity."
+        />
       </div>
     </section>
   );

@@ -186,7 +186,7 @@ export default function Step5() {
 
       {/* inline errors */}
       {errors.length > 0 && (
-        <div className="text-sm text-red-600 mb-4 space-y-1">
+        <div className="text-sm text-error mb-4 space-y-1">
           {errors.map((m,i)=><p key={i}>{m}</p>)}
         </div>
       )}
@@ -198,7 +198,7 @@ export default function Step5() {
 
       {showModal && (
         <Modal title="Please fix the following" onClose={()=>setShowModal(false)}>
-          <ul className="list-disc pl-5 text-red-600 space-y-1">
+          <ul className="list-disc pl-5 text-error space-y-1">
             {errors.map((m,i)=><li key={i}>{m}</li>)}
           </ul>
         </Modal>

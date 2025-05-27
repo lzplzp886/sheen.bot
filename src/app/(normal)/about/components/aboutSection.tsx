@@ -8,10 +8,7 @@ export default function AboutSection() {
       <h2 id="about" className="text-3xl font-semibold mb-4">About Us</h2>
 
       <p className="text-body max-w-prose whitespace-normal break-words">
-        We are passionate about building cutting-edge solutions for our clients.
-        Whether it’s AI, robotics, or software platforms, our team at Sheen
-        Robotics constantly pushes the boundaries to bring innovative
-        technology to businesses around the world.
+        We are passionate about building cutting-edge solutions for our clients. Whether it’s AI, robotics, or software platforms, our team at Sheen constantly pushes the boundaries to bring innovative technology to young generations around the world.
       </p>
 
       {/* YouTube video (keeps 16:9 on mobile) */}

@@ -50,26 +50,26 @@ const courses: Course[] = [
 
 export default function CourseDetailsSection() {
   return (
-    <section className="bg-white shadow rounded-xl p-6">
+    <section className="bg-background shadow rounded-xl p-6">
       <h2 className="text-xl font-semibold mb-4">Step 2: Check Our Plan & Pricing</h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {courses.map((course) => (
           <div key={course.title} className="border rounded-lg p-4 flex flex-col">
             <h3 className="text-lg font-semibold mb-2">{course.title}</h3>
             <div className="flex flex-wrap gap-2 text-xs mb-4">
-              <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
+              <span className="px-2 py-1 bg-extralight rounded-full text-xs">
                 👧 Ages: {course.age}
               </span>
-              <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
+              <span className="px-2 py-1 bg-extralight rounded-full text-xs">
                 ⏳ 60 mins
               </span>
-              <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
+              <span className="px-2 py-1 bg-extralight rounded-full text-xs">
                 👨‍👨‍👧 Max 8 Learners
               </span>
-              <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
+              <span className="px-2 py-1 bg-extralight rounded-full text-xs">
                 📚 {course.lessons} Lessons
               </span>
-              <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
+              <span className="px-2 py-1 bg-extralight rounded-full text-xs">
                 💰 R280/Lesson
               </span>
             </div>

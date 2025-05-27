@@ -5,7 +5,8 @@ import HeroSection from './components/HeroSection';
 import OfferCampusSection from './components/OfferCampusSection';
 import AcademyCarouselSection from './components/AcademyCarouselSection';
 import FeatureInfoCardsSection from './components/FeatureInfoCardsSection';
-import SocialMediaSection from './components/SocialMediaSection';
+import PodcastSection from './components/PodcastSection';
+// import SocialMediaSection from './components/SocialMediaSection';
 import Script from 'next/script';
 
 export const metadata = {
@@ -20,7 +21,8 @@ export default function AcademyHomePage() {
       <OfferCampusSection />
       <AcademyCarouselSection />
       <FeatureInfoCardsSection />
-      <SocialMediaSection />
+      <PodcastSection />
+      {/* <SocialMediaSection /> */}
       {/* Embedded WhatsApp Consult Widget */}
       <Script
         id="respondio__growth_tool"

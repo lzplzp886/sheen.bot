@@ -16,7 +16,7 @@ export default function StepContainer({
       className="
         w-full                      /* always span the viewport */
         sm:max-w-xl lg:max-w-2xl    /* reinstate a cap only ≥ 640 px */
-        mx-auto bg-white shadow-md rounded-lg
+        mx-auto bg-background shadow-md rounded-lg
         px-4 sm:px-6 py-5           /* inner padding */
       "
     >

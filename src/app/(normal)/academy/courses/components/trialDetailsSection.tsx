@@ -6,13 +6,13 @@ export default function TrialDetailsSection() {
   const tags = ['👧Ages: 6+', '⏳60 mins', '📚1 Lesson', '💰Free'];
 
   return (
-    <section className="bg-white shadow rounded-xl p-6">
+    <section className="bg-background shadow rounded-xl p-6">
       <h2 className="text-xl font-semibold mb-4">Step 1: Get Free Trial Before Onboarding</h2>
       <div className="border rounded-lg p-4 flex flex-col">
         <h3 className="text-lg font-semibold mb-4">Book In-Person Class at our Century City Campus</h3>
         <div className="flex flex-wrap gap-2 mb-4 text-xs">
           {tags.map((tag) => (
-            <span key={tag} className="px-3 py-1 bg-gray-100 rounded-full text-xs">
+            <span key={tag} className="px-3 py-1 bg-extralight rounded-full text-xs">
               {tag}
             </span>
           ))}
