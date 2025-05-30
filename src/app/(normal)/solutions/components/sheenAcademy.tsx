@@ -52,7 +52,7 @@ export default function SheenAcademySection() {
           <StatItem label="sheenbot∞" end={1} />
           <StatItem label="Robots & Kits" end={7} suffix="+" />
           <StatItem label="Classroom Setups" end={6} />
-          <StatItem label="Online Courses" end={200} suffix="+" />
+          <StatItem label="Courses" end={200} suffix="+" />
         </div>
       </div>
     </section>

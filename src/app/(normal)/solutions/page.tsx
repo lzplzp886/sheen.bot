@@ -5,6 +5,7 @@ import React from "react";
 import HeroSection from "./components/heroSection";
 import OfferSection from "./components/offerSection";
 import SheenAcademySection from "./components/sheenAcademy";
+import SchoolServiceSection from "./components/schoolServiceSection";
 import CloudPlatformSection from "./components/cloudPlatform";
 
 export default function Page() {
@@ -13,6 +14,7 @@ export default function Page() {
       <HeroSection />
       <OfferSection />
       <SheenAcademySection />
+      <SchoolServiceSection />
       <CloudPlatformSection />
     </main>
   );

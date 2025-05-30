@@ -1,3 +1,5 @@
+// src/app/(normal)/enrollment/step6/page.tsx
+
 "use client";
 
 import React, { useState } from "react";

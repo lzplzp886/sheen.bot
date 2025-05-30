@@ -25,40 +25,40 @@ export interface ChildInfo {
   gender?: string;
 }
 
-// ========== 2) Hacky 方案：复制 PDFKit 的 Helvetica.afm 文件 ==========
-function ensureHelveticaAFM() {
-  const sourcePath = path.resolve("node_modules/pdfkit/js/data/Helvetica.afm");
-  const destDir = path.resolve(".next/server/app/api/enroll/data");
-  const destPath = path.join(destDir, "Helvetica.afm");
+// // ========== 2) Hacky 方案：复制 PDFKit 的 Helvetica.afm 文件 ==========
+// function ensureHelveticaAFM() {
+//   const sourcePath = path.resolve("node_modules/pdfkit/js/data/Helvetica.afm");
+//   const destDir = path.resolve(".next/server/app/api/enroll/data");
+//   const destPath = path.join(destDir, "Helvetica.afm");
 
-  if (!fs.existsSync(destDir)) {
-    fs.mkdirSync(destDir, { recursive: true });
-    console.log("Created directory:", destDir);
-  }
-  if (!fs.existsSync(destPath)) {
-    fs.copyFileSync(sourcePath, destPath);
-    console.log("Copied Helvetica.afm to:", destPath);
-  } else {
-    console.log("Helvetica.afm already exists at:", destPath);
-  }
-}
+//   if (!fs.existsSync(destDir)) {
+//     fs.mkdirSync(destDir, { recursive: true });
+//     console.log("Created directory:", destDir);
+//   }
+//   if (!fs.existsSync(destPath)) {
+//     fs.copyFileSync(sourcePath, destPath);
+//     console.log("Copied Helvetica.afm to:", destPath);
+//   } else {
+//     console.log("Helvetica.afm already exists at:", destPath);
+//   }
+// }
 
-function ensureHelveticaBoldAFM() {
-  const sourcePath = path.resolve("node_modules/pdfkit/js/data/Helvetica-Bold.afm");
-  const destDir = path.resolve(".next/server/app/api/enroll/data");
-  const destPath = path.join(destDir, "Helvetica-Bold.afm");
+// function ensureHelveticaBoldAFM() {
+//   const sourcePath = path.resolve("node_modules/pdfkit/js/data/Helvetica-Bold.afm");
+//   const destDir = path.resolve(".next/server/app/api/enroll/data");
+//   const destPath = path.join(destDir, "Helvetica-Bold.afm");
 
-  if (!fs.existsSync(destDir)) {
-    fs.mkdirSync(destDir, { recursive: true });
-    console.log("Created directory:", destDir);
-  }
-  if (!fs.existsSync(destPath)) {
-    fs.copyFileSync(sourcePath, destPath);
-    console.log("Copied Helvetica-Bold.afm to:", destPath);
-  } else {
-    console.log("Helvetica-Bold.afm already exists at:", destPath);
-  }
-}
+//   if (!fs.existsSync(destDir)) {
+//     fs.mkdirSync(destDir, { recursive: true });
+//     console.log("Created directory:", destDir);
+//   }
+//   if (!fs.existsSync(destPath)) {
+//     fs.copyFileSync(sourcePath, destPath);
+//     console.log("Copied Helvetica-Bold.afm to:", destPath);
+//   } else {
+//     console.log("Helvetica-Bold.afm already exists at:", destPath);
+//   }
+// }
 
 // ========== 3) 根据 age 返回班级文字描述 ==========
 // 此处原来返回图标路径，现改为返回文字信息
@@ -196,8 +196,8 @@ export async function POST(request: Request) {
     const recordId = await saveEnrollmentData(formData);
     console.log("Data stored with recordId:", recordId);
 
-    ensureHelveticaAFM();
-    ensureHelveticaBoldAFM();
+    // ensureHelveticaAFM();
+    // ensureHelveticaBoldAFM();
 
     // 提取孩子姓名
     let childNames = "";

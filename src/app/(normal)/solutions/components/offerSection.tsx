@@ -15,13 +15,6 @@ export default function OfferSection() {
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <FeatureCardVertical
-          href="#competition-consulting"
-          iconSrc="/images/solutions/competition-consulting.svg"
-          iconAlt="Competition Consulting Icon"
-          title="Competition Consulting"
-          description="Expert guidance for AI and robotics competitions."
-        />
-        <FeatureCardVertical
           href="#robotics-lab-sourcing"
           iconSrc="/images/solutions/lab-sourcing.svg"
           iconAlt="Robotics Lab Sourcing Icon"
@@ -29,10 +22,10 @@ export default function OfferSection() {
           description="Supply resources to set up and maintain the robotics lab."
         />
         <FeatureCardVertical
-          href="#public-services"
-          iconSrc="/images/solutions/public-services.svg"
-          iconAlt="Public Services Icon"
-          title="Public Services"
+          href="#school-service"
+          iconSrc="/images/solutions/school-service.svg"
+          iconAlt="School Service Icon"
+          title="School Service"
           description="In-school training, workshops and events for students & teachers."
         />
         <FeatureCardVertical
@@ -41,6 +34,13 @@ export default function OfferSection() {
           iconAlt="Equipment Rental Icon"
           title="Equipment Rental"
           description="High-quality robots and equipment tailored to your on-demand needs."
+        />
+        <FeatureCardVertical
+          href="#competition-consulting"
+          iconSrc="/images/solutions/competition-consulting.svg"
+          iconAlt="Competition Consulting Icon"
+          title="Competition Consulting"
+          description="Expert guidance for AI and robotics competitions."
         />
         <FeatureCardVertical
           href="/academy/curriculum"
