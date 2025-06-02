@@ -20,8 +20,8 @@ const WORKSHOPS = [
     ],
     timeslots: [
       {
-        label: 'Morning: 10:00 AM – 1:00 PM',
-        value: 'Morning: 10:00 AM - 1:00 PM',
+        label: 'Morning: 10:00 AM – 1:30 PM',
+        value: 'Morning: 10:00 AM - 1:30 PM',
       },
     ],
   },

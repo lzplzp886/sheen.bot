@@ -57,10 +57,10 @@ function ChildForm({
 
       {/* Age */}
       <div className="mb-3">
-        <label className="block mb-1 font-semibold">Age (10+)</label>
+        <label className="block mb-1 font-semibold">Age (9+)</label>
         <input
           type="number"
-          min={10}
+          min={9}
           className={`input-style w-full ${ageError ? 'border-error' : ''}`}
           value={child.age ?? ''}
           onChange={(e) =>
@@ -74,7 +74,7 @@ function ChildForm({
         />
         {ageError && (
           <p className="text-xs text-error mt-1">
-            Participants must be 10 years or older.
+            Participants must be 9 years or older.
           </p>
         )}
       </div>

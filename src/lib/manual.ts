@@ -43,7 +43,7 @@ async function readAndParseFiles(): Promise<{ slug: string; label: string; parts
     const parts = slug.split('-')[0].split('.').map((n) => parseInt(n, 10))
     const content = await fs.readFile(path.join(PUBLIC_MANUAL, filename), 'utf-8')
     const m = content.match(/^#\s*(.+)$/m)
-    const label = m ? m[1].trim() : slug
+    const label = m ? m[1].replace(/^#+\s*/, '').trim() : slug
     result.push({ slug, label, parts })
   }
   return result

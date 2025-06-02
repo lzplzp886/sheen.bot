@@ -7,6 +7,15 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  
+  safelist: [
+    'animate-borderSpin',          // 我们给外环用的动画类
+    // 如需保证特定颜色 ring 不被清理，可再加：
+    // 'ring-yellow-400', 'ring-yellow-500',
+    // 也可用正则：
+    // { pattern: /ring-yellow-(400|500)/ },
+  ],
+  
   theme: {
     extend: {
       fontFamily: {
@@ -35,10 +44,18 @@ const config: Config = {
           "0%": { backgroundPosition: "0 0" },
           "100%": { backgroundPosition: "40px 0" },
         },
+        /* 新增 borderSpin for academy workshop page */
+        borderSpin: {
+          '0%':   { boxShadow: '0 0 0 8px rgb(252, 203, 7) inset' },
+          '50%':  { boxShadow: '0 0 0 8px rgb(68, 0, 255) inset' },
+          '100%': { boxShadow: '0 0 0 8px rgb(222, 210, 164) inset' },
+        },
       },
       animation: {
         // 使背景在水平方向平移，呈现斜纹滚动效果
         "striped-progress": "progressStripes 1s linear infinite",
+        /** 新增同名动画供academy workshop使用 */
+        borderSpin: 'borderSpin 2.8s linear infinite',
       },
     },
   },

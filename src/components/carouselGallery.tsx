@@ -39,12 +39,20 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
   const goToNext = () =>
     setCurrentIndex((i) => (i === images.length - 1 ? 0 : i + 1));
 
+  const firstRender = useRef(true);           // 定义首次渲染的函数
+  
   // Open lightbox only when clicking main carousel center
   const openLightbox = () => setLightboxOpen(true);
   const closeLightbox = () => setLightboxOpen(false);
 
   // center the current thumbnail horizontally without vertical scroll
   useEffect(() => {
+
+    if (firstRender.current) {           // ⛔️ 首次渲染直接返回，什么也不做，避免页面向下自动滚动到carousel区域
+      firstRender.current = false;
+      return;
+    }
+
     if (!lightboxOpen) {
       const thumbEl = thumbsRef.current[currentIndex];
       if (thumbEl) {

@@ -24,7 +24,7 @@ const slides: Slide[] = [
   {
     bg: "/images/academy/Banner/Holiday_Workshop_Slider.webp",
     heading: "Holiday Workshop",
-    description: "Festive coding & robotics workshops — ages 6-15, R350/lesson",
+    description: "Festive coding & robotics workshops — ages 9+, R750 per workshop",
     primary: { label: "Learn More", href: "/academy/workshops" },
     secondary: { label: "Book Now →", href: "/academy/workshops/register" },
   },
