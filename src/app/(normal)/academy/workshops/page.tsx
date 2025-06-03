@@ -27,8 +27,6 @@ export default function WorkshopsPage() {
         </div>
       </section>
 
-
-
       {/* ───── Intro Section ───── */}
       <section className="max-w-6xl mx-auto px-4 py-12 space-y-6">
         <h2 className="text-2xl sm:text-3xl font-bold text-primary">Bringing Coding & Robotics to Your Holidays!</h2>
@@ -59,9 +57,9 @@ export default function WorkshopsPage() {
         className="relative overflow-hidden bg-[url('/images/academy/Banner/Holiday_Workshop_BG.webp')] bg-cover bg-center text-background"
       >
         {/* optional dark overlay */}
-        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm z-0" />
 
-        <div className="relative max-w-6xl mx-auto flex flex-col sm:flex-row items-center py-14 px-4 gap-8">
+        <div className="relative max-w-6xl mx-auto flex flex-col sm:flex-row items-center py-14 px-4 gap-8 z-10">
           {/* Left — Headings */}
           <div className="w-full sm:w-1/2 text-center sm:text-left">
             <h1 className="font-extrabold leading-tight text-background drop-shadow-md">
@@ -73,7 +71,7 @@ export default function WorkshopsPage() {
               </span>
 
               <span className="block text-4xl sm:text-5xl lg:text-6xl">Robotics</span>
-              <span className="block text-primary italic text-3xl sm:text-4xl lg:text-5xl mt-2">
+              <span className="block text-secondary text-3xl sm:text-4xl lg:text-5xl mt-2">
                 2025 Winter Holiday Camp
               </span>
             </h1>
@@ -87,7 +85,7 @@ export default function WorkshopsPage() {
               <div className="absolute inset-0 rounded-full animate-borderSpin" />
 
               {/* masked inner circle with photo */}
-              <div className="absolute inset-0.5 rounded-full overflow-hidden ring-2 ring-yellow-400">
+              <div className="absolute inset-0.5 rounded-full overflow-hidden ring-5 ring-darklight">
                 <Image
                   src="/images/academy/Banner/Holiday_Workshop_Slider_Kids.webp"
                   alt="Kid with robot"
@@ -110,10 +108,18 @@ export default function WorkshopsPage() {
             </div>
           </div>
         </div>
-        {/* Workshop Location Pill */}
-        <div className="inline-block bg-secondary/20 text-primary font-medium px-4 py-2 rounded-full">📌Location: Sheen Academy, Century City, Cape Town</div>
-        {/* Workshop Duration Pill */}
-        <div className="inline-block bg-secondary/20 text-primary font-medium px-4 py-2 rounded-full">⌛Duration: 3 hours per day & 3 days per workshop</div>
+        
+        <div className="relative z-10 flex flex-col items-center gap-2 py-6">
+          {/* Workshop Location Pill */}
+          <div className="bg-secondary/20 text-background font-medium px-4 py-2 rounded-full">
+            📌Location: Sheen Academy, Century City, Cape Town
+          </div>
+
+          {/* Workshop Duration Pill */}
+          <div className="bg-secondary/20 text-background font-medium px-4 py-2 rounded-full">
+            ⌛Duration: 3 hours per day & 3 days per workshop
+          </div>
+        </div>
       </section>
       
       {/* ───── Workshop Details ───── */}
@@ -178,7 +184,7 @@ export default function WorkshopsPage() {
 
           {/* Call‑to‑Action */}
           <div className="text-center space-y-3">
-            <h4 className="font-semibold">Secure Your Spot in Just 3 Clicks!</h4>
+            <h4 className="font-semibold">Secure Your Spot in Just Few Clicks!</h4>
             <p>Visit our <a href="/academy/workshops/register" className="underline">registration</a> page or message <span className="font-medium">“Holiday Workshop”</span> on WhatsApp <span className="whitespace-nowrap">065 900 8570</span>.</p>
             <p>Email: <a href="mailto:academy@sheen.co.za" className="underline">academy@sheen.co.za</a> – We’ll send you the form!</p>
           </div>

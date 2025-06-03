@@ -3,6 +3,9 @@
 import React from 'react';
 import SectionContainer from './sectionContainer';
 
+const contact_email = process.env.NEXT_PUBLIC_EMAIL
+const contact_phone = process.env.NEXT_PUBLIC_PHONE
+
 export default function ContactSection() {
   return (
     <SectionContainer>
@@ -19,12 +22,12 @@ export default function ContactSection() {
 
           <div>
             <h4 className="text-xl font-medium">Call&nbsp;Us</h4>
-            <p>+27&nbsp;65&nbsp;900&nbsp;8570</p>
+            <p>{contact_phone}</p>
           </div>
 
           <div>
             <h4 className="text-xl font-medium">Email&nbsp;Us</h4>
-            <p>info@sheen.bot</p>
+            <p>{contact_email}</p>
           </div>
 
           <div>

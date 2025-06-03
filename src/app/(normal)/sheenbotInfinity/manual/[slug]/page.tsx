@@ -14,8 +14,8 @@ import rehypeHighlight from 'rehype-highlight'
 /* 0. 建议放到 .env 或 util 文件中 */
 const ORIGIN = process.env.NEXT_PUBLIC_SITE_URL
 
-// 一个默认分享图（放在 public/content/manual/images/manual-og.png）
-const DEFAULT_OG_IMAGE = `${ORIGIN}/content/manual/images/manual-og.png`
+// 默认分享图
+const DEFAULT_OG_IMAGE = `${ORIGIN}/content/manual/images/sheenbot-45-degree.png`
 
 /* ------------------------------------------------------------------ */
 /*  1) 动态生成 <head> 元数据：Title / Description / OG / Twitter       */
