@@ -6,12 +6,17 @@ const nextConfig: NextConfig = {
     domains: ['sheen-bot-user-avatar-uploads.s3.eu-west-1.amazonaws.com'],
   },
 
-  /* 访问 /manual 时重定向到 /sheenbotInfinity/manual */
+  /* redirect options for SEO improvement */
   async redirects() {
     return [
       {
-        source: '/manual',
-        destination: '/sheenbotInfinity/manual',
+        source: '/manual/:path*',
+        destination: '/sheenbotInfinity/manual/:path*',
+        permanent: true, // true 表示返回 308 永久重定向
+      },
+      {
+        source: '/enrollment/:path*',
+        destination: '/academy/enrollment/:path*',
         permanent: true, // true 表示返回 308 永久重定向
       },
     ];

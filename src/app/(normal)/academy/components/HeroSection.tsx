@@ -43,7 +43,7 @@ export default function HeroSection() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    timeoutRef.current = setTimeout(next, 6000);
+    timeoutRef.current = setTimeout(next, 3000);
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
