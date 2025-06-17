@@ -11,7 +11,7 @@ export default function IntroducingSection() {
         Introducing <span className="text-primary">sheenbot</span>
         <Image
           src="/images/sheenbotInfinity/icon/icon-infinity.svg"
-          alt="Infinity Icon"
+          alt="Infinity"
           width={48}
           height={48}
         />

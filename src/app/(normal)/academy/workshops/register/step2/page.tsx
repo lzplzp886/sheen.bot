@@ -27,7 +27,7 @@ function ChildForm({
     ? `${child.firstName} ${child.surname || ''}`
     : `Child ${index + 1}`;
 
-  const ageError = child.age !== null && child.age < 10;
+  const ageError = child.age !== null && child.age < 9;
 
   return (
     <div className="p-4 mb-4 bg-extralight border rounded shadow-sm">
@@ -150,7 +150,7 @@ export default function Step2() {
       if (!c.firstName || !c.surname)
         list.push(`${tag} first name & surname are required.`);
       if (c.age === null) list.push(`${tag} age is required.`);
-      else if (c.age < 10) list.push(`${tag} age must be 10 or older.`);
+      else if (c.age < 9) list.push(`${tag} age must be 9 or older.`);
       if (!c.gender) list.push(`${tag} gender is required.`);
     });
 

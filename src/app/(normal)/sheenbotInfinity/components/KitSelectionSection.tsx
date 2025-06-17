@@ -8,10 +8,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // 套件列表
 const kits = [
-  { id: "basic", label: "∞ Block Basic" },
-  { id: "tinker", label: "∞ Block Tinker" },
-  { id: "smartHome", label: "∞ Smart Home" },
-  { id: "aiCar", label: "∞ AI Car" },
+  { id: "basic", label: "∞ block basic" },
+  { id: "tinker", label: "∞ block tinker" },
+  { id: "smartHome", label: "∞ smart home" },
+  { id: "rover", label: "∞ rover" },
   { id: "quadruped", label: "∞ Quadruped" },
 ];
 
@@ -32,7 +32,7 @@ const kitImages: Record<string, string[]> = {
     "/images/sheenbotInfinity/kit/smart-home-kit-3.png",
     "/images/sheenbotInfinity/kit/smart-home-kit-4.png",
   ],
-  aiCar: [
+  rover: [
     "/images/sheenbotInfinity/kit/ai-car-kit.png",
   ],
   quadruped: [
@@ -70,14 +70,14 @@ export default function KitSelectionSection() {
       basic: "Starter kit for coding and robotics with blocks",
       tinker: "Advanced kit for coding and robotics with blocks",
       smartHome: "Smart home sandbox experience kit",
-      aiCar: "Vision-enabled AI car with mecanum wheels",
+      rover: "Vision-enabled AI car with mecanum wheels",
       quadruped: "Robotic dog kit for gait experiments.",
     };
     const descs: Record<string, string> = {
       basic: "Packaged in a sleek metal gift box, the ∞ Block Basic kit includes 6 essential sensors and actuators—such as a temperature sensor, ultrasonic sensor, and servo motor—to introduce beginners to coding and robotics fundamentals.",
       tinker: "Enclosed in a premium metal gift box, the ∞ Block Tinker kit comes with over 12 sensors and actuators, plus LEGO-compatible elements—giving you everything you need to build complex projects and hands-on experiments.",
       smartHome: "Design your own mini smart home with temperature, humidity, motion, and fire sensors. Includes servo-driven door mechanism, relay module for lights, and example code to automate real-world scenarios.",
-      aiCar: "Build an AI-powered vehicle with Mecanum wheels, camera module, distance sensors, and motor controller. Learn computer vision basics as you program obstacle avoidance and line-following routines.",
+      rover: "Build an AI-powered vehicle with Mecanum wheels, camera module, distance sensors, and motor controller. Learn computer vision basics as you program obstacle avoidance and line-following routines.",
       quadruped: "Bring robotics to life with a four-legged robot kit. Features 8 high-torque servos, structural frame, and balance sensors—perfect for exploring gait algorithms and advanced motion control.",
     };
 

@@ -14,7 +14,7 @@ export default function WhySheenbotSection() {
           <span className="text-primary">sheenbot</span>
           <Image
             src="/images/sheenbotInfinity/icon/icon-infinity.svg"
-            alt="Infinity Icon"
+            alt="Infinity"
             width={36}
             height={36}
           />
