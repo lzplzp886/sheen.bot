@@ -83,11 +83,6 @@ export default function Header() {
               </Link>
             </li>
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
-              <Link href="/sheenbotInfinity" onClick={() => setIsOpen(false)}>
-                sheenbot∞
-              </Link>
-            </li>
-            <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
               <Link href="/solutions" onClick={() => setIsOpen(false)}>
                 solutions
               </Link>
@@ -151,11 +146,6 @@ export default function Header() {
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
                   <Link href="/" onClick={() => setIsOpen(false)}>
                     home
-                  </Link>
-                </li>
-                <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
-                  <Link href="/sheenbotInfinity" onClick={() => setIsOpen(false)}>
-                    sheenbot∞
                   </Link>
                 </li>
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">

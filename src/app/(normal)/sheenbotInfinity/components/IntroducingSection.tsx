@@ -29,7 +29,7 @@ export default function IntroducingSection() {
         />
       </div>
       <p className="text-center text-body max-w-2xl mx-auto">
-        sheenbot∞ is a revolutionary AI-native board designed for young generations to learn coding and robotics. With industrial-grade stability, multiple programming methods, and dozens of plug-and-play sensors and motors—combined with voice, camera, GPS modules, an AI programming platform, and IoT interfaces—it creates endless scenario combinations.
+        sheenbot∞ is a revolutionary AI-native board designed for young generations to learn coding and robotics. With industrial-grade stability, multiple coding methods, and dozens of plug-and-play sensors, actuators and advanced modules like voice, camera, GPS, RFID, integrated with AI programming platform and IoT interfaces—it creates endless scenario combinations.
       </p>
     </section>
   );

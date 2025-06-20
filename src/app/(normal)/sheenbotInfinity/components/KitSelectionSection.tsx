@@ -10,33 +10,60 @@ import { motion, AnimatePresence } from "framer-motion";
 const kits = [
   { id: "basic", label: "∞ block basic" },
   { id: "tinker", label: "∞ block tinker" },
+  { id: "pro", label: "∞ block pro" },
   { id: "smartHome", label: "∞ smart home" },
   { id: "rover", label: "∞ rover" },
-  { id: "quadruped", label: "∞ Quadruped" },
+  { id: "quadruped", label: "∞ quadruped" },
 ];
 
 // 每款套件的图片集，第一个为主图，其余为缩略图
 const kitImages: Record<string, string[]> = {
   basic: [
-    "/images/sheenbotInfinity/kit/block-basic-kit.png",
-    "/images/sheenbotInfinity/kit/block-basic-kit-1.png",
-    "/images/sheenbotInfinity/kit/block-basic-kit-2.png",
+    "/images/sheenbotInfinity/kit/block-basic/1.png",
+    "/images/sheenbotInfinity/kit/block-basic/2.png",
+    "/images/sheenbotInfinity/kit/block-basic/3.png",
+    "/images/sheenbotInfinity/kit/block-basic/4.png",
+    "/images/sheenbotInfinity/kit/block-basic/5.png",
+    "/images/sheenbotInfinity/kit/block-basic/6.png",
+    "/images/sheenbotInfinity/kit/block-basic/7.png",
   ],
   tinker: [
-    "/images/sheenbotInfinity/kit/block-tinker-kit.png",
+    "/images/sheenbotInfinity/kit/block-tinker/1.png",
+    "/images/sheenbotInfinity/kit/block-tinker/2.png",
+    "/images/sheenbotInfinity/kit/block-tinker/3.png",
+    "/images/sheenbotInfinity/kit/block-tinker/4.png",
+    "/images/sheenbotInfinity/kit/block-tinker/5.png",
+    "/images/sheenbotInfinity/kit/block-tinker/6.png",
+    "/images/sheenbotInfinity/kit/block-tinker/7.png",
+  ],
+  pro: [
+    "/images/sheenbotInfinity/kit/block-pro/1.png",
+    "/images/sheenbotInfinity/kit/block-pro/2.png",
+    "/images/sheenbotInfinity/kit/block-pro/3.png",
   ],
   smartHome: [
-    "/images/sheenbotInfinity/kit/smart-home-kit.png",
-    "/images/sheenbotInfinity/kit/smart-home-kit-1.png",
-    "/images/sheenbotInfinity/kit/smart-home-kit-2.png",
-    "/images/sheenbotInfinity/kit/smart-home-kit-3.png",
-    "/images/sheenbotInfinity/kit/smart-home-kit-4.png",
+    "/images/sheenbotInfinity/kit/smart-home/1.png",
+    "/images/sheenbotInfinity/kit/smart-home/2.png",
+    "/images/sheenbotInfinity/kit/smart-home/3.png",
+    "/images/sheenbotInfinity/kit/smart-home/4.png",
+    "/images/sheenbotInfinity/kit/smart-home/5.png",
+    "/images/sheenbotInfinity/kit/smart-home/6.png",
+    "/images/sheenbotInfinity/kit/smart-home/7.png",
+    "/images/sheenbotInfinity/kit/smart-home/8.png",
   ],
   rover: [
-    "/images/sheenbotInfinity/kit/ai-car-kit.png",
+    "/images/sheenbotInfinity/kit/rover/1.png",
+    "/images/sheenbotInfinity/kit/rover/2.png",
+    "/images/sheenbotInfinity/kit/rover/3.png",
+    "/images/sheenbotInfinity/kit/rover/4.png",
+    "/images/sheenbotInfinity/kit/rover/5.png",
   ],
   quadruped: [
-    "/images/sheenbotInfinity/kit/quadruped-kit.png",
+    "/images/sheenbotInfinity/kit/quadruped/1.png",
+    "/images/sheenbotInfinity/kit/quadruped/2.png",
+    "/images/sheenbotInfinity/kit/quadruped/3.png",
+    "/images/sheenbotInfinity/kit/quadruped/4.png",
+    "/images/sheenbotInfinity/kit/quadruped/5.png",
   ],
 };
 
@@ -67,18 +94,20 @@ export default function KitSelectionSection() {
     const currentIndex = imageIndices[id] || 0;
 
     const titles: Record<string, string> = {
-      basic: "Starter kit for coding and robotics with blocks",
-      tinker: "Advanced kit for coding and robotics with blocks",
-      smartHome: "Smart home sandbox experience kit",
-      rover: "Vision-enabled AI car with mecanum wheels",
-      quadruped: "Robotic dog kit for gait experiments.",
+      basic: "Starter kit for coding and robotics with AI board and IoT module",
+      tinker: "Advanced kit with AI board, IoT module, basic sensors and actuators, plus building blocks",
+      pro: "Professional kit with AI board, IoT module, plus building blocks and advanced sensors and actuators set",
+      smartHome: "Smart home sandbox for IoT experience",
+      rover: "Line-following car with grayscale and ultrasonic sensor",
+      quadruped: "Robotic dog kit for gait experiments",
     };
     const descs: Record<string, string> = {
-      basic: "Packaged in a sleek metal gift box, the ∞ Block Basic kit includes 6 essential sensors and actuators—such as a temperature sensor, ultrasonic sensor, and servo motor—to introduce beginners to coding and robotics fundamentals.",
-      tinker: "Enclosed in a premium metal gift box, the ∞ Block Tinker kit comes with over 12 sensors and actuators, plus LEGO-compatible elements—giving you everything you need to build complex projects and hands-on experiments.",
-      smartHome: "Design your own mini smart home with temperature, humidity, motion, and fire sensors. Includes servo-driven door mechanism, relay module for lights, and example code to automate real-world scenarios.",
-      rover: "Build an AI-powered vehicle with Mecanum wheels, camera module, distance sensors, and motor controller. Learn computer vision basics as you program obstacle avoidance and line-following routines.",
-      quadruped: "Bring robotics to life with a four-legged robot kit. Features 8 high-torque servos, structural frame, and balance sensors—perfect for exploring gait algorithms and advanced motion control.",
+      basic: "Packaged in a elegant compacted box, the ∞ block basic kit pairs the AI board with IoT module to introduce beginners to coding and robotics fundamentals.",
+      tinker: "Enclosed in a premium gift box, the ∞ block tinker kit adds 230+ LEGO-compatible parts and 8 plug-and-play modules—giving you everything you need to build imaginative mechanisms and interactive experiments.",
+      pro: "Presented in a rugged carry case, the ∞ block pro kit bundles 30+ advanced modules—equipping competition teams for high-level robotics and AI challenges.",
+      smartHome: "Design your own mini smart home with sensors and actuators to automate real-world scenarios e.g. voice-controlled home assistant, or fire alarm and intruder alert system.",
+      rover: "Build an AI-powered tracked rover with range sensors, and dual-motor chassis; learn computer-vision basics as you program obstacle avoidance, path planning, and line-following missions.",
+      quadruped: "Bring robotics to life with a four-legged robot kit featuring 12 high-torque servos, rigid frame, and IMU balance sensor—perfect for exploring gait algorithms, inverse kinematics, and dynamic motion control.",
     };
 
     return (
@@ -116,7 +145,7 @@ export default function KitSelectionSection() {
   return (
     <section className="max-w-6xl mx-auto px-4 py-10 text-center">
       <h2 className="flex flex-wrap md:flex-nowrap items-center justify-center gap-2 text-2xl sm:text-3xl font-bold mb-4">
-        Unlock infinite creations
+        Creations Matter
       </h2>
 
       <div className="flex flex-col items-center text-center mb-6">
@@ -127,8 +156,8 @@ export default function KitSelectionSection() {
           muted
           playsInline
           className="mb-4"
-          width={700}
-          height={470}
+          width={350}
+          height={235}
         />
       </div>
 
@@ -150,7 +179,7 @@ export default function KitSelectionSection() {
       </div>
 
       {/* 移动端 手风琴 */}
-      <div className="sm:hidden divide-y divide-light">
+      <div className="sm:hidden divide-y divide-light mb-6">
         {kits.map((kit) => (
           <div key={kit.id}>
           <button
@@ -187,7 +216,7 @@ export default function KitSelectionSection() {
       {/* Buy Now & Brochure */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
         <Link
-          href={`https://www.sheen.co.za/sheenbot-infinity-${selectedTab}`}
+          href={`https://www.sheen.co.za/sheenbot-${selectedTab}`}
           className="px-8 py-3 bg-primary text-white font-bold rounded shadow hover:bg-secondary transition-colors"
         >
           Buy Now
