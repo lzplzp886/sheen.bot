@@ -40,6 +40,8 @@ const kitImages: Record<string, string[]> = {
     "/images/sheenbotInfinity/kit/block-pro/1.png",
     "/images/sheenbotInfinity/kit/block-pro/2.png",
     "/images/sheenbotInfinity/kit/block-pro/3.png",
+    "/images/sheenbotInfinity/kit/block-pro/4.png",
+    "/images/sheenbotInfinity/kit/block-pro/5.png",
   ],
   smartHome: [
     "/images/sheenbotInfinity/kit/smart-home/1.png",
@@ -95,8 +97,8 @@ export default function KitSelectionSection() {
 
     const titles: Record<string, string> = {
       basic: "Starter kit for coding and robotics with AI board and IoT module",
-      tinker: "Advanced kit with AI board, IoT module, basic sensors and actuators, plus building blocks",
-      pro: "Professional kit with AI board, IoT module, plus building blocks and advanced sensors and actuators set",
+      tinker: "Advanced kit with AI board, IoT module, sensors, plus building blocks",
+      pro: "Professional kit with AI board, IoT module, advanced sensors, plus building blocks",
       smartHome: "Smart home sandbox for IoT experience",
       rover: "Line-following car with grayscale and ultrasonic sensor",
       quadruped: "Robotic dog kit for gait experiments",

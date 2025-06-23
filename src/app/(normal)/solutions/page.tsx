@@ -4,7 +4,7 @@
 import React from "react";
 import HeroSection from "./components/heroSection";
 import OfferSection from "./components/offerSection";
-import SheenAcademySection from "./components/sheenAcademy";
+import LabSourcingSection from "./components/labSourcing";
 import SchoolServiceSection from "./components/schoolServiceSection";
 import CloudPlatformSection from "./components/cloudPlatform";
 
@@ -13,7 +13,7 @@ export default function Page() {
     <main className="relative w-full min-h-screen bg-transparent">
       <HeroSection />
       <OfferSection />
-      <SheenAcademySection />
+      <LabSourcingSection />
       <SchoolServiceSection />
       <CloudPlatformSection />
     </main>

@@ -1,4 +1,4 @@
-// src/app/(normal)/solutions/sheenAcademy.tsx
+// src/app/(normal)/solutions/labSourcing.tsx
 
 "use client";
 import React, { useRef } from "react";
@@ -6,7 +6,7 @@ import { useInView } from "framer-motion";
 import Image from "next/image";
 import CountUp from "react-countup";
 
-export default function SheenAcademySection() {
+export default function LabSourcingSection() {
   return (
     <section
       id="robotics-lab-sourcing"
@@ -36,22 +36,33 @@ export default function SheenAcademySection() {
           honeycombs, weather stations, and many more. These setups are available for viewing at
           Sheen Academy. Visitors are welcome to experience these setups firsthand.
         </p>
-        <a
-          href="https://outlook.office365.com/owa/calendar/bookings@sheen.co.za/bookings/s/hoySxD4egEGxts9qTXExkQ2"
-          className="inline-flex items-center px-5 py-3 rounded text-background bg-primary hover:bg-secondary mb-10"
-        >
-          <Image
-            src="/images/solutions/book-a-visit.svg"
-            alt="Calendar Icon"
-            className="w-5 h-5 mr-2"
-          />
-          Book a Visit
-        </a>
+        {/* CTA 区域 */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-10">
+                    {/* Book a Visit 按钮 */}
+          <a
+            href="https://outlook.office365.com/owa/calendar/bookings@sheen.co.za/bookings/s/hoySxD4egEGxts9qTXExkQ2"
+            className="inline-flex items-center px-5 py-3 rounded text-background bg-primary hover:bg-secondary"
+          >
+            <Image
+              src="/images/solutions/book-a-visit.svg"
+              alt="Calendar Icon"
+              className="w-5 h-5 mr-2"
+            />
+            Book a Visit
+          </a>          
+          {/* 普通文字链接 */}
+          <a
+            href="/solutions/lab-sourcing"              // 指向产品目录锚点或相应页面
+            className="text-background hover:text-secondary hover:underline"
+          >
+            View Catalogue&nbsp;→
+          </a>
+        </div>
         <hr className="my-6 border-body" />
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 justify-center items-center">
-          <StatItem label="sheenbot∞" end={1} />
-          <StatItem label="Robots & Kits" end={7} suffix="+" />
-          <StatItem label="Classroom Setups" end={6} />
+          <StatItem label="sheenbot∞ Kits" end={6} suffix="+" />
+          <StatItem label="WhalesBot & Kits" end={6} suffix="+" />
+          <StatItem label="Lab Setups" end={9} suffix="+" />
           <StatItem label="Courses" end={200} suffix="+" />
         </div>
       </div>
