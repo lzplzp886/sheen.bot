@@ -1,3 +1,5 @@
+// src/app/(normal)/about/components/aboutSection.tsx
+
 'use client';
 import React from 'react';
 import SectionContainer from './sectionContainer';

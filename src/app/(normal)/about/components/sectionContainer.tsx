@@ -1,3 +1,5 @@
+// src/app/(normal)/about/components/sectionContainer.tsx
+
 'use client';
 import React, { ReactNode } from 'react';
 

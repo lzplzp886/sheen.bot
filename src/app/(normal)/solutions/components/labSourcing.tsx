@@ -40,7 +40,7 @@ export default function LabSourcingSection() {
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-10">
                     {/* Book a Visit 按钮 */}
           <a
-            href="https://outlook.office365.com/owa/calendar/bookings@sheen.co.za/bookings/s/hoySxD4egEGxts9qTXExkQ2"
+            href="/solutions/lab-sourcing/academy-visit"
             className="inline-flex items-center px-5 py-3 rounded text-background bg-primary hover:bg-secondary"
           >
             <Image

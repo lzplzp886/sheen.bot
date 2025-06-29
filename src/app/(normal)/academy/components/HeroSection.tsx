@@ -118,19 +118,25 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* Navigation Arrows (desktop only) */}
-      <button
-        onClick={prev}
-        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 text-primary rounded-full p-2 hover:bg-primary hover:text-white"
-      >
-        &larr;
-      </button>
-      <button
-        onClick={next}
-        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 text-primary rounded-full p-2 hover:bg-primary hover:text-white"
-      >
-        &rarr;
-      </button>
+      {/* ───── Dots Navigation (all screen sizes) ───── */}
+      <div className="absolute inset-x-0 bottom-6 flex justify-center gap-4 z-20">
+        {slides.map((_, iDot) => (
+          <button
+            key={iDot}
+            aria-label={`Go to slide ${iDot + 1}`}
+            onClick={() => setIndex(iDot)}
+            className={`
+              transition-colors rounded-full
+              ${index === iDot
+                ? 'bg-primary'
+                : 'bg-white/60 hover:bg-white'}
+              w-3 h-3              /* mobile size */
+              md:w-4 md:h-4        /* desktop slightly larger */
+            `}
+          />
+        ))}
+      </div>
+
     </section>
   );
 }

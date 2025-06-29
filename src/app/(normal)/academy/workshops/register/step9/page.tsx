@@ -44,8 +44,8 @@ export default function Step9() {
     if (!nz(c.firstName) || !nz(c.surname))
       e.push(`${tag} first name & surname are required.`);
     if (c.age === null) e.push(`${tag} age is required.`);
-    else if (c.age < 10)
-      e.push(`${tag} age must be 10 or older.`);
+    else if (c.age < 9)
+      e.push(`${tag} age must be 9 or older.`);
     if (!nz(c.gender))
       e.push(`${tag} gender is required.`);
   });

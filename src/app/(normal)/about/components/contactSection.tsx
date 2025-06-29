@@ -1,3 +1,5 @@
+// src/app/(normal)/about/components/contactSection.tsx
+
 'use client';
 
 import React from 'react';

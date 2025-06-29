@@ -1,3 +1,5 @@
+// src/app/(normal)/about/components/heroSection.tsx
+
 'use client';
 import React from 'react';
 
