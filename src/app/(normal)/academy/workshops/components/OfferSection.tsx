@@ -4,8 +4,6 @@ import React from 'react';
 
 export default function OfferSection() {
   const weeks = [
-    { week: 'Week 1', date: '01-03 July 2025' },
-    { week: 'Week 2', date: '08-10 July 2025' },
     { week: 'Week 3', date: '15-17 July 2025' },
   ];
 

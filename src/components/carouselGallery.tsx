@@ -5,14 +5,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
-interface ImageItem {
-  src: string;
-  alt: string;
-}
-
-interface CarouselGalleryProps {
-  images: ImageItem[];
-}
+interface ImageItem { src: string; alt: string }
+interface CarouselGalleryProps { images: ImageItem[] }
 
 export default function CarouselGallery({ images }: CarouselGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,9 +14,10 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
   const [isDesktop, setIsDesktop] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
-  // ─────────────────────────────────────────────────────────────────────
-  // Responsive helper: update `isDesktop` when viewport ≥1024px
-  // ─────────────────────────────────────────────────────────────────────
+  // 用来跳过首次渲染的 flag
+  const firstRender = useRef(true);
+
+  // Responsive helper
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
     const handler = (e: MediaQueryListEvent | MediaQueryList) => {
@@ -38,10 +33,13 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
   const goToNext = () =>
     setCurrentIndex(i => (i === images.length - 1 ? 0 : i + 1));
 
-  // ─────────────────────────────────────────────────────────────────────
-  // Scroll thumbnail into view whenever currentIndex changes
-  // ─────────────────────────────────────────────────────────────────────
+  // Scroll thumbnail into view whenever currentIndex changes,
+  // but skip the very first render to avoid auto-scrolling on page load
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
     const thumbEl = thumbsRef.current[currentIndex];
     if (thumbEl) {
       thumbEl.scrollIntoView({
@@ -52,16 +50,14 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
     }
   }, [currentIndex]);
 
-  // ─────────────────────────────────────────────────────────────────────
-  // Swipe handlers for main carousel
-  // ─────────────────────────────────────────────────────────────────────
+  // Swipe handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
-    const threshold = 50; // swipe threshold in px
+    const threshold = 50;
     if (diff > threshold) goToNext();
     else if (diff < -threshold) goToPrev();
     touchStartX.current = null;
@@ -71,9 +67,6 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
     return <p>No images available.</p>;
   }
 
-  // ─────────────────────────────────────────────────────────────────────
-  // Positions for 5-image perspective lineup
-  // ─────────────────────────────────────────────────────────────────────
   const positions = [
     { offset: -2, left: '10%', size: 240, blur: 'blur-sm', zIndex: 1 },
     { offset: -1, left: '20%', size: 260, blur: 'blur-sm', zIndex: 2 },
@@ -97,9 +90,7 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
         onTouchEnd={handleTouchEnd}
       >
         {positions.map(pos => {
-          const idx =
-            (currentIndex + pos.offset + images.length) % images.length;
-          // enforce 4:3 aspect ratio
+          const idx = (currentIndex + pos.offset + images.length) % images.length;
           const width = pos.size;
           const height = Math.round(pos.size * 0.75);
 
@@ -119,17 +110,14 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
               onClick={() => {
                 if (pos.offset < 0) goToPrev();
                 else if (pos.offset > 0) goToNext();
-                // no action when pos.offset === 0
               }}
             >
-              {/* Cropped main image */}
               <Image
                 src={images[idx].src}
                 alt={images[idx].alt}
                 fill
                 className={`${pos.blur} object-cover select-none`}
               />
-              {/* Caption overlay */}
               <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white text-xs text-center py-1">
                 {images[idx].alt}
               </div>

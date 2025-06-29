@@ -14,8 +14,6 @@ const WORKSHOPS = [
   {
     name: 'Spark Curiosity This School Holiday!',
     weeks: [
-      { label: 'Week 1: 01 – 03 July 2025', value: 'Week 1: 01 - 03 July 2025' },
-      { label: 'Week 2: 08 – 10 July 2025', value: 'Week 2: 08 - 10 July 2025' },
       { label: 'Week 3: 15 – 17 July 2025', value: 'Week 3: 15 - 17 July 2025' },
     ],
     timeslots: [
