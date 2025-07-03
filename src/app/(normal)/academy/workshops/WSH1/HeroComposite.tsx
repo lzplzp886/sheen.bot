@@ -26,7 +26,7 @@ export default function HeroComposite() {
               Robotics
             </span>
             <span className="block text-secondary italic text-3xl sm:text-4xl lg:text-5xl mt-2">
-              2025 Winter Holiday Camp
+              2025 Winter Holiday Camp for Starters (3-Days)
             </span>
           </h1>
         </div>
@@ -69,7 +69,7 @@ export default function HeroComposite() {
                         text-center"
             >
             <span className="block italic">Suitable for ages</span>
-            <span className="block text-2xl text-red-600 font-extrabold">9+</span>
+            <span className="block text-2xl text-red-600 font-extrabold">9-18</span>
             </div>
         </div>
       </div>
@@ -80,7 +80,7 @@ export default function HeroComposite() {
           📌Location: Sheen Academy, Century City, Cape Town
         </div>
         <div className="bg-secondary/20 text-background font-medium px-4 py-2 rounded-full">
-          ⌛Duration: 3 hours per day & 3 days per workshop
+          ⌛Duration: 3.5 hours per day & 3 days per workshop
         </div>
       </div>
     </section>

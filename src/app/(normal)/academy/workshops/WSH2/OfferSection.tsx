@@ -1,10 +1,13 @@
 // src/app/(normal)/academy/workshops/components/OfferSection.tsx
+
 'use client';
 import React from 'react';
 
 export default function OfferSection() {
   const weeks = [
-    { week: 'Week 3', date: '15-17 July 2025' },
+    { week: 'Week 1', date: 'Not Available' },
+    { week: 'Week 2', date: '8-9 July 2025' },
+    { week: 'Week 3', date: '15-16 July 2025' },
   ];
 
   return (
@@ -25,14 +28,14 @@ export default function OfferSection() {
               </div>
             ))}
           </div>
-          <p className="mt-4 font-medium">Time: 10:00 AM − 1:30 PM</p>
+          <p className="mt-4 font-medium">Time: 10:30 AM − 1:00 PM</p>
         </div>
 
         <div className="text-center space-y-3">
           <h4 className="font-semibold">Secure Your Spot in Just Few Clicks!</h4>
           <p>
             Visit our{' '}
-            <a href="/academy/workshops/register" className="underline">
+            <a href="/academy/workshops/register?id=WSH2" className="underline">
               registration
             </a>{' '}
             page.

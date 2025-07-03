@@ -6,11 +6,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import SignatureCanvas from "react-signature-canvas";
 import { useWizardContext } from "../context";
+import StepContainer from "../stepContainer";
 import Button from "@/components/Button";
 import Image from "next/image";
-import StepContainer from "../stepContainer";
 import Modal from "../components/modal";
 import { nz, emailOK, phoneOK } from "../utils/validate";
+import { WORKSHOPS } from "../constants";
 
 export default function Step9() {
   const router = useRouter();
@@ -27,89 +28,102 @@ export default function Step9() {
     return () => window.removeEventListener("resize", f);
   }, []);
 
-  const [isEmpty,    setIsEmpty]    = useState(true);
-  const [isLoading,  setLoading]    = useState(false);
-  const [progress,   setProgress]   = useState("");
-  const [errors,     setErrors]     = useState<string[]>([]);
-  const [showModal,  setShowModal]  = useState(false);
+  const [isEmpty,   setIsEmpty]   = useState(true);
+  const [isLoading, setLoading]   = useState(false);
+  const [progress,  setProgress]  = useState("");
+  const [errors,    setErrors]    = useState<string[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
-  /* ───────── validateAll – simplified for Workshop ───────── */
+  /* ───────── derive age limits from selected workshop ───────── */
+  const { minAge, maxAge } = (() => {
+    const w =
+      WORKSHOPS.find(ws => ws.code === data.selectedWorkshop) || WORKSHOPS[0];
+    return { minAge: w.minAge, maxAge: w.maxAge };
+  })();
+
+  /* ───────── validate all steps ───────── */
   const validateAll = (): string[] => {
-  const e: string[] = [];
+    const e: string[] = [];
 
-  /* step2 – children */
-  if (!data.children.length) e.push('Add at least one child.');
-  data.children.forEach((c, i) => {
-    const tag = `Child ${i + 1}:`;
-    if (!nz(c.firstName) || !nz(c.surname))
-      e.push(`${tag} first name & surname are required.`);
-    if (c.age === null) e.push(`${tag} age is required.`);
-    else if (c.age < 9)
-      e.push(`${tag} age must be 9 or older.`);
-    if (!nz(c.gender))
-      e.push(`${tag} gender is required.`);
-  });
+    /* step3 – children */
+    if (!data.children.length) e.push("Add at least one child.");
+    data.children.forEach((c, i) => {
+      const tag = `Child ${i + 1}:`;
+      if (!nz(c.firstName) || !nz(c.surname))
+        e.push(`${tag} first name & surname are required.`);
+      if (c.age === null) {
+        e.push(`${tag} age is required.`);
+      } else if (c.age < minAge || (maxAge !== null && c.age > maxAge)) {
+        e.push(
+          `${tag} age must be ${minAge}${
+            maxAge !== null ? " – " + maxAge : "+"
+          }.`
+        );
+      }
+      if (!nz(c.gender)) e.push(`${tag} gender is required.`);
+    });
 
-  /* step4 – workshop schedule (single choice) */
-  if (!nz(data.selectedDateRange))
-    e.push('Choose a week (Step 4).');
-  if (!nz(data.selectedTimeslot))
-    e.push('Choose a time slot (Step 4).');
+    /* step4 – schedule */
+    if (!nz(data.selectedDateRange)) e.push("Choose a week (Step 4).");
+    if (!nz(data.selectedTimeslot)) e.push("Choose a time slot (Step 4).");
 
-  /* step5 – parent / guardian */
-  if (!nz(data.parentFirstName) || !nz(data.parentSurname))
-    e.push('Parent first name & surname are required (Step 5).');
-  if (!nz(data.parentRelationship))
-    e.push('Relationship to child is required (Step 5).');
-  if (!emailOK(data.parentEmail))
-    e.push('Enter a valid e-mail address (Step 5).');
-  if (!phoneOK(data.parentContactNumber))
-    e.push('Parent phone must contain 8–15 digits (Step 5).');
-  if (!data.preferredContactMethods.length)
-    e.push('Select at least one preferred contact method (Step 5).');
-  /* newsletter preference 留作可选，故不再校验 */
+    /* step5 – parent */
+    if (!nz(data.parentFirstName) || !nz(data.parentSurname))
+      e.push("Parent first name & surname are required (Step 5).");
+    if (!nz(data.parentRelationship))
+      e.push("Relationship to child is required (Step 5).");
+    if (!emailOK(data.parentEmail))
+      e.push("Enter a valid e-mail address (Step 5).");
+    if (!phoneOK(data.parentContactNumber))
+      e.push("Parent phone must contain 8–15 digits (Step 5).");
+    if (!data.preferredContactMethods.length)
+      e.push("Select at least one preferred contact method (Step 5).");
 
-  /* step6 – emergency contact */
-  if (!nz(data.emergencyFirstName) || !nz(data.emergencySurname))
-    e.push('Emergency contact name is required (Step 6).');
-  if (!nz(data.emergencyRelationship))
-    e.push('Emergency contact relationship is required (Step 6).');
-  if (!phoneOK(data.emergencyContactNumber))
-    e.push('Emergency contact phone must contain 8–15 digits (Step 6).');
+    /* step6 – emergency contact */
+    if (!nz(data.emergencyFirstName) || !nz(data.emergencySurname))
+      e.push("Emergency contact name is required (Step 6).");
+    if (!nz(data.emergencyRelationship))
+      e.push("Emergency contact relationship is required (Step 6).");
+    if (!phoneOK(data.emergencyContactNumber))
+      e.push("Emergency contact phone must contain 8–15 digits (Step 6).");
 
-  /* step7 – authorised pickups */
-  if (!nz(data.pickup1FirstName) || !nz(data.pickup1Surname))
-    e.push('First authorised person name is required (Step 7).');
-  if (!nz(data.pickup1Relationship))
-    e.push('First authorised person relationship is required (Step 7).');
-  if (!phoneOK(data.pickup1ContactNumber))
-    e.push('First authorised person phone must contain 8–15 digits (Step 7).');
+    /* step7 – pickups */
+    if (!nz(data.pickup1FirstName) || !nz(data.pickup1Surname))
+      e.push("First authorised person name is required (Step 7).");
+    if (!nz(data.pickup1Relationship))
+      e.push("First authorised person relationship is required (Step 7).");
+    if (!phoneOK(data.pickup1ContactNumber))
+      e.push(
+        "First authorised person phone must contain 8–15 digits (Step 7)."
+      );
 
-  const any2 =
-    nz(data.pickup2FirstName) ||
-    nz(data.pickup2Surname) ||
-    nz(data.pickup2Relationship) ||
-    nz(data.pickup2ContactNumber);
-  if (any2) {
-    if (!nz(data.pickup2FirstName) || !nz(data.pickup2Surname))
-      e.push('Second authorised person name is incomplete (Step 7).');
-    if (!nz(data.pickup2Relationship))
-      e.push('Second authorised person relationship is missing (Step 7).');
-    if (!phoneOK(data.pickup2ContactNumber))
-      e.push('Second authorised person phone must contain 8–15 digits (Step 7).');
-  }
+    const any2 =
+      nz(data.pickup2FirstName) ||
+      nz(data.pickup2Surname) ||
+      nz(data.pickup2Relationship) ||
+      nz(data.pickup2ContactNumber);
+    if (any2) {
+      if (!nz(data.pickup2FirstName) || !nz(data.pickup2Surname))
+        e.push("Second authorised person name is incomplete (Step 7).");
+      if (!nz(data.pickup2Relationship))
+        e.push("Second authorised person relationship is missing (Step 7).");
+      if (!phoneOK(data.pickup2ContactNumber))
+        e.push(
+          "Second authorised person phone must contain 8–15 digits (Step 7)."
+        );
+    }
 
-  /* step8 – consents */
-  if (!data.consentConfirmed)
-    e.push('General consent must be checked (Step 8).');
-  if (!data.popiaConfirmed)
-    e.push('POPIA consent must be checked (Step 8).');
+    /* step8 – consents */
+    if (!data.consentConfirmed)
+      e.push("General consent must be checked (Step 8).");
+    if (!data.popiaConfirmed)
+      e.push("POPIA consent must be checked (Step 8).");
 
-  /* this step – signature */
-  if (sigRef.current?.isEmpty()) e.push('Signature is required.');
+    /* this step – signature */
+    if (sigRef.current?.isEmpty()) e.push("Signature is required.");
 
-  return e;
-};
+    return e;
+  };
 
   /* ───────── handlers ───────── */
   const clearSig = () => {
@@ -168,7 +182,7 @@ export default function Step9() {
   return (
     <StepContainer>
       <h1 className="text-2xl font-bold mb-4 text-center">
-        Step 9: Parent / Guardian Signature
+        Step&nbsp;9&nbsp;:&nbsp;Parent / Guardian Signature
       </h1>
       <p className="mb-4 text-sm text-center">
         Please provide your signature below to confirm your registration.
@@ -199,7 +213,7 @@ export default function Step9() {
           onBegin={() => setIsEmpty(false)}
           onEnd={() => setIsEmpty(sigRef.current?.isEmpty() ?? true)}
           canvasProps={{
-            width:  sigW,
+            width: sigW,
             height: 180,
             className: "rounded w-full",
           }}

@@ -72,9 +72,9 @@ const initialData: EnrollmentData = {
   children: [{ firstName: '', surname: '', age: null, gender: '' }],
   confirmedAgeGroups: [],
   selectedTimeslots: [],
-    selectedWorkshop: "",
-    selectedDateRange: "",
-    selectedTimeslot: "",
+  selectedWorkshop: "",
+  selectedDateRange: "",
+  selectedTimeslot: "",
 
 
   // 家长信息（step5）

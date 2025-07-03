@@ -1,6 +1,7 @@
 // src/app/(normal)/academy/workshops/components/HeroBanner.tsx
 
 'use client';
+
 import React from 'react';
 import Link from 'next/link';
 
@@ -8,23 +9,26 @@ export default function HeroBanner() {
   return (
     <section className="relative bg-[url('/images/academy/Banner/Holiday_Workshop_Slider.webp')] bg-cover bg-center text-background">
       <div className="backdrop-brightness-[.45] py-20 px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto text-center sm:text-left">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
             Sheen Academy Holiday Workshop
           </h1>
-          <p className="text-base sm:text-lg max-w-xl mb-6">
-            Bring STEM magic to the school holidays! Hands-on coding & robotics
-            fun.
+
+          <p className="text-base sm:text-lg max-w-xl mx-auto sm:mx-0 mb-8">
+            Bring STEM magic to the school holidays! Hands-on coding & robotics fun.
           </p>
-          <div className="space-x-4">
-            <Link href="#workshop-details">
-              <button className="inline-block bg-primary text-background font-bold px-5 py-3 rounded shadow hover:bg-secondary">
-                Details
+
+          {/* buttons – vertical on mobile, horizontal on ≥sm */}
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center gap-4">
+            <Link href="/academy/workshops/WSH2">
+              <button className="bg-primary text-background font-bold px-5 py-3 rounded shadow hover:bg-secondary w-52">
+                Starter&nbsp;(2-DAYS)
               </button>
             </Link>
-            <Link href="/academy/workshops/register">
-              <button className="inline-block text-background font-bold px-5 py-3 rounded transition-colors duration-300 hover:bg-transparent hover:underline">
-                Register&nbsp;→
+
+            <Link href="/academy/workshops/WSH1">
+              <button className="bg-primary text-background font-bold px-5 py-3 rounded shadow hover:bg-secondary w-52">
+                Starter&nbsp;(3-DAYS)
               </button>
             </Link>
           </div>
