@@ -23,7 +23,7 @@ const FAQ_ITEMS = [
   {
     question: 'When does each workshop run?',
     answer:
-      'Choose one of three identical weeks:\n• Week 2 (08 – 9 July 2025)\n• Week 3 (15 – 16 July 2025)\nSessions run 10 : 30 – 13 : 00 each day (with a short snack break).',
+      'Choose one of three identical weeks:\n• Week 2 (10 – 11 July 2025)\n• Week 3 (17 – 18 July 2025)\nSessions run 10 : 30 – 13 : 00 each day (with a short snack break).',
   },
   {
     question: 'My child has zero coding knowledge—can they still join?',
