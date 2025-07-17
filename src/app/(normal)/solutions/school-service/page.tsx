@@ -1,6 +1,5 @@
-/* ------------------------------------------------------------------
-   /solutions/school-service/page.tsx   (Next-JS 15 “app” Router)
------------------------------------------------------------------- */
+// src/app/(normal)/solutions/school-service/page.tsx
+
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -240,7 +239,7 @@ const studentSection: SectionProps = {
   infoBoxContent : [
     "Foundation Phase (Grades R-3) — unplugged coding & beginner robotics",
     "Intermediate Phase (Grades 4-6) — block-based coding with sensors",
-    "Senior Phase (Grades 7-9) — block-based coding & Micro:bit robotics"
+    "Senior Phase (Grades 7-9) — block-based coding & micro:bit robotics"
   ],
   session : "1 – 2 hours per session",
   ctaHref : "mailto:academy@sheen.co.za?subject=Student%20Courses%20Enquiry"

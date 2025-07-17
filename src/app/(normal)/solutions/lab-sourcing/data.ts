@@ -89,6 +89,48 @@ export const kits = [
     ],
     href: "https://www.sheen.co.za/WhalesBot-Eagle-1003-Programmable-Drone"
   },
+    {
+    id: "sheen-basic",
+    title: "sheenbot Basic Kit",
+    img: "/images/solutions/lab-sourcing/kits/sheenbot-basic.webp",
+    stage: "Senior 10+",
+    price: "R 2 499",
+    features: [
+      "Micro-controller board · RGB LED · buzzer",
+      "AI Voice Recognition · IoT · Voice Synthesis",
+      "Block-based coding via Mind+",
+      "12 lesson plans included"
+    ],
+    href: "https://www.sheen.co.za/brand-sheen-robotics/sheenbot-basic"
+  },
+  {
+    id: "sheen-smartHome",
+    title: "sheenbot Smart-Home Kit",
+    img: "/images/solutions/lab-sourcing/kits/sheenbot-smartHome.webp",
+    stage: "Senior 10+",
+    price: "R 3 199",
+    features: [
+      "Smart home sandbox kit · Wood pieces",
+      "Temp/Humidity · Flame · Light · Motor",
+      "Wi-Fi IoT cloud dashboard",
+      "16 guided projects"
+    ],
+    href: "https://www.sheen.co.za/brand-sheen-robotics/sheenbot-smartHome"
+  },
+  {
+    id: "sheen-tinker",
+    title: "sheenbot Tinker Kit",
+    img: "/images/solutions/lab-sourcing/kits/sheenbot-tinker.webp",
+    stage: "Senior 10+",
+    price: "R 3 899",
+    features: [
+      "Lego-compatible blocks",
+      "Numurous sensors and actuators",
+      "Wi-Fi IoT cloud dashboard",
+      "24 lesson plans included"
+    ],
+    href: "https://www.sheen.co.za/brand-sheen-robotics/sheenbot-tinker"
+  }
 ];
 
 /* ------------------------------------------------------------------ */

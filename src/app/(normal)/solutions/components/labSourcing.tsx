@@ -10,7 +10,7 @@ export default function LabSourcingSection() {
   return (
     <section
       id="robotics-lab-sourcing"
-      className="relative w-full bg-cover bg-center text-background"
+      className="relative w-full bg-cover bg-center bg-fixed text-background"
       style={{
         backgroundImage: "url('/images/solutions/stem-lab.webp')",
       }}

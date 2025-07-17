@@ -1,4 +1,4 @@
-// src/app/(normal)/academy/workshops/components/OfferSection.tsx
+// src/app/(normal)/academy/workshops/WSH2/OfferSection.tsx
 
 'use client';
 import React from 'react';

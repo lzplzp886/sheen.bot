@@ -1,4 +1,4 @@
-// src/app/(normal)/academy/workshops/components/StructureSection.tsx
+// src/app/(normal)/academy/workshops/WSH1/StructureSection.tsx
 'use client';
 import React from 'react';
 import Image from 'next/image';

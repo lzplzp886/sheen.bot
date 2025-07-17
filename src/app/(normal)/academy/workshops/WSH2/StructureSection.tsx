@@ -1,4 +1,4 @@
-// src/app/(normal)/academy/workshops/WSH2/components/StructureSection.tsx
+// src/app/(normal)/academy/workshops/WSH2/StructureSection.tsx
 
 'use client';
 

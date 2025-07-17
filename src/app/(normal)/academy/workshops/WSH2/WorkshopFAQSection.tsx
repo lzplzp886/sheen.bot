@@ -1,4 +1,4 @@
-// src/app/(normal)/academy/workshops/components/WorkshopFAQSection.tsx
+// src/app/(normal)/academy/workshops/WSH2/WorkshopFAQSection.tsx
 'use client';
 
 import React, { useState } from 'react';

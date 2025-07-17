@@ -1,4 +1,4 @@
-// src/app/(normal)/academy/workshops/page.tsx
+// src/app/(normal)/academy/workshops/WSH1/page.tsx
 'use client';
 import React from 'react';
 import HeroComposite from './HeroComposite';

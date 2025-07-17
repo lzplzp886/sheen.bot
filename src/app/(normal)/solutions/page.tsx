@@ -2,6 +2,7 @@
 
 "use client";
 import React from "react";
+import VideoHero from "./components/videoHero";
 import HeroSection from "./components/heroSection";
 import OfferSection from "./components/offerSection";
 import LabSourcingSection from "./components/labSourcing";
@@ -13,6 +14,7 @@ export default function Page() {
     <main className="relative w-full min-h-screen bg-transparent">
       <HeroSection />
       <OfferSection />
+      <VideoHero />
       <LabSourcingSection />
       <SchoolServiceSection />
       <CloudPlatformSection />

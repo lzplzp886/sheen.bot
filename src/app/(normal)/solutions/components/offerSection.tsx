@@ -29,11 +29,11 @@ export default function OfferSection() {
           description="In-school training, workshops and events for students & teachers."
         />
         <FeatureCardVertical
-          href="#equipment-rental"
-          iconSrc="/images/solutions/equipment-rental.svg"
-          iconAlt="Equipment Rental Icon"
-          title="Equipment Rental"
-          description="High-quality robots and equipment tailored to your on-demand needs."
+          href="/solutions/humanoid-solution"
+          iconSrc="/images/solutions/humanoid-solution.svg"
+          iconAlt="Humanoid Solution Icon"
+          title="Humanoid Solution"
+          description="Top-tier humanoid robots tailored to your on-demand needs."
         />
         <FeatureCardVertical
           href="#competition-consulting"
