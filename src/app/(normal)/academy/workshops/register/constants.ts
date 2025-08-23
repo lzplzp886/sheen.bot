@@ -5,7 +5,7 @@ export const WORKSHOPS = [
   {
     code: "WSH1",
     name: "Spark Curiosity This School Holiday! - Lego Spike, micro:bit & Soldering (3 Days for 9-18 yrs old)",
-    soldOut: false,
+    soldOut: true,
     minAge: 9,
     maxAge: 18,
     timeslots: ["Morning (10:00 AM - 1:00 PM)"],
@@ -16,7 +16,7 @@ export const WORKSHOPS = [
   {
     code: "WSH2",
     name: "Spark Curiosity This School Holiday! - Scratch & 3D Design (2 Days for 8-10 yrs old)",
-    soldOut: false,
+    soldOut: true,
     minAge: 8,
     maxAge: 10,
     timeslots: ["Morning (10:30 AM - 1:00 PM)"],

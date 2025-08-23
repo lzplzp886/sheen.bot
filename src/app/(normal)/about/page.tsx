@@ -5,7 +5,8 @@
 import React from 'react';
 import HeroSection from './components/heroSection';
 import AboutSection from './components/aboutSection';
-import TeamGallerySection from './components/teamGallerySection';
+import ActivitiesGallerySection from './components/activitiesGallerySection';
+import TeamMembersSection from './components/teamMemberSection';
 import ContactSection from './components/contactSection';
 import TimelineSection from './components/timeSection';
 
@@ -20,7 +21,7 @@ export default function AboutPage() {
         {/* 左列：About & Team */}
         <div className="space-y-12">
           <AboutSection />
-          <TeamGallerySection />
+          <ActivitiesGallerySection />
         </div>
 
         {/* 右列：Timeline & Contact */}
@@ -28,8 +29,12 @@ export default function AboutPage() {
           <TimelineSection />
           <ContactSection />
         </div>
-      
+           
       </div>
+
+      {/* 全宽团队介绍 */}
+      <TeamMembersSection />
+
     </>
   );
 }

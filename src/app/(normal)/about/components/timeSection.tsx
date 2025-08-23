@@ -14,13 +14,13 @@ interface EventItem {
 }
 
 const EVENTS: EventItem[] = [
-  { id: 'ev1', date: '2025.2.5',  title: '1st Public Exposure',      details: 'Sheen Robotics showcased its product lineups to the public.',                                                      img: '/images/about/our-journey/ev1.webp' },
+  { id: 'ev1', date: '2025.2.5',  title: '1st Public Exposure',      details: 'Sheen Robotics showcased its product lineups WhalesBot to the public.',                                                      img: '/images/about/our-journey/ev1.webp' },
   { id: 'ev2', date: '2025.3.15', title: 'Academy Opening',          details: 'Sheen Academy opens to public, providing weekly coding & robotics classes.',                                         img: '/images/about/our-journey/ev2.webp' },
-  { id: 'ev3', date: '2025.3.29', title: 'sheenbot Publish',         details: 'Sheen published its first sheenbot and smart home kit.',                                                            img: '/images/about/our-journey/ev3.webp' },
+  { id: 'ev3', date: '2025.3.29', title: 'sheenbot Publish',         details: 'Sheen published its first sheenbot and smart home kit bundle.',                                                            img: '/images/about/our-journey/ev3.webp' },
   { id: 'ev4', date: '2025.6.25', title: '1st School Group Visit',   details: 'Sheen Academy welcomes groups from Sans Souci Girls High School.',                                                   img: '/images/about/our-journey/ev4.webp' },
-  { id: 'ev5', date: '2025.7.1',  title: '1st sheenbot Workshop',    details: 'Sheen Academy delivers its first sheenbot workshop at Techno Buzz Winter School.',                                    img: '/images/about/our-journey/ev5.webp' },
-  { id: 'ev6', date: '2025.7.4',  title: '1st Podcast',              details: 'Sheen Academy have Astrovos for its first coding & robotics podcast.',                                               img: '/images/about/our-journey/ev6.webp' },
-  { id: 'ev7', date: '2025.7.18',  title: '1st Holiday Workshop',     details: 'Sheen Academy delivers its first holiday camp (2-days & 3-days workshops).',                                        img: '/images/about/our-journey/ev7.webp' },
+  { id: 'ev5', date: '2025.7.1',  title: '1st sheenbot Workshop',    details: 'Sheen Academy delivers its first sheenbot workshop at Techno Buzz.',                                    img: '/images/about/our-journey/ev5.webp' },
+  { id: 'ev6', date: '2025.7.4',  title: '1st Podcast',              details: 'Sheen Academy have Astrovos attended coding & robotics podcast.',                                               img: '/images/about/our-journey/ev6.webp' },
+  { id: 'ev7', date: '2025.7.18',  title: '1st Holiday Workshop',     details: 'Sheen Academy delivers its first winter school holiday camps.',                                        img: '/images/about/our-journey/ev7.webp' },
 ];
 
 export default function TimelineSection() {

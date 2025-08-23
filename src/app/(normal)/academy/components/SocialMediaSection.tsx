@@ -20,7 +20,7 @@ export default function SocialMediaSection() {
               <a
                 href="https://curator.io"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="crt-logo crt-tag"
               >
                 Powered by Curator.io

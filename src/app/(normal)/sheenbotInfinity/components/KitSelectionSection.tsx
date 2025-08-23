@@ -35,6 +35,7 @@ const kitImages: Record<string, string[]> = {
     "/images/sheenbotInfinity/kit/block-tinker/5.png",
     "/images/sheenbotInfinity/kit/block-tinker/6.png",
     "/images/sheenbotInfinity/kit/block-tinker/7.png",
+    "/images/sheenbotInfinity/kit/block-tinker/8.png",
   ],
   pro: [
     "/images/sheenbotInfinity/kit/block-pro/1.png",

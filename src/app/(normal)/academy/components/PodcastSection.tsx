@@ -8,9 +8,10 @@ import Image from 'next/image';
 
 export default function PodcastSection() {
   return (
-    <section className="max-w-5xl mx-auto pt-8 px-4">
+    <section className="max-w-5xl mx-auto pt-8 px-4 space-y-8">
+      {/* ───── Radio 786 Card ───── */}
       <div className="rounded-md shadow-md p-6 md:p-8 space-y-6">
-        {/* Header: Image + Title */}
+        {/* Header */}
         <div className="flex flex-col md:flex-row items-center gap-6">
           <Image
             src="/images/academy/Podcast/Radio786.png"
@@ -21,10 +22,16 @@ export default function PodcastSection() {
           />
           <div>
             <h2 className="text-2xl font-bold mb-2">
-              radio 786: Education Beyond 94 with Bafo
+              Radio 786: Education Beyond 94 with Bafo
             </h2>
             <p className="text-darklight text-sm leading-relaxed">
-              Join Bafo Nathan Yoti, educator at Sheen Academy, live in studio on Radio 786. In this enlightening segment of “Education Beyond 94,” Bafo discusses the vital role of coding and robotics in South Africa’s 4IR transformation—how these disciplines foster computational thinking, drive career opportunities across diverse fields, and empower youth to become creators rather than mere end users.
+              Join Bafo Nathan Yoti, educator at Sheen Academy, live in studio
+              on Radio 786. In this enlightening segment of “Education Beyond
+              94,” Bafo discusses the vital role of coding and robotics in
+              South Africa’s 4IR transformation—how these disciplines foster
+              computational thinking, drive career opportunities across diverse
+              fields, and empower youth to become creators rather than mere end
+              users.
             </p>
           </div>
         </div>
@@ -36,9 +43,44 @@ export default function PodcastSection() {
             controls
             width="100%"
             height="50px"
-            config={{
-              file: { attributes: { controlsList: 'nodownload' } },
-            }}
+            config={{ file: { attributes: { controlsList: 'nodownload' } } }}
+          />
+        </div>
+      </div>
+
+      {/* ───── Spotify Podcast Card ───── */}
+      <div className="rounded-md shadow-md p-6 md:p-8 space-y-6">
+        {/* Header */}
+        <div className="flex items-center gap-6">
+          <Image
+            src="/images/academy/Podcast/TechnoBuzz.png"
+            alt="Sheenbot Podcast on Spotify"
+            width={160}
+            height={160}
+            className="rounded-lg object-contain w-[120px] h-[120px] md:w-[160px] md:h-[160px]"
+          />
+          <div>
+            <h2 className="text-2xl font-bold mb-2">
+              TechnoBuzz Winter School Interview with Adam
+            </h2>
+            <p className="text-darklight text-sm leading-relaxed">
+              A short episode between Abri Botes and Adam Lin, explaining the initiatives behind Sheen Technologies, and the stories of introducing sheenbot into TechnoBuzz Winter School.
+            </p>
+          </div>
+        </div>
+
+        {/* Spotify Embed */}
+        <div className="overflow-hidden">
+          <iframe
+            data-testid="embed-iframe"
+            style={{ borderRadius: '12px' }}
+            src="https://open.spotify.com/embed/episode/4tisgv51bDYXbSZoZdeJSF?utm_source=generator&theme=0&t=969"
+            width="100%"
+            height="152"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Sheenbot Holiday Workshop Podcast"
           />
         </div>
       </div>

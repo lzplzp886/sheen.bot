@@ -151,13 +151,26 @@ export const infra = [
     href: "https://www.sheen.co.za/4k-touch-screen-interactive-panel-android-win10-ops"
   },
   {
+    id: "laptop",
+    title: "16inch Laptop Space Grey",
+    img: "/images/solutions/lab-sourcing/infra/laptop.webp",
+    price: "R 6 799",
+    specs: [
+      "Intel Core i5 3.6GHz",
+      "Windows 10",
+      "16GB RAM + 512GB SSD",
+      "16inch FHD 1920*1200"
+    ],
+    href: "https://www.sheen.co.za/16-inch-i5-8210y-16gb-512gb-space-grey-laptop"
+  },
+  {
     id: "hex",
     title: "Open-Hexagon Desk Set (6) + Chairs",
     img: "/images/solutions/lab-sourcing/infra/hex.webp",
     price: "R 11 389",
     specs: [
       "6 desks • 6 chairs",
-      "122 × 60 cm desks (H 52 cm)",
+      "122 x 60 cm desks (H 52 cm)",
       "Setup ⌀ ≤ 218 cm"
     ],
     href: "https://www.sheen.co.za/open-hexagon-style-classroom-desk-chair-set"
@@ -181,10 +194,22 @@ export const infra = [
     price: "R 8 328",
     specs: [
       "6 desks • 9 chairs",
-      "100 × 50 cm desks (H 43 cm)",
+      "100 x 50 cm desks (H 43 cm)",
       "Setup ⌀ ≤ 210 cm"
     ],
     href: "https://www.sheen.co.za/honeycomb-style-classroom-desk-chair-set"
+  },
+  {
+    id: "computerdeskset",
+    title: "Modern Computer Desk Set (4) + 8 Chairs",
+    img: "/images/solutions/lab-sourcing/infra/computer-desk-set.webp",
+    price: "R 14 378",
+    specs: [
+      "4 desks • 8 chairs",
+      "180 x 80 cm desks (H 75 cm)",
+      "Computer station"
+    ],
+    href: "https://www.sheen.co.za/axa-180cm-desk-alexis-chair-set-4-desks-8-chairs"
   },
   {
     id: "butterfly",
@@ -193,7 +218,7 @@ export const infra = [
     price: "R 12 628",
     specs: [
       "4 joint-desks + storage",
-      "120 × 60 × 75 cm",
+      "120 x 60 x 75 cm",
       "Faculty / demo station"
     ],
     href: "https://www.sheen.co.za/butterfly-style-4-person-office-workstation-set"
@@ -204,7 +229,7 @@ export const infra = [
     img: "/images/solutions/lab-sourcing/infra/drone-course.webp",
     price: "R 7 499",
     specs: [
-      "12× PVC gates (Ø 80 cm) + marker mats",
+      "12x PVC gates (Ø 80 cm) + marker mats",
       "Modular pylons, hoops & landing pads",
       "Tool-free quick assembly • indoor / outdoor",
       "Ideal for Eagle 1003 classroom missions"
@@ -218,11 +243,11 @@ export const infra = [
 /* ------------------------------------------------------------------ */
 export const training = {
   img: "/images/solutions/lab-sourcing/training/training.webp",
-  priceTotal: "R 12 500",
+  priceTotal: "R 18 500",
   breakdown: [
-    { item: "Training Materials", cost: "R 1 500" },
-    { item: "Venue Setup & Logistics", cost: "R 2 400" },
-    { item: "Refreshments (≤10 ppl)", cost: "R 2 100" },
+    { item: "Training Materials", cost: "R 4 500" },
+    { item: "Venue Setup & Logistics", cost: "R 7 200" },
+    { item: "Refreshments (≤10 ppl)", cost: "R 6 300" },
     { item: "Contingency / Emergency", cost: "R 500" }
   ],
   desc:

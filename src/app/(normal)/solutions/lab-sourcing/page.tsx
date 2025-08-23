@@ -19,7 +19,6 @@ export default function RoboticsLabPage() {
       {/* 模块化产品区块 */}
       <ProductGridSection id="kits"   title="Robotics Kits"  items={kits}  />
       <ProductGridSection id="infra"  title="Equipments"     items={infra} />
-
       <TrainingBanner />
     </main>
   );

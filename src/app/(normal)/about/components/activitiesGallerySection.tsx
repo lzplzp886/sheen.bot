@@ -1,4 +1,4 @@
-// src/app/(normal)/about/components/teamGallerySection.tsx
+// src/app/(normal)/about/components/activitiesGallerySection.tsx
 
 'use client';
 import React from 'react';
@@ -17,10 +17,10 @@ const images = [
   { src: '/images/about/our-team/about-sheen-team9.webp', alt: 'Soldering Course Development' },
 ];
 
-export default function TeamGallerySection() {
+export default function activitiesGallerySection() {
   return (
     <SectionContainer>
-      <h3 className="text-2xl font-semibold mb-4">Our Team</h3>
+      <h3 className="text-2xl font-semibold mb-4">Our Activities</h3>
       <CarouselGallery images={images} />
     </SectionContainer>
   );

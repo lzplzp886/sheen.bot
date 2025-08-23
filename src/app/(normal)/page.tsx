@@ -11,6 +11,7 @@ import KitSelectionSection from "./sheenbotInfinity/components/KitSelectionSecti
 import KitsGuideSection from "./sheenbotInfinity/components/KitsGuideSection";
 import WhySheenbotSection from "./sheenbotInfinity/components/WhySheenbotSection";
 import ProductPCBLayoutSection from "./sheenbotInfinity/components/ProductPCBLayoutSection";
+import SocialMediaSection from "./sheenbotInfinity/components/SocialMediaSection";
 
 export default function HomePage() {
   const router = useRouter();
@@ -37,6 +38,7 @@ export default function HomePage() {
       <KitsGuideSection />
       <WhySheenbotSection />
       <ProductPCBLayoutSection />
+      <SocialMediaSection />
     </main>
   );
 }

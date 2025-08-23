@@ -241,7 +241,7 @@ const studentSection: SectionProps = {
     "Intermediate Phase (Grades 4-6) — block-based coding with sensors",
     "Senior Phase (Grades 7-9) — block-based coding & micro:bit robotics"
   ],
-  session : "1 – 2 hours per session",
+  session : "1 - 2 hours per session",
   ctaHref : "mailto:academy@sheen.co.za?subject=Student%20Courses%20Enquiry"
 };
 
@@ -263,7 +263,7 @@ const teacherSection: SectionProps = {
     "WhalesBot • sheenbot∞",
     "3D Printing & Classroom Integration"
   ],
-  session : "1 – 2 hours per session",
+  session : "1 - 2 hours per session",
   ctaHref : "mailto:academy@sheen.co.za?subject=Teacher%20Training%20Enquiry"
 };
 
