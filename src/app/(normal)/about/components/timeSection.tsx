@@ -14,13 +14,17 @@ interface EventItem {
 }
 
 const EVENTS: EventItem[] = [
-  { id: 'ev1', date: '2025.2.5',  title: '1st Public Exposure',      details: 'Sheen Robotics showcased its product lineups WhalesBot to the public.',                                                      img: '/images/about/our-journey/ev1.webp' },
-  { id: 'ev2', date: '2025.3.15', title: 'Academy Opening',          details: 'Sheen Academy opens to public, providing weekly coding & robotics classes.',                                         img: '/images/about/our-journey/ev2.webp' },
-  { id: 'ev3', date: '2025.3.29', title: 'sheenbot Publish',         details: 'Sheen published its first sheenbot and smart home kit bundle.',                                                            img: '/images/about/our-journey/ev3.webp' },
-  { id: 'ev4', date: '2025.6.25', title: '1st School Group Visit',   details: 'Sheen Academy welcomes groups from Sans Souci Girls High School.',                                                   img: '/images/about/our-journey/ev4.webp' },
-  { id: 'ev5', date: '2025.7.1',  title: '1st sheenbot Workshop',    details: 'Sheen Academy delivers its first sheenbot workshop at Techno Buzz.',                                    img: '/images/about/our-journey/ev5.webp' },
-  { id: 'ev6', date: '2025.7.4',  title: '1st Podcast',              details: 'Sheen Academy have Astrovos attended coding & robotics podcast.',                                               img: '/images/about/our-journey/ev6.webp' },
-  { id: 'ev7', date: '2025.7.18',  title: '1st Holiday Workshop',     details: 'Sheen Academy delivers its first winter school holiday camps.',                                        img: '/images/about/our-journey/ev7.webp' },
+  { id: 'ev1', date: '2025.2.5', title: '1st Public Exposure', details: 'Sheen showcased its product lineups WhalesBot to the public.', img: '/images/about/our-journey/ev1.webp' },
+  { id: 'ev2', date: '2025.3.15', title: 'Academy Opening', details: 'Sheen opens to public, providing weekly coding & robotics classes.', img: '/images/about/our-journey/ev2.webp' },
+  { id: 'ev3', date: '2025.3.29', title: 'sheenbot Publish', details: 'Sheen published its first sheenbot and smart home kit bundle.', img: '/images/about/our-journey/ev3.webp' },
+  { id: 'ev4', date: '2025.6.25', title: '1st School Group Visit', details: 'Sheen welcomes groups from Sans Souci Girls High School.', img: '/images/about/our-journey/ev4.webp' },
+  { id: 'ev5', date: '2025.7.1', title: '1st sheenbot Workshop', details: 'Sheen delivers its first sheenbot workshop at Techno Buzz.', img: '/images/about/our-journey/ev5.webp' },
+  { id: 'ev6', date: '2025.7.4', title: '1st Podcast', details: 'Sheen have Astrovos attended coding & robotics podcast.', img: '/images/about/our-journey/ev6.webp' },
+  { id: 'ev7', date: '2025.7.18', title: '1st Holiday Workshop', details: 'Sheen delivers its first winter school holiday camps.', img: '/images/about/our-journey/ev7.webp' },
+  { id: 'ev8', date: '2025.8.1', title: 'National Science Week', details: 'Students from Brackenfell High with Councillor Higham during the demo.', img: '/images/about/our-journey/ev8.webp' },
+  { id: 'ev9', date: '2025.8.16', title: 'iThemba LABS Program', details: 'Interactive robotics and drone exhibition at iThemba LABS.', img: '/images/about/our-journey/ev9.webp' },
+  { id: 'ev10', date: '2025.8.21', title: 'Ecosystem Workshop', details: 'Sheen participate the potential international collaboration workshop.', img: '/images/about/our-journey/ev10.webp' },
+  { id: 'ev11', date: '2025.8.27', title: 'Luban Workshop Discussion', details: 'Luban workshop initiatives discussion with CPUT.', img: '/images/about/our-journey/ev11.webp' },
 ];
 
 export default function TimelineSection() {
