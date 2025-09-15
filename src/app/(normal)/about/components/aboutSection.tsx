@@ -10,7 +10,7 @@ export default function AboutSection() {
       <h2 id="about" className="text-3xl font-semibold mb-4">About Us</h2>
 
       <p className="text-body max-w-prose whitespace-normal break-words mb-4">
-        Started in March 2025, Sheen Technologies is dedicated to make AI, IoT, coding & robotics more accessible by young generations. Our team is passionate about building cutting-edge solutions for our clients.
+        Started in March 2025, Sheen Technologies aims to empowering African youth to invent the future with AI and robotics technologies. Our team is passionate about building cutting-edge solutions for our clients, including schools, institutions and households.
       </p>
 
       {/* YouTube video (keeps 16:9 on mobile) */}

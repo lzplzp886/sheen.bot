@@ -24,4 +24,22 @@ export const WORKSHOPS = [
       { label: "Week 3: 17 - 18 July 2025", value: "Week 3: 17 - 18 July 2025" },
     ],
   },
+  {
+    code: "WSH3",
+    name: "Spring Holiday Camp - Build your Smart City - 7~9 Oct",
+    soldOut: false,
+    minAge: 9,
+    maxAge: 18,
+    timeslots: ["Full Day (10:00 AM - 3:00 PM)"],
+    weeks: [
+      { label: "Holiday Week: 7 - 9 October 2025", value: "Holiday Week: 7 - 9 October 2025" },
+    ],
+  },
 ] as const;
+
+/* --- pricing per workshop --- */
+export const WORKSHOP_PRICING: Record<string, number> = {
+  WSH1: 750,
+  WSH2: 600,
+  WSH3: 750,
+};

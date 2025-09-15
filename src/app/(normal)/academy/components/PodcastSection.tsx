@@ -51,7 +51,7 @@ export default function PodcastSection() {
       {/* ───── Spotify Podcast Card ───── */}
       <div className="rounded-md shadow-md p-6 md:p-8 space-y-6">
         {/* Header */}
-        <div className="flex items-center gap-6">
+        <div className="flex flex-col md:flex-row items-center gap-6">
           <Image
             src="/images/academy/Podcast/TechnoBuzz.png"
             alt="Sheenbot Podcast on Spotify"
