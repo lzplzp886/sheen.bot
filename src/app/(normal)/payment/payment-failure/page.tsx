@@ -1,3 +1,5 @@
+// src/app/(normal)/payment/payment-failure/page.tsx
+
 import { Suspense } from "react";
 import PaymentFailureInner from "./PaymentFailureInner";
 

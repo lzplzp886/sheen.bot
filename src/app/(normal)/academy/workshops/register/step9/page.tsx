@@ -149,7 +149,7 @@ export default function Step9() {
       const stashRes = await fetch("/api/payfast/stash", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ payload: fullPayload, ttlSeconds: 60 * 60 * 24 }),
+        body: JSON.stringify({ value: fullPayload, ttlSeconds: 60 * 60 * 24 }),
       });
       if (!stashRes.ok) throw new Error(`Stash failed ${stashRes.status}`);
       const { stashId } = (await stashRes.json()) as { stashId: string };

@@ -1,3 +1,5 @@
+// src/app/(normal)/payment/payment-failure/PaymentFailureInner.tsx
+
 "use client";
 
 import React from "react";
