@@ -240,7 +240,7 @@ export async function POST(request: Request) {
             ["Allergies", allergies],
           ];
           if (classLabel) {
-            childData.push(["Class Group", classLabel]);
+            childData.push(["Class Group", "Holiday Camp"]);
           }
           renderTwoColTable(doc, childData, childLabel);
         });

@@ -80,7 +80,7 @@ export default function HeroComposite() {
           📌Location: Sheen Academy, Century City, Cape Town
         </div>
         <div className="bg-secondary/20 text-background font-medium px-4 py-2 rounded-full">
-          ⌛Duration: 5 hours per day & 3 days per workshop
+          ⌛Duration: 4 hours per day & 3 days per workshop
         </div>
       </div>
     </section>

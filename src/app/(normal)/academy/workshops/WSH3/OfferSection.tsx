@@ -26,7 +26,7 @@ export default function OfferSection() {
               </div>
             ))}
           </div>
-          <p className="mt-4 font-medium">Time: 10:00 AM − 3:00 PM</p>
+          <p className="mt-4 font-medium">Time: 10:00 AM − 2:00 PM</p>
         </div>
 
         <div className="text-center space-y-3">

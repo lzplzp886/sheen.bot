@@ -48,7 +48,7 @@ const FAQ_ITEMS = [
   {
     question: 'Is lunch provided?',
     answer:
-      'Sessions end at 15 : 00, so learners have lunch afterwards. They may bring a light snack for the mid-session break.',
+      'Sessions end at 2:00PM, so learners have lunch afterwards. They may bring a light snack for the mid-session break.',
   },
   {
     question: 'What’s the cancellation / refund policy?',

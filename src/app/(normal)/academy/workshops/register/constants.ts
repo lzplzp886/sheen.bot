@@ -2,35 +2,46 @@
 
 /** 所有可选 Workshop & 其属性 */
 export const WORKSHOPS = [
-  {
-    code: "WSH1",
-    name: "Spark Curiosity This School Holiday! - Lego Spike, micro:bit & Soldering (3 Days for 9-18 yrs old)",
-    soldOut: true,
-    minAge: 9,
-    maxAge: 18,
-    timeslots: ["Morning (10:00 AM - 1:00 PM)"],
-    weeks: [
-      { label: "Week 3: 15 - 17 July 2025", value: "Week 3: 15 - 17 July 2025" },
-    ],
-  },
-  {
-    code: "WSH2",
-    name: "Spark Curiosity This School Holiday! - Scratch & 3D Design (2 Days for 8-10 yrs old)",
-    soldOut: true,
-    minAge: 8,
-    maxAge: 10,
-    timeslots: ["Morning (10:30 AM - 1:00 PM)"],
-    weeks: [
-      { label: "Week 3: 17 - 18 July 2025", value: "Week 3: 17 - 18 July 2025" },
-    ],
-  },
+  // {
+  //   code: "WSH1",
+  //   name: "Spark Curiosity This School Holiday! - Lego Spike, micro:bit & Soldering (3 Days for 9-18 yrs old)",
+  //   soldOut: true,
+  //   minAge: 9,
+  //   maxAge: 18,
+  //   timeslots: ["Morning (10:00 AM - 1:00 PM)"],
+  //   weeks: [
+  //     { label: "Week 3: 15 - 17 July 2025", value: "Week 3: 15 - 17 July 2025" },
+  //   ],
+  // },
+  // {
+  //   code: "WSH2",
+  //   name: "Spark Curiosity This School Holiday! - Scratch & 3D Design (2 Days for 8-10 yrs old)",
+  //   soldOut: true,
+  //   minAge: 8,
+  //   maxAge: 10,
+  //   timeslots: ["Morning (10:30 AM - 1:00 PM)"],
+  //   weeks: [
+  //     { label: "Week 3: 17 - 18 July 2025", value: "Week 3: 17 - 18 July 2025" },
+  //   ],
+  // },
   {
     code: "WSH3",
     name: "Spring Holiday Camp - Build your Smart City - 7~9 Oct",
     soldOut: false,
     minAge: 9,
     maxAge: 18,
-    timeslots: ["Full Day (10:00 AM - 3:00 PM)"],
+    timeslots: ["Full Day (10:00 AM - 2:00 PM)"],
+    weeks: [
+      { label: "Holiday Week: 7 - 9 October 2025", value: "Holiday Week: 7 - 9 October 2025" },
+    ],
+  },
+  {
+    code: "WSH3SP",
+    name: "Spring Holiday Camp - Build your Smart City - 7~9 Oct",
+    soldOut: false,
+    minAge: 9,
+    maxAge: 18,
+    timeslots: ["Full Day (10:00 AM - 2:00 PM)"],
     weeks: [
       { label: "Holiday Week: 7 - 9 October 2025", value: "Holiday Week: 7 - 9 October 2025" },
     ],
@@ -42,4 +53,5 @@ export const WORKSHOP_PRICING: Record<string, number> = {
   WSH1: 750,
   WSH2: 600,
   WSH3: 750,
+  WSH3SP: 600,
 };
