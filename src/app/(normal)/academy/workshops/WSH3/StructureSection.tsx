@@ -1,4 +1,4 @@
-// src/app/(normal)/academy/workshops/WSH2/StructureSection.tsx
+// src/app/(normal)/academy/workshops/WSH3/StructureSection.tsx
 
 'use client';
 
@@ -8,21 +8,21 @@ import Image from 'next/image';
 const CARDS = [
   {
     icon: '/images/academy/Workshops/Day-1.svg',
-    title: 'Intro',
+    title: 'Code Your Imagination',
     subtitle: 'Day 1',
-    desc: 'Kids be introduced to the design of the whole smart city, and get familiar with materials to be used.',
+    desc: 'Our journey begins with the building blocks of code. Using fun, visual platforms like Mind+, Spike App, and Whalesbot Scratch, kids will get hands-on with block-based programming. They’ll then be introduced to the ultimate challenge ... designing and constructing a smart city.',
   },
   {
     icon: '/images/academy/Workshops/Day-2.svg',
-    title: 'Program',
+    title: 'Build the Future',
     subtitle: 'Day 2',
-    desc: 'Learn programming on computer, prototype the structures or buildings that forms part of the smart city in group settings.',
+    desc: 'Time to put those new coding skills to the test! Drawing on what they learned and the city design they helped create, students will get to build and program incredible smart structures. Think smart homes, smart cars, and so much more! This is where creativity takes the wheel as they use their coding knowledge to invent unique and functional designs.',
   },
   {
     icon: '/images/academy/Workshops/Day-3.svg',
-    title: 'Build & Present',
+    title: 'Bring the City to Life',
     subtitle: 'Day 3',
-    desc: 'Finalize the building of each project, put them together into the sandbox, and present the work to the class.',
+    desc: 'The final day is all about teamwork! Students will connect their individual creations to complete the smart city. They will see their hard work pay off as the entire city becomes a connected, functioning masterpiece. It is a fantastic finale that showcases how collaboration and technology can build amazing things.',
   },
 ];
 

@@ -1,4 +1,4 @@
-// src/app/(normal)/academy/workshops/WSH2/WorkshopFAQSection.tsx
+// src/app/(normal)/academy/workshops/WSH3/WorkshopFAQSection.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -9,7 +9,7 @@ const FAQ_ITEMS = [
   {
     question: 'Where can I register for the Winter Holiday Camp?',
     answer:
-      'Simply fill out our online form at https://www.sheen.bot/academy/workshops/register. It only takes two minutes!',
+      'Simply fill out our online form at our workshop page. It only takes two minutes!',
   },
   {
     question: 'What’s the focus of this three-day camp?',
@@ -38,7 +38,7 @@ const FAQ_ITEMS = [
   {
     question: 'Where is the camp held?',
     answer:
-      'Unit C1, Century Square, Heron Cres, Century City, Cape Town 7441—inside Sheen Academy’s secure, fully equipped makerspace.',
+      'Century Square, Heron Cres, Century City, Cape Town 7441—inside Sheen Academy’s secure, fully equipped makerspace.',
   },
   {
     question: 'How do you ensure safety during the workshop?',

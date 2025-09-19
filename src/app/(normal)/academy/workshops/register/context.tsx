@@ -1,35 +1,32 @@
 // src/app/(normal)/academy/workshops/register/context.tsx
-
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-// 定义每个孩子的信息结构
+/** ---------- Types (unchanged) ---------- */
 export interface ChildInfo {
   firstName: string;
   surname: string;
   age: number | null;
-  gender: string; // "Male"/"Female"/"Other"...
+  gender: string;
   schoolName?: string;
-  grade?: string; // "Grade R"~"Grade 12" or "Out of School"
+  grade?: string;
   medicalConditions?: string;
   allergies?: string;
 }
 
-// 定义整个表单数据结构
-interface EnrollmentData {
-  referralCode: string;         // Section 1
-  children: ChildInfo[];        // Section 2
-  confirmedAgeGroups: string[]; // Section 3
-  selectedTimeslots: string[];  // Section 4
-  selectedWorkshop: string; // Step4 workshop name
-  selectedDateRange: string; // Step4 week range
-  selectedTimeslot: string; // Step4 time slot
+export interface EnrollmentData {
+  referralCode: string;
+  children: ChildInfo[];
+  confirmedAgeGroups: string[];
+  selectedTimeslots: string[];
+  selectedWorkshop: string;
+  selectedDateRange: string;
+  selectedTimeslot: string;
 
-
-  // (以下是家长信息) Section 5
-  parentCountryCode: string;    // 新增：家长的国家区号，如 "27"
-  parentContactNumber: string;  // 原始数字，不含区号
+  // Section 5
+  parentCountryCode: string;
+  parentContactNumber: string;
   parentFirstName: string;
   parentSurname: string;
   parentRelationship: string;
@@ -37,48 +34,46 @@ interface EnrollmentData {
   preferredContactMethods: string[];
   subscribeNewsletter: string;
 
-  // (以下是紧急联系人) Section 6
-  emergencyCountryCode: string;    // 新增：紧急联系人区号
-  emergencyContactNumber: string;  // 原始数字
+  // Section 6
+  emergencyCountryCode: string;
+  emergencyContactNumber: string;
   emergencyFirstName: string;
   emergencySurname: string;
   emergencyRelationship: string;
 
-  // (以下是授权联系人1) Section 7
-  pickup1CountryCode: string;    // 新增
-  pickup1ContactNumber: string;  // 原始数字
+  // Section 7 (pickup 1)
+  pickup1CountryCode: string;
+  pickup1ContactNumber: string;
   pickup1FirstName: string;
   pickup1Surname: string;
   pickup1Relationship: string;
 
-  // (以下是授权联系人2) Section 7
-  pickup2CountryCode: string;    // 新增
-  pickup2ContactNumber: string;  // 原始数字
+  // Section 7 (pickup 2)
+  pickup2CountryCode: string;
+  pickup2ContactNumber: string;
   pickup2FirstName: string;
   pickup2Surname: string;
   pickup2Relationship: string;
 
   // Step8
-  consentConfirmed: boolean;    // 8.1
-  popiaConfirmed: boolean;      // 8.2
+  consentConfirmed: boolean;
+  popiaConfirmed: boolean;
 
   // Step9
   signatureData: string;
 }
 
-// 初始值
+/** ---------- Initial data (unchanged) ---------- */
 const initialData: EnrollmentData = {
   referralCode: "",
-  children: [{ firstName: '', surname: '', age: null, gender: '' }],
+  children: [{ firstName: "", surname: "", age: null, gender: "" }],
   confirmedAgeGroups: [],
   selectedTimeslots: [],
   selectedWorkshop: "",
   selectedDateRange: "",
   selectedTimeslot: "",
 
-
-  // 家长信息（step5）
-  parentCountryCode: "27",   // 默认南非区号
+  parentCountryCode: "27",
   parentContactNumber: "",
   parentFirstName: "",
   parentSurname: "",
@@ -87,35 +82,91 @@ const initialData: EnrollmentData = {
   preferredContactMethods: [],
   subscribeNewsletter: "",
 
-  // 紧急联系人（step6）
   emergencyCountryCode: "27",
   emergencyContactNumber: "",
   emergencyFirstName: "",
   emergencySurname: "",
   emergencyRelationship: "",
 
-  // 授权联系人1（step7）
   pickup1CountryCode: "27",
   pickup1ContactNumber: "",
   pickup1FirstName: "",
   pickup1Surname: "",
   pickup1Relationship: "",
 
-  // 授权联系人2（step7）
   pickup2CountryCode: "27",
   pickup2ContactNumber: "",
   pickup2FirstName: "",
   pickup2Surname: "",
   pickup2Relationship: "",
 
-  // step8
   consentConfirmed: false,
   popiaConfirmed: false,
 
-  // step9
   signatureData: "",
 };
 
+/** ---------- Session snapshot bridge (new) ---------- */
+// Namespaced, versioned key to avoid collisions with other payment modules
+export const WIZARD_SNAPSHOT_KEY = "wsr.enrollment.v1";
+
+function isObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null;
+}
+
+function isEnrollmentDataLike(v: unknown): v is EnrollmentData {
+  if (!isObject(v)) return false;
+
+  const r = v as Record<string, unknown>;
+
+  const childrenOk =
+    Array.isArray(r["children"]) &&
+    r["children"].every((c) => {
+      if (!isObject(c)) return false;
+      const rc = c as Record<string, unknown>;
+      const firstOk = typeof rc["firstName"] === "string";
+      const lastOk = typeof rc["surname"] === "string";
+      // age/gender 等字段就算缺失也不影响快照判定
+      return firstOk && lastOk;
+    });
+
+  const parentFirstOk = typeof r["parentFirstName"] === "string";
+  const signatureOk = typeof r["signatureData"] === "string";
+
+  return childrenOk && parentFirstOk && signatureOk;
+}
+
+export function readWizardSnapshot(): EnrollmentData | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(WIZARD_SNAPSHOT_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return isEnrollmentDataLike(parsed) ? (parsed as EnrollmentData) : null;
+  } catch {
+    return null;
+  }
+}
+
+export function writeWizardSnapshot(data: EnrollmentData) {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(WIZARD_SNAPSHOT_KEY, JSON.stringify(data));
+  } catch {
+    // ignore quota errors etc.
+  }
+}
+
+export function clearWizardSnapshot() {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.removeItem(WIZARD_SNAPSHOT_KEY);
+  } catch {
+    // ignore
+  }
+}
+
+/** ---------- Context API (unchanged) ---------- */
 interface WizardContextProps {
   data: EnrollmentData;
   setData: React.Dispatch<React.SetStateAction<EnrollmentData>>;
@@ -123,8 +174,25 @@ interface WizardContextProps {
 
 const WizardContext = createContext<WizardContextProps | undefined>(undefined);
 
+/**
+ * WizardProvider now:
+ * 1) lazily initializes from session snapshot if present;
+ * 2) auto-persists to sessionStorage on every change.
+ */
 export function WizardProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<EnrollmentData>(initialData);
+  const [data, setData] = useState<EnrollmentData>(() => {
+    // Lazy init so it runs once on first client render
+    if (typeof window !== "undefined") {
+      const snap = readWizardSnapshot();
+      if (snap) return snap;
+    }
+    return initialData;
+  });
+
+  // Auto-persist on change
+  useEffect(() => {
+    writeWizardSnapshot(data);
+  }, [data]);
 
   return (
     <WizardContext.Provider value={{ data, setData }}>

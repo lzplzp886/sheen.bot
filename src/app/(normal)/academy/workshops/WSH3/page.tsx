@@ -1,7 +1,8 @@
-// src/app/(normal)/academy/workshops/WSH2/page.tsx
+// src/app/(normal)/academy/workshops/WSH3/page.tsx
 'use client';
 import React from 'react';
 import HeroComposite from './HeroComposite';
+import IntroSection from './IntroSection';
 import VideoSection from './VideoSection';
 import StructureSection from './StructureSection';
 import OfferSection from './OfferSection';
@@ -11,6 +12,7 @@ export default function WorkshopsPage() {
   return (
     <main className="text-body">
       <HeroComposite />
+      <IntroSection />
       <StructureSection />
       <OfferSection />
       <VideoSection />

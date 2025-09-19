@@ -1,4 +1,4 @@
-// src/app/(normal)/academy/workshops/WSH2/VideoSection.tsx
+// src/app/(normal)/academy/workshops/WSH3/VideoSection.tsx
 'use client';
 import React from 'react';
 
@@ -9,7 +9,7 @@ export default function VideoSection() {
       <div className="max-w-6xl mx-auto px-4">
         {/* 标题 */}
         <h3 className="text-2xl font-semibold mb-8 text-center md:text-left">
-          Workshop Recap
+          Winter School Holiday Recap
         </h3>
 
         {/* 卡片包裹 iframe */}
