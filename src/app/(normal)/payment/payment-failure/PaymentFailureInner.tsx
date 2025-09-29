@@ -5,6 +5,7 @@
 import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 function safePath(p?: string | null) {
   if (!p) return "/";
@@ -27,22 +28,30 @@ export default function PaymentFailureInner() {
     <section className="min-h-screen flex items-center justify-center bg-background text-body px-4">
       <div className="w-full max-w-md rounded-2xl shadow p-6 bg-white">
         <div className="text-center">
-          <div className="text-5xl mb-3">⚠️</div>
+          <div className="mb-3">
+            <Image
+              src="/images/404.svg"
+              alt="404 icon"
+              width={64}
+              height={64}
+              priority
+            />
+          </div>
           <h1 className="text-2xl font-semibold mb-2">Payment Failed</h1>
           <p className="text-sm text-darklight mb-6">
             Your payment was not completed. No confirmation was sent and your registration
             has not been finalized.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-3">
             <button
-              className="btn"
+              className="btn w-full sm:w-auto"
               onClick={() => router.push(back)}
             >
               Back to Registration
             </button>
 
-            <Link className="btn btn-outline" href="/">
+            <Link className="btn btn-outline w-full sm:w-auto" href="/">
               Go to Home
             </Link>
           </div>

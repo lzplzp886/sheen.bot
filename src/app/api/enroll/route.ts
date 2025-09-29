@@ -45,7 +45,7 @@ function drawHeader(doc: ExtendedPDFDocument) {
   // 公司信息文本设置
   doc.fontSize(8);
   const headerText = `Sheen Technologies Pty Ltd (Reg No. 2024/133334/07)
-Unit C1, Century Square, Heron Crescent,
+Unit C4, Century Square, Heron Crescent,
 Century City, Cape Town, 7441`;
 
   // 测量文本高度（假设宽度 300）

@@ -34,7 +34,7 @@ export default function OfferSection() {
         </div>
 
         <div className="text-center space-y-3">
-          <h4 className="font-semibold">Prefer one of our agent explain more to you?</h4>
+          <h4 className="font-semibold">Want an agent to explain this to you?</h4>
           <p>
             Email:{' '}
             <a href="mailto:academy@sheen.co.za" className="underline">

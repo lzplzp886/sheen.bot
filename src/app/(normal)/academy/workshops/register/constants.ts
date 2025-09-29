@@ -26,7 +26,7 @@ export const WORKSHOPS = [
   // },
   {
     code: "WSH3",
-    name: "Spring Holiday Camp - Build your Smart City - 7~9 Oct",
+    name: "Spring Holiday Camp - Build your Smart City",
     soldOut: false,
     minAge: 9,
     maxAge: 18,
@@ -37,7 +37,7 @@ export const WORKSHOPS = [
   },
   {
     code: "WSH3SP",
-    name: "Spring Holiday Camp - Build your Smart City - 7~9 Oct",
+    name: "Spring Holiday Camp - Build your Smart City for Sheen Academy students",
     soldOut: false,
     minAge: 9,
     maxAge: 18,

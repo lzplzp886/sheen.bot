@@ -35,7 +35,7 @@ export default function ContactSection() {
           <div>
             <h4 className="text-xl font-medium">Address</h4>
             <p>
-              Unit C1, Century&nbsp;Square,<br />
+              Unit C4, Century&nbsp;Square,<br />
               Heron Crescent, Century&nbsp;City,<br />
               Cape Town&nbsp;7441
             </p>
