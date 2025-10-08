@@ -10,7 +10,7 @@ export default function AcademyVisitPage() {
   return (
     <div className="w-full h-screen">
       <iframe
-        src="https://outlook.office365.com/owa/calendar/bookings@sheen.co.za/bookings/s/hoySxD4egEGxts9qTXExkQ2"
+        src="https://outlook.office.com/book/Bookings@sheen.co.za/s/1iVRvGObXUKSPfBvASbIgg2?ismsaljsauthenabled"
         className="w-full h-full border-0 overflow-auto"
         title="Book a Trial Class | sheen academy"
       />
