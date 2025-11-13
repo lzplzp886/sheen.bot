@@ -141,7 +141,7 @@ export const infra = [
     id: "screen",
     title: "Smart Interactive Hub (4K)",
     img: "/images/solutions/lab-sourcing/infra/screen.webp",
-    price: "R 21 399",
+    price: "R 28 999",
     specs: [
       "4K touch screen + stylus",
       "Android 13 & Windows 10 OPS",
