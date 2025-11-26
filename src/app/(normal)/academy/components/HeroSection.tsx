@@ -26,7 +26,7 @@ const slides: Slide[] = [
     heading: "Holiday Workshop",
     description: "Festive coding & robotics workshops — ages 9+, R750 per workshop",
     primary: { label: "Learn More", href: "/academy/workshops" },
-    secondary: { label: "Book Now →", href: "/academy/workshops/register?id=WSH3" },
+    secondary: { label: "Book Now →", href: "/academy/workshops/register" },
   },
 ];
 

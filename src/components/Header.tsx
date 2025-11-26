@@ -93,6 +93,16 @@ export default function Header() {
               </Link>
             </li>
             <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
+              <Link 
+                href="https://store.sheen.co.za" 
+                onClick={() => setIsOpen(false)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                store
+              </Link>
+            </li>
+            <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300">
               <Link href="/about" onClick={() => setIsOpen(false)}>
                 about
               </Link>
@@ -156,6 +166,16 @@ export default function Header() {
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
                   <Link href="/academy" onClick={() => setIsOpen(false)}>
                     academy
+                  </Link>
+                </li>
+                <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">
+                  <Link 
+                    href="https://store.sheen.co.za" 
+                    onClick={() => setIsOpen(false)}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    store
                   </Link>
                 </li>
                 <li className="text-background text-lg font-normal hover:text-secondary transition-colors duration-300 border-b border-secondary pb-2">

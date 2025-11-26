@@ -20,9 +20,9 @@ export default function HeroBanner() {
 
           {/* buttons – vertical on mobile, horizontal on ≥sm */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center gap-4">
-            <Link href="/academy/workshops/WSH3">
+            <Link href="/academy/workshops/WSH4">
               <button className="bg-primary text-background font-bold px-5 py-3 rounded shadow hover:bg-secondary w-52">
-                Spring Holiday Camp (3-DAYS)
+                December Holiday Clubs (3-DAYS)
               </button>
             </Link>
           </div>
