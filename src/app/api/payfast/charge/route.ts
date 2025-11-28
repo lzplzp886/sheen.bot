@@ -64,13 +64,27 @@ export async function POST(req: Request) {
   try {
     const payload: ChargePayload = await req.json();
 
-    // —— 模式
+    // —— 1. 辅助函数：安全转字符串并 Trim
+    const clean = (v: unknown) => String(v || "").trim();
+
+    // —— 2. 模式
     const modeStr = String(payload?.mode || "once").toLowerCase();
     const mode: ChargeMode = modeStr === "sub" ? "sub" : "once";
 
-    // —— 商品 / 用户 / 跳转路径
-    const item: ChargeItem = payload?.item ?? {};
-    const customer: ChargeCustomer = payload?.customer ?? {};
+    // —— 3. 商品 / 用户 (在此处进行清理)
+    const rawItem = payload?.item ?? {};
+    const rawCustomer = payload?.customer ?? {};
+
+    const item: ChargeItem = {
+      code: clean(rawItem.code),
+      name: clean(rawItem.name) || "Payment", // 保证有默认值
+    };
+
+    const customer: ChargeCustomer = {
+      firstName: clean(rawCustomer.firstName),
+      lastName:  clean(rawCustomer.lastName),
+      email:     clean(rawCustomer.email),
+    };
     const returnPath = payload?.returnPath || "/payment/success";
     const cancelPath = payload?.cancelPath || "/payment-failure";
     const callbackPath = payload?.callbackPath || "";
@@ -133,6 +147,7 @@ export async function POST(req: Request) {
     await ddb.send(new PutCommand(putInput));
 
     // 3) PayFast 字段（不含 signature）
+    // 修改重点：在这里加入 .trim() 清理空格
     const fields: Record<string, string> = {
       merchant_id : PAYFAST.MERCHANT_ID,
       merchant_key: PAYFAST.MERCHANT_KEY,
@@ -140,18 +155,18 @@ export async function POST(req: Request) {
       cancel_url  : `${PAYFAST.BASE_URL}${cancelPath}?paymentId=${encodeURIComponent(paymentId)}`,
       notify_url  : `${PAYFAST.BASE_URL}/api/payfast/notify`,
       m_payment_id: paymentId,
-      amount      : amount, // "123.45"
-      item_name   : String(item?.name || "Payment"),
-      name_first  : String(customer?.firstName || ""),
-      name_last   : String(customer?.lastName || ""),
-      email_address: String(customer?.email || ""),
+      amount      : amount,
+      item_name   : item.name!,          // 使用已 clean 的数据
+      name_first  : customer.firstName!, // 使用已 clean 的数据
+      name_last   : customer.lastName!,  // 使用已 clean 的数据
+      email_address: customer.email!,    // 使用已 clean 的数据
     };
 
     if (mode === "sub" && subscriptionForRecord) {
       fields["subscription_type"] = "1";
       fields["recurring_amount"]  = subscriptionForRecord.recurring_amount;
-      fields["frequency"]         = subscriptionForRecord.frequency; // 3/4/5/6
-      fields["cycles"]            = subscriptionForRecord.cycles;    // '0' indefinite
+      fields["frequency"]         = subscriptionForRecord.frequency; 
+      fields["cycles"]            = subscriptionForRecord.cycles;    
     }
 
     // 4) 签名（含可选 passphrase，编码规则与浏览器表单一致）
