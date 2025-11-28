@@ -219,7 +219,7 @@ export default function KitSelectionSection() {
       {/* Buy Now & Brochure */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
         <Link
-          href={`https://www.sheen.co.za/sheenbot-${selectedTab}`}
+          href={`https://store.sheen.co.za/sheenbot-${selectedTab}`}
           className="px-8 py-3 bg-primary text-white font-bold rounded shadow hover:bg-secondary transition-colors"
         >
           Buy Now

@@ -16,7 +16,7 @@ export const kits = [
       "Magnetic coding blocks",
       "16 courses included"
     ],
-    href: "https://www.sheen.co.za/whalesbot-u10-stem-starter-kit-kids-6-plus"
+    href: "https://store.sheen.co.za/whalesbot-u10-stem-starter-kit-kids-6-plus"
   },
   {
     id: "u20",
@@ -30,7 +30,7 @@ export const kits = [
       "Coding pen & cards (tap-to-code)",
       "16 courses included"
     ],
-    href: "https://www.sheen.co.za/whalesbot-u20-stem-starter-kit-kids-6-plus"
+    href: "https://store.sheen.co.za/whalesbot-u20-stem-starter-kit-kids-6-plus"
   },
   {
     id: "s30",
@@ -44,7 +44,7 @@ export const kits = [
       "Screen-free pad coding (100+ cmds)",
       "32 courses included"
     ],
-    href: "https://www.sheen.co.za/whalesbot-s30-basic-coding-kit-kids-8-plus"
+    href: "https://store.sheen.co.za/whalesbot-s30-basic-coding-kit-kids-8-plus"
   },
   {
     id: "s40",
@@ -58,7 +58,7 @@ export const kits = [
       "Scratch · C · Python software",
       "16 courses included"
     ],
-    href: "https://www.sheen.co.za/whalesbot-s40-intermediate-coding-kit-kids-8-plus"
+    href: "https://store.sheen.co.za/whalesbot-s40-intermediate-coding-kit-kids-8-plus"
   },
   {
     id: "ai1s",
@@ -73,7 +73,7 @@ export const kits = [
       "Scratch · C · Python support",
       "48 courses included"
     ],
-    href: "https://www.sheen.co.za/whalesbot-ai-module-1s-advanced-coding-robot-kit-kids-10-plus" // 
+    href: "https://store.sheen.co.za/whalesbot-ai-module-1s-advanced-coding-robot-kit-kids-10-plus" // 
   },
   {
     id: "eagle1003",
@@ -87,7 +87,7 @@ export const kits = [
       "Scratch ++ · Python SDK · Mission tasks",
       "Supports autonomous flight & obstacle avoidance"
     ],
-    href: "https://www.sheen.co.za/WhalesBot-Eagle-1003-Programmable-Drone"
+    href: "https://store.sheen.co.za/WhalesBot-Eagle-1003-Programmable-Drone"
   },
     {
     id: "sheen-basic",
@@ -101,7 +101,7 @@ export const kits = [
       "Block-based coding via Mind+",
       "12 lesson plans included"
     ],
-    href: "https://www.sheen.co.za/brand-sheen-robotics/sheenbot-basic"
+    href: "https://store.sheen.co.za/brand-sheen-robotics/sheenbot-basic"
   },
   {
     id: "sheen-smartHome",
@@ -115,7 +115,7 @@ export const kits = [
       "Wi-Fi IoT cloud dashboard",
       "16 guided projects"
     ],
-    href: "https://www.sheen.co.za/brand-sheen-robotics/sheenbot-smartHome"
+    href: "https://store.sheen.co.za/brand-sheen-robotics/sheenbot-smartHome"
   },
   {
     id: "sheen-tinker",
@@ -129,7 +129,7 @@ export const kits = [
       "Wi-Fi IoT cloud dashboard",
       "24 lesson plans included"
     ],
-    href: "https://www.sheen.co.za/brand-sheen-robotics/sheenbot-tinker"
+    href: "https://store.sheen.co.za/brand-sheen-robotics/sheenbot-tinker"
   }
 ];
 
@@ -148,7 +148,7 @@ export const infra = [
       "Built-in 48 MP camera & 8-array mic",
       "HDMI · VGA · Type-C · S/PDIF"
     ],
-    href: "https://www.sheen.co.za/4k-touch-screen-interactive-panel-android-win10-ops"
+    href: "https://store.sheen.co.za/4k-touch-screen-interactive-panel-android-win10-ops"
   },
   {
     id: "laptop",
@@ -161,7 +161,7 @@ export const infra = [
       "16GB RAM + 512GB SSD",
       "16inch FHD 1920*1200"
     ],
-    href: "https://www.sheen.co.za/16-inch-i5-8210y-16gb-512gb-space-grey-laptop"
+    href: "https://store.sheen.co.za/16-inch-i5-8210y-16gb-512gb-space-grey-laptop"
   },
   {
     id: "hex",
@@ -173,7 +173,7 @@ export const infra = [
       "122 x 60 cm desks (H 52 cm)",
       "Setup ⌀ ≤ 218 cm"
     ],
-    href: "https://www.sheen.co.za/open-hexagon-style-classroom-desk-chair-set"
+    href: "https://store.sheen.co.za/open-hexagon-style-classroom-desk-chair-set"
   },
   {
     id: "diamond",
@@ -185,7 +185,7 @@ export const infra = [
       "60 cm per side",
       "Setup ⌀ ≤ 167 cm"
     ],
-    href: "https://www.sheen.co.za/diamond-style-classroom-desk-chair-set"
+    href: "https://store.sheen.co.za/diamond-style-classroom-desk-chair-set"
   },
   {
     id: "honey",
@@ -197,7 +197,7 @@ export const infra = [
       "100 x 50 cm desks (H 43 cm)",
       "Setup ⌀ ≤ 210 cm"
     ],
-    href: "https://www.sheen.co.za/honeycomb-style-classroom-desk-chair-set"
+    href: "https://store.sheen.co.za/honeycomb-style-classroom-desk-chair-set"
   },
   {
     id: "computerdeskset",
@@ -209,7 +209,7 @@ export const infra = [
       "180 x 80 cm desks (H 75 cm)",
       "Computer station"
     ],
-    href: "https://www.sheen.co.za/axa-180cm-desk-alexis-chair-set-4-desks-8-chairs"
+    href: "https://store.sheen.co.za/axa-180cm-desk-alexis-chair-set-4-desks-8-chairs"
   },
   {
     id: "butterfly",
@@ -221,7 +221,7 @@ export const infra = [
       "120 x 60 x 75 cm",
       "Faculty / demo station"
     ],
-    href: "https://www.sheen.co.za/butterfly-style-4-person-office-workstation-set"
+    href: "https://store.sheen.co.za/butterfly-style-4-person-office-workstation-set"
   },
   {
     id: "droneCourse",
@@ -234,7 +234,7 @@ export const infra = [
       "Tool-free quick assembly • indoor / outdoor",
       "Ideal for Eagle 1003 classroom missions"
     ],
-    href: "https://www.sheen.co.za/drone-obstacle-course-set"
+    href: "https://store.sheen.co.za/drone-obstacle-course-set"
   }
 ];
 
