@@ -240,7 +240,7 @@ export default function Step9() {
           isLoading={isLoading}
           loadingText="Redirecting..."
         >
-          Pay Now
+          Next
         </Button>
       </div>
 

@@ -55,6 +55,7 @@ export const WORKSHOPS = [
     timeslots: ["Morning (10:00 - 12:00)"],
     weeks: [
       { label: "Holiday Week: 9 - 11 December 2025", value: "Holiday Week: 9 - 11 December 2025" },
+      { label: "Holiday Week: 17 - 19 December 2025", value: "Holiday Week: 17 - 19 December 2025" },
     ],
   },
   {
@@ -66,6 +67,7 @@ export const WORKSHOPS = [
     timeslots: ["Afternoon (14:00 - 17:00)"],
     weeks: [
       { label: "Holiday Week: 9 - 11 December 2025", value: "Holiday Week: 9 - 11 December 2025" },
+      { label: "Holiday Week: 17 - 19 December 2025", value: "Holiday Week: 17 - 19 December 2025" },
     ],
   },
 ] as const;

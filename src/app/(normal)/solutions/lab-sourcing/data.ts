@@ -167,7 +167,7 @@ export const infra = [
     id: "hex",
     title: "Open-Hexagon Desk Set (6) + Chairs",
     img: "/images/solutions/lab-sourcing/infra/hex.webp",
-    price: "R 11 389",
+    price: "R 16 389",
     specs: [
       "6 desks • 6 chairs",
       "122 x 60 cm desks (H 52 cm)",
