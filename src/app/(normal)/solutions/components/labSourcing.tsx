@@ -61,7 +61,7 @@ export default function LabSourcingSection() {
         <hr className="my-6 border-body" />
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 justify-center items-center">
           <StatItem label="sheenbot∞ Kits" end={6} suffix="+" />
-          <StatItem label="WhalesBot & Kits" end={6} suffix="+" />
+          <StatItem label="Humanoid Robots" end={3} suffix="+" />
           <StatItem label="Lab Setups" end={9} suffix="+" />
           <StatItem label="Courses" end={200} suffix="+" />
         </div>

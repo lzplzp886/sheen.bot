@@ -6,12 +6,6 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 
 import HeroSection from "./sheenbotInfinity/components/HeroSection";
-import IntroducingSection from "./sheenbotInfinity/components/IntroducingSection";
-import KitSelectionSection from "./sheenbotInfinity/components/KitSelectionSection";
-import KitsGuideSection from "./sheenbotInfinity/components/KitsGuideSection";
-import WhySheenbotSection from "./sheenbotInfinity/components/WhySheenbotSection";
-import ProductPCBLayoutSection from "./sheenbotInfinity/components/ProductPCBLayoutSection";
-import SocialMediaSection from "./sheenbotInfinity/components/SocialMediaSection";
 
 export default function HomePage() {
   const router = useRouter();
@@ -33,12 +27,6 @@ export default function HomePage() {
   return (
     <main className="overflow-x-hidden bg-background text-body">
       <HeroSection />
-      <IntroducingSection />
-      <KitSelectionSection />
-      <KitsGuideSection />
-      <WhySheenbotSection />
-      <ProductPCBLayoutSection />
-      <SocialMediaSection />
     </main>
   );
 }
