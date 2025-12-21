@@ -19,7 +19,7 @@ const FAQ_ITEMS = [
   {
     question: 'When does the workshop run?',
     answer:
-      'The holiday clubs run from 9 – 11 December 2025.',
+      'The holiday clubs run from 9 – 11 or 17 - 19 December 2025.',
   },
   {
     question: 'What are the costs?',

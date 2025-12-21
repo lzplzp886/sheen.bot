@@ -29,7 +29,7 @@ export default function HeroComposite() {
               December Holiday Clubs
             </span>
             <span className="block text-xl font-medium mt-4 bg-white/10 p-2 rounded-lg inline-block backdrop-blur-md">
-              📅 9 - 11 December 2025
+              📅 9-11 Dec / 17-19 Dec 2025
             </span>
           </h1>
         </div>

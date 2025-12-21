@@ -10,7 +10,7 @@ import { saveEnrollmentData } from "./saveEnrollmentData";
 import type { FormDataType } from "./type";
 import { copyPdfkitFonts } from "../utils/copyPdfkitFonts";
 
-// +++ 新增依赖 +++
+// +++ AWS Stash 依赖 +++
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 
@@ -20,9 +20,8 @@ const ddb = DynamoDBDocumentClient.from(ddbRaw);
 const STASH_TABLE = process.env.DDB_PAYFAST_STASH_TABLE || "sheen.bot-payfast-stash";
 
 // 辅助函数：如果传入的数据看起来像 stash 引用，则去数据库捞取完整数据
-// 修正：将 any 改为 unknown，并添加类型检查
 async function resolveStashedData(data: unknown): Promise<FormDataType> {
-  // 1. 将输入视为通用的键值对对象，以便进行属性检查
+  // 1. 将输入视为通用的键值对对象
   const input = data as Record<string, unknown>;
 
   // 2. 检查特征：data 是对象 && 有 stashId (string) && 没有 parentEmail
@@ -54,140 +53,135 @@ async function resolveStashedData(data: unknown): Promise<FormDataType> {
   return data as FormDataType;
 }
 
-// ========== 1) 定义接口 (保持不变) ==========
+// ========== 1) 定义接口 ==========
 interface ExtendedPDFDocument extends PDFKit.PDFDocument {
   pageNumber: number; 
 }
-// ... (ChildInfo 接口等保持不变)
+// (ChildInfo 等接口定义在 type.ts 中，这里直接使用 FormDataType)
 
-// ========== 3) 辅助函数 (保持不变) ==========
+// ========== 3) 辅助函数 ==========
 function getClassLabelByAge(age?: number): string {
-    if (typeof age !== "number") return "";
-    if (age >= 6 && age <= 8) return "Intro Class (6-8 yrs)";
-    if (age >= 9 && age <= 11) return "Junior Class (9-11 yrs)";
-    if (age >= 12 && age <= 17) return "Explorer Class (12+ yrs)";
-    return "";
+  if (typeof age !== "number") return "";
+  if (age >= 6 && age <= 8) return "Intro Class (6-8 yrs)";
+  if (age >= 9 && age <= 11) return "Junior Class (9-11 yrs)";
+  if (age >= 12 && age <= 17) return "Explorer Class (12+ yrs)";
+  return "";
 }
 
-// ========== 4) 绘制页头 (保持不变) ==========
+// ========== 4) 绘制页头 ==========
 function drawHeader(doc: ExtendedPDFDocument) {
-    // ... (原代码内容)
-    const pageMargin = doc.page.margins.left || 50;
-    const currentY = doc.y;
-    const logoPath = path.join(process.cwd(), "public", "images", "enrollment", "logo.png");
-  
-    doc.fontSize(8);
-    const headerText = `Sheen Technologies Pty Ltd (Reg No. 2024/133334/07)
+  const pageMargin = doc.page.margins.left || 50;
+  const currentY = doc.y;
+  const logoPath = path.join(process.cwd(), "public", "images", "enrollment", "logo.png");
+
+  doc.fontSize(8);
+  const headerText = `Sheen Technologies Pty Ltd (Reg No. 2024/133334/07)
 Unit C4, Century Square, Heron Crescent,
 Century City, Cape Town, 7441`;
-  
-    const textWidth = 300;
-    const textHeight = doc.heightOfString(headerText, { width: textWidth });
-    const logoHeight = fs.existsSync(logoPath) ? 60 : 0;
-    const rowHeight = Math.max(textHeight, logoHeight);
-  
-    if (logoHeight > 0) {
-      doc.image(logoPath, pageMargin, currentY + (rowHeight - logoHeight) / 2, { width: 60 });
-    }
-    const textX = pageMargin + 80;
-    doc.text(headerText, textX, currentY + (rowHeight - textHeight) / 2, { width: textWidth });
-    doc.y = currentY + rowHeight + 20;
+
+  const textWidth = 300;
+  const textHeight = doc.heightOfString(headerText, { width: textWidth });
+  const logoHeight = fs.existsSync(logoPath) ? 60 : 0;
+  const rowHeight = Math.max(textHeight, logoHeight);
+
+  if (logoHeight > 0) {
+    doc.image(logoPath, pageMargin, currentY + (rowHeight - logoHeight) / 2, { width: 60 });
+  }
+  const textX = pageMargin + 80;
+  doc.text(headerText, textX, currentY + (rowHeight - textHeight) / 2, { width: textWidth });
+  doc.y = currentY + rowHeight + 20;
 }
 
-// ========== 5) 表格渲染函数 (保持不变) ==========
+// ========== 5) 表格渲染函数 ==========
 function renderTwoColTable(
   doc: ExtendedPDFDocument,
   dataRows: Array<[string, string | undefined, string?]>,
   tableTitle?: string
 ) {
-    // ... (原代码内容，省略以节省篇幅，请保持原逻辑完全不变)
-    const pageMargin = doc.page.margins.left || 50;
-    const availableWidth = doc.page.width - pageMargin * 2;
-    const tableMaxWidth = availableWidth * 0.8; 
-    const tableX = pageMargin + (availableWidth - tableMaxWidth) / 2;
-  
-    if (tableTitle) {
-      doc.fontSize(12).text(tableTitle, tableX, doc.y, {
-        width: availableWidth,
-        align: "left",
-        underline: true,
-      });
-      doc.moveDown(0.5);
-    }
-  
-    const innerPadding = 10;
-    const col1W = (tableMaxWidth - innerPadding * 2) * 0.3;
-    const col2W = tableMaxWidth - innerPadding * 2 - col1W;
-  
-    let totalHeight = 0;
-    const rowHeights: number[] = dataRows.map((row) => {
-      const [label, value] = row;
-      const labelH = doc.heightOfString(label || "", { width: col1W });
-      const valueH = doc.heightOfString(value || "", { width: col2W });
-      const rowH = Math.max(labelH, valueH) + 10; 
-      totalHeight += rowH;
-      return rowH;
+  const pageMargin = doc.page.margins.left || 50;
+  const availableWidth = doc.page.width - pageMargin * 2;
+  const tableMaxWidth = availableWidth * 0.8; 
+  const tableX = pageMargin + (availableWidth - tableMaxWidth) / 2;
+
+  if (tableTitle) {
+    doc.fontSize(12).text(tableTitle, tableX, doc.y, {
+      width: availableWidth,
+      align: "left",
+      underline: true,
     });
-  
-    const bottomMargin = doc.page.margins.bottom || 50;
-    const pageBottom = doc.page.height - bottomMargin;
-    if (doc.y + totalHeight > pageBottom) {
-      doc.addPage();
-      drawHeader(doc);
-    }
-  
-    const startY = doc.y;
-    const tableHeight = totalHeight + 10; 
-    doc.save();
-    doc.strokeColor("#4790FC")
-      .lineWidth(2)
-      .roundedRect(tableX, startY, tableMaxWidth, tableHeight, 8)
-      .stroke();
-    doc.restore();
-  
-    const col1X = tableX + innerPadding;
-    const col2X = col1X + col1W + innerPadding;
-  
-    let currentY = startY + 5;
-    for (let i = 0; i < dataRows.length; i++) {
-      const [label, value] = dataRows[i];
-      const rowH = rowHeights[i];
-  
-      const labelH = doc.heightOfString(label || "", { width: col1W });
-      const valueH = doc.heightOfString(value || "", { width: col2W });
-      const labelY = currentY + (rowH - labelH) / 2;
-      const valueY = currentY + (rowH - valueH) / 2;
-  
-      doc.fontSize(10).text(label || "", col1X, labelY, { width: col1W });
-      doc.text(value || "", col2X, valueY, { width: col2W });
-      currentY += rowH;
-    }
-    doc.y = startY + tableHeight + 10;
     doc.moveDown(0.5);
+  }
+
+  const innerPadding = 10;
+  const col1W = (tableMaxWidth - innerPadding * 2) * 0.3;
+  const col2W = tableMaxWidth - innerPadding * 2 - col1W;
+
+  let totalHeight = 0;
+  const rowHeights: number[] = dataRows.map((row) => {
+    const [label, value] = row;
+    const labelH = doc.heightOfString(label || "", { width: col1W });
+    const valueH = doc.heightOfString(value || "", { width: col2W });
+    const rowH = Math.max(labelH, valueH) + 10; 
+    totalHeight += rowH;
+    return rowH;
+  });
+
+  const bottomMargin = doc.page.margins.bottom || 50;
+  const pageBottom = doc.page.height - bottomMargin;
+  if (doc.y + totalHeight > pageBottom) {
+    doc.addPage();
+    drawHeader(doc);
+  }
+
+  const startY = doc.y;
+  const tableHeight = totalHeight + 10; 
+  doc.save();
+  doc.strokeColor("#4790FC")
+    .lineWidth(2)
+    .roundedRect(tableX, startY, tableMaxWidth, tableHeight, 8)
+    .stroke();
+  doc.restore();
+
+  const col1X = tableX + innerPadding;
+  const col2X = col1X + col1W + innerPadding;
+
+  let currentY = startY + 5;
+  for (let i = 0; i < dataRows.length; i++) {
+    const [label, value] = dataRows[i];
+    const rowH = rowHeights[i];
+
+    const labelH = doc.heightOfString(label || "", { width: col1W });
+    const valueH = doc.heightOfString(value || "", { width: col2W });
+    const labelY = currentY + (rowH - labelH) / 2;
+    const valueY = currentY + (rowH - valueH) / 2;
+
+    doc.fontSize(10).text(label || "", col1X, labelY, { width: col1W });
+    doc.text(value || "", col2X, valueY, { width: col2W });
+    currentY += rowH;
+  }
+  doc.y = startY + tableHeight + 10;
+  doc.moveDown(0.5);
 }
 
-// ========== 6) 主处理逻辑 (有修改) ==========
+// ========== 6) 主处理逻辑 ==========
 export async function POST(request: Request) {
   console.log("=== [API] /api/workshop-registration [POST] ===");
   try {
     const rawData = await request.json();
     
-    // +++ 关键修改：在这里尝试解包 Stash 数据 +++
-    // 如果是 EFT 流程，传入的可能是 { stashId: "..." }
-    // 如果是 PayFast 流程，notify 接口可能已经解包过了，但也兼容再查一次
+    // 1. 尝试解包 Stash 数据
     const formData = await resolveStashedData(rawData);
-
     console.log("Processing formData for:", formData.parentEmail);
 
-    // 校验：如果解包后还是没有 email，说明出问题了
     if (!formData.parentEmail) {
         throw new Error("Missing parentEmail. Data might be corrupted or stash retrieval failed.");
     }
 
-    // ... (以下逻辑保持不变) ...
+    // 2. 保存到数据库
     const recordId = await saveEnrollmentData(formData);
     console.log("Data stored with recordId:", recordId);
 
+    // 3. 准备字体
     copyPdfkitFonts();
 
     let childNames = "";
@@ -199,7 +193,7 @@ export async function POST(request: Request) {
     }
     if (!childNames) childNames = "(Unnamed Child)";
 
-    // ... PDF 生成逻辑保持不变 ...
+    // 4. 生成 PDF
     const doc = new PDFDocument({ autoFirstPage: false, margin: 50 }) as ExtendedPDFDocument;
     const buffers: Buffer[] = [];
     doc.on("data", chunk => buffers.push(chunk));
@@ -223,6 +217,7 @@ export async function POST(request: Request) {
       });
       doc.moveDown(1);
 
+      // --- 模块 1: General ---
       const generalRows: Array<[string, string]> = [
         ["Number of Children", String(formData.children?.length || 0)],
         ["Parent/Guardian Name", `${formData.parentFirstName || ""} ${formData.parentSurname || ""}`],
@@ -235,6 +230,7 @@ export async function POST(request: Request) {
       const generalRowsData = generalRows.map(row => [row[0], row[1]]) as Array<[string, string, string?]>;
       renderTwoColTable(doc, generalRowsData, "General Info");
 
+      // --- 模块 2: Children ---
       if (formData.children && formData.children.length > 0) {
         formData.children.forEach((child, idx) => {
           const childLabel = `Child #${idx + 1}`;
@@ -263,6 +259,7 @@ export async function POST(request: Request) {
         });
       }
 
+      // --- 模块 3: Emergency ---
       const emergencyRows: Array<[string, string]> = [
         ["Name", `${formData.emergencyFirstName || ""} ${formData.emergencySurname || ""}`],
         ["Contact Number", formData.emergencyContactNumber || ""],
@@ -270,6 +267,7 @@ export async function POST(request: Request) {
       ];
       renderTwoColTable(doc, emergencyRows.map(r=>[r[0],r[1]]), "Emergency Contact");
 
+      // --- 模块 4: Pickup 1 ---
       const pickup1Rows: Array<[string, string]> = [
         ["Name", `${formData.pickup1FirstName || ""} ${formData.pickup1Surname || ""}`],
         ["Contact Number", formData.pickup1ContactNumber || ""],
@@ -277,6 +275,7 @@ export async function POST(request: Request) {
       ];
       renderTwoColTable(doc, pickup1Rows.map(r=>[r[0],r[1]]), "Authorized Pickup #1");
 
+      // --- 模块 5: Pickup 2 ---
       const pickup2Rows: Array<[string, string]> = [
         ["Name", `${formData.pickup2FirstName || ""} ${formData.pickup2Surname || ""}`],
         ["Contact Number", formData.pickup2ContactNumber || ""],
@@ -284,15 +283,20 @@ export async function POST(request: Request) {
       ];
       renderTwoColTable(doc, pickup2Rows.map(r=>[r[0],r[1]]), "Authorized Pickup #2");
 
+      // --- 模块 6: Schedule ---
       if (formData.selectedTimeslots && formData.selectedTimeslots.length > 0) {
         renderTwoColTable(doc, [["Workshop Schedule", formData.selectedTimeslots.join(", ")]], "Preferred Schedule");
       }
 
+      // --- 模块 7: Consent & POPIA (使用完整文本) ---
       const consentCheck = formData.consentConfirmed ? "[x]" : "[ ]";
       const popiaCheck = formData.popiaConfirmed ? "[x]" : "[ ]";
-      // (文字内容略，保持原样)
-      const consentText = `I, the undersigned, confirm that all the information provided is accurate...`;
-      const popiaText = `PROTECTION OF PERSONAL INFORMATION ACT (POPIA) COMPLIANCE...`; 
+      
+      const consentText = `I, the undersigned, confirm that all the information provided is accurate. I consent to my child participating in the coding and robotics course. I understand that the academy will take all reasonable precautions to ensure the safety of my child. In case of a medical emergency, I authorize the academy to seek medical assistance for my child if I am not immediately available. I agree to all mentioned above.`;
+      
+      const popiaText = `PROTECTION OF PERSONAL INFORMATION ACT (POPIA) COMPLIANCE
+
+By completing this form, you acknowledge that you understand and agree to the collection and processing of personal information in accordance with the Protection of Personal Information Act (POPIA) of South Africa. Your personal data will be used solely for registration, communication, and safety purposes. We will not share your information with third parties without your consent. I consent to my personal information being collected and used as per the terms stated above.`;
       
       const consentRows: Array<[string, string]> = [
         [`${consentCheck} Consent Confirmed`, consentText],
@@ -300,6 +304,7 @@ export async function POST(request: Request) {
       ];
       renderTwoColTable(doc, consentRows.map(r=>[r[0],r[1]]), "Consent & POPIA");
 
+      // --- 签名 ---
       doc.font("Helvetica-Bold").fontSize(12).text("Parent / Guardian Signature", { align: "left", underline: true });
       doc.moveDown(1);
       if (formData.signatureData) {
@@ -325,7 +330,7 @@ export async function POST(request: Request) {
 
     console.log(`Sending PDF to '${formData.parentEmail}'...`);
 
-    // ... 邮件发送逻辑保持不变 ...
+    // 5. 发送邮件
     const ccEnv = process.env.SMTP_CC || "";
     const ccList = ccEnv.split(",").map(s => s.trim()).filter(Boolean);
     

@@ -6,6 +6,7 @@ import React from 'react';
 export default function OfferSection() {
   const weeks = [
     { week: 'December Holiday Club', date: '9 – 11 December 2025' },
+    { week: 'December Holiday Club', date: '17 – 19 December 2025' },
   ];
 
   return (

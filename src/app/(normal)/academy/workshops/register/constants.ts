@@ -49,24 +49,22 @@ export const WORKSHOPS = [
   {
     code: "WSH4MM",
     name: "December Holiday Clubs Mini Makers for 6 to 8 yo",
-    soldOut: false,
+    soldOut: true,
     minAge: 6,
     maxAge: 8,
     timeslots: ["Morning (10:00 - 12:00)"],
     weeks: [
-      { label: "Holiday Week: 9 - 11 December 2025", value: "Holiday Week: 9 - 11 December 2025" },
       { label: "Holiday Week: 17 - 19 December 2025", value: "Holiday Week: 17 - 19 December 2025" },
     ],
   },
   {
     code: "WSH4YTI",
     name: "December Holiday Clubs Young Tech Innovators for 9 yo and above",
-    soldOut: false,
+    soldOut: true,
     minAge: 9,
     maxAge: 18,
     timeslots: ["Afternoon (14:00 - 17:00)"],
     weeks: [
-      { label: "Holiday Week: 9 - 11 December 2025", value: "Holiday Week: 9 - 11 December 2025" },
       { label: "Holiday Week: 17 - 19 December 2025", value: "Holiday Week: 17 - 19 December 2025" },
     ],
   },

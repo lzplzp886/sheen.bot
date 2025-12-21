@@ -20,7 +20,7 @@
     "blockly": "^11.2.0",
     "framer-motion": "^12.4.3",
     "gsap": "^3.12.7",
-    "next": "15.1.4",
+    "next": "15.1.9",
     "nodemailer": "^6.10.0",
     "pdfkit": "^0.16.0",
     "prop-types": "^15.8.1",
