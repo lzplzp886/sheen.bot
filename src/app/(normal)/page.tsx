@@ -5,7 +5,8 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 
-import HeroSection from "./sheenbotInfinity/components/HeroSection";
+import HeroSection from "./home/components/HeroSection";
+import EntryPointsSection from "./home/components/EntryPointSection";
 
 export default function HomePage() {
   const router = useRouter();
@@ -27,6 +28,7 @@ export default function HomePage() {
   return (
     <main className="overflow-x-hidden bg-background text-body">
       <HeroSection />
+      <EntryPointsSection />
     </main>
   );
 }

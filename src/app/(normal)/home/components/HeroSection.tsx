@@ -1,4 +1,4 @@
-// src/app/(normal)/sheenbotInfinity/components/HeroSection.tsx
+// src/app/(normal)/home/components/HeroSection.tsx
 
 "use client";
 import React, { useEffect, useState } from "react";
