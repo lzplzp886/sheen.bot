@@ -17,7 +17,7 @@ export default function HeroSection() {
             Building&nbsp;for&nbsp;Future
           </h1>
           <p className="mb-6 text-lg">
-            Merge creativity with simplicity to empower education
+            Empowering African youth to invent the future with coding & robotics
           </p>
           <a
             href="#about"

@@ -11,33 +11,33 @@ const contact_phone = process.env.NEXT_PUBLIC_PHONE
 export default function ContactSection() {
   return (
     <SectionContainer>
-      <h3 className="text-2xl font-semibold mb-4">Contact&nbsp;Us</h3>
+      <h3 className="text-2xl font-semibold mb-4">Contact Us</h3>
 
       {/* 两行布局：上文字，下地图 */}
       <div className="space-y-6">
         {/* Row 1：联系方式 */}
         <div className="space-y-4">
           <div>
-            <h4 className="text-xl font-medium">Opening&nbsp;Hours</h4>
-            <p>Mon – Fri&nbsp;• 09:00 – 18:00</p>
+            <h4 className="text-xl font-medium">Opening Hours</h4>
+            <p>Monday-Saturday • 09:00-18:00</p>
           </div>
 
           <div>
-            <h4 className="text-xl font-medium">Call&nbsp;Us</h4>
+            <h4 className="text-xl font-medium">Call Us</h4>
             <p>{contact_phone}</p>
           </div>
 
           <div>
-            <h4 className="text-xl font-medium">Email&nbsp;Us</h4>
+            <h4 className="text-xl font-medium">Email Us</h4>
             <p>{contact_email}</p>
           </div>
 
           <div>
             <h4 className="text-xl font-medium">Address</h4>
             <p>
-              Unit C4, Century&nbsp;Square,<br />
-              Heron Crescent, Century&nbsp;City,<br />
-              Cape Town&nbsp;7441
+              Unit C4, Century Square,<br />
+              Heron Crescent, Century City,<br />
+              Cape Town 7441
             </p>
           </div>
         </div>

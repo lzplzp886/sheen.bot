@@ -10,8 +10,8 @@ import SocialMediaSection from './components/SocialMediaSection';
 import Script from 'next/script';
 
 export const metadata = {
-  title: 'Sheen Academy | Coding & Robotics Classes for Kids',
-  description: 'Discover Sheen Academy’s hands-on coding & robotics programs for children aged 6+, explore our Century City campus, trial classes, and community features.',
+  title: 'sheen academy | Coding & Robotics Classes for Kids',
+  description: 'Discover our hands-on coding & robotics programs for children aged 6+, explore our Century City campus, trial classes, and community features.',
 };
 
 export default function AcademyHomePage() {

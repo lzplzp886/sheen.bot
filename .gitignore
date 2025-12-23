@@ -40,5 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# simple-deploy by adam lin
-deploy.sh
+# simple-deploy & executables by adam lin
+/exec/

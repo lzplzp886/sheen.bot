@@ -1,7 +1,5 @@
 // src/app/(normal)/about/page.tsx
 
-'use client';
-
 import React from 'react';
 import HeroSection from './components/heroSection';
 import AboutSection from './components/aboutSection';
@@ -9,6 +7,11 @@ import ActivitiesGallerySection from './components/activitiesGallerySection';
 import TeamMembersSection from './components/teamMemberSection';
 import ContactSection from './components/contactSection';
 import TimelineSection from './components/timeSection';
+
+export const metadata = {
+  title: 'About Sheen | Empowering African youth to invent the future with coding & robotics',
+  description: 'We are a leading coding & robotics education research center based in Century City, Cape Town.',
+};
 
 export default function AboutPage() {
   return (

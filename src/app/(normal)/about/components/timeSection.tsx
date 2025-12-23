@@ -14,17 +14,25 @@ interface EventItem {
 }
 
 const EVENTS: EventItem[] = [
-  { id: 'ev1', date: '2025.2.5', title: '1st Public Exposure', details: 'Sheen showcased its product lineups WhalesBot to the public.', img: '/images/about/our-journey/ev1.webp' },
+  { id: 'ev1', date: '2025.2.5', title: 'First Public Exposure', details: 'Sheen showcased its product lineups WhalesBot to the public.', img: '/images/about/our-journey/ev1.webp' },
   { id: 'ev2', date: '2025.3.15', title: 'Academy Opening', details: 'Sheen opens to public, providing weekly coding & robotics classes.', img: '/images/about/our-journey/ev2.webp' },
   { id: 'ev3', date: '2025.3.29', title: 'sheenbot Publish', details: 'Sheen published its first sheenbot and smart home kit bundle.', img: '/images/about/our-journey/ev3.webp' },
-  { id: 'ev4', date: '2025.6.25', title: '1st School Group Visit', details: 'Sheen welcomes groups from Sans Souci Girls High School.', img: '/images/about/our-journey/ev4.webp' },
-  { id: 'ev5', date: '2025.7.1', title: '1st sheenbot Workshop', details: 'Sheen delivers its first sheenbot workshop at Techno Buzz.', img: '/images/about/our-journey/ev5.webp' },
-  { id: 'ev6', date: '2025.7.4', title: '1st Podcast', details: 'Sheen have Astrovos attended coding & robotics podcast.', img: '/images/about/our-journey/ev6.webp' },
-  { id: 'ev7', date: '2025.7.18', title: '1st Holiday Workshop', details: 'Sheen delivers its first winter school holiday camps.', img: '/images/about/our-journey/ev7.webp' },
+  { id: 'ev4', date: '2025.6.25', title: 'Sans Souci School Excursion', details: 'Sheen welcomes groups from Sans Souci Girls High School.', img: '/images/about/our-journey/ev4.webp' },
+  { id: 'ev5', date: '2025.7.1', title: 'Techno Buzz Workshop', details: 'Sheen delivers its first sheenbot workshop at Techno Buzz.', img: '/images/about/our-journey/ev5.webp' },
+  { id: 'ev6', date: '2025.7.4', title: 'Don Podcast', details: 'Sheen have Astrovos attended coding & robotics podcast.', img: '/images/about/our-journey/ev6.webp' },
+  { id: 'ev7', date: '2025.7.18', title: 'Winter Holiday Workshop', details: 'Sheen delivers its first winter school holiday camps.', img: '/images/about/our-journey/ev7.webp' },
   { id: 'ev8', date: '2025.8.1', title: 'National Science Week', details: 'Students from Brackenfell High with Councillor Higham during the demo.', img: '/images/about/our-journey/ev8.webp' },
   { id: 'ev9', date: '2025.8.16', title: 'iThemba LABS Program', details: 'Interactive robotics and drone exhibition at iThemba LABS.', img: '/images/about/our-journey/ev9.webp' },
   { id: 'ev10', date: '2025.8.21', title: 'Ecosystem Workshop', details: 'Sheen participate the potential international collaboration workshop.', img: '/images/about/our-journey/ev10.webp' },
   { id: 'ev11', date: '2025.8.27', title: 'Luban Workshop Discussion', details: 'Luban workshop initiatives discussion with CPUT.', img: '/images/about/our-journey/ev11.webp' },
+  { id: 'ev12', date: '2025.9.6', title: 'EdenX Future Ready Festival', details: 'Sheen brought sheenbot to students who attended EdenX George.', img: '/images/about/our-journey/ev12.webp' },
+  { id: 'ev13', date: '2025.10.20', title: 'New Office Expansion', details: 'Sheen expand its office to accomodate more students.', img: '/images/about/our-journey/ev13.webp' },
+  { id: 'ev14', date: '2025.10.21', title: 'Forest Village Leadership Academy', details: 'Sheen delivered robotics kits and training to its first partnership school.', img: '/images/about/our-journey/ev14.webp' },
+  { id: 'ev15', date: '2025.10.25', title: 'TDK Edventures Partnership', details: 'Sheen and TDK Edventures signed partnership agreement.', img: '/images/about/our-journey/ev15.webp' },
+  { id: 'ev16', date: '2025.10.28', title: 'SA EdTech Week', details: 'Sheen attended SA EdTech Week 2025 focus on building EdTech readiness in under-resourced contexts.', img: '/images/about/our-journey/ev16.webp' },
+  { id: 'ev17', date: '2025.11.2', title: 'Grade 9 STEM Bootcamp Ceres', details: 'Sheen participated STEM Bootcamp at Ceres and host the Coding & Robotics workshops.', img: '/images/about/our-journey/ev17.webp' },
+  { id: 'ev18', date: '2025.11.19', title: 'Bellville Preparatory School', details: 'Sheen delivered WhalesBot robotics courses in Bellville Preparatory School.', img: '/images/about/our-journey/ev18.webp' },
+  { id: 'ev19', date: '2025.11.19', title: 'AGiBot HQ Visit', details: 'Sheen invited top CEOs from South African industuries to visit AGiBot, the top-tier robotics company in China.', img: '/images/about/our-journey/ev19.webp' },
 ];
 
 export default function TimelineSection() {
