@@ -1,4 +1,4 @@
-// src/app/(normal)/solutions/labSourcing.tsx
+// src/app/(normal)/solutions/components/labSourcing.tsx
 
 "use client";
 import React, { useRef } from "react";
@@ -46,6 +46,8 @@ export default function LabSourcingSection() {
             <Image
               src="/images/solutions/book-a-visit.svg"
               alt="Calendar Icon"
+              width={20}
+              height={20}
               className="w-5 h-5 mr-2"
             />
             Book a Visit

@@ -1,6 +1,8 @@
 // src/app/(bare)/layout.tsx
 
-import '@/app/globals.css'
+import '@/app/globals.css';
+import React from 'react';
+import { UserProvider } from '@/context/UserContext';
 
 export const metadata = {
   title: 'sheen.bot canvas | a smarter way to learn coding & robotics',
@@ -23,7 +25,9 @@ export default function bareLayout({
       className="text-body font-sans select-none"
     >
       <body className="h-screen flex flex-col">
-        {children}
+        <UserProvider>
+          {children}
+        </UserProvider>
       </body>
     
     </html>

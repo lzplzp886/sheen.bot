@@ -1,8 +1,10 @@
 // src/app/(normal)/layout.tsx
 
+import '@/app/globals.css';
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { UserProvider } from '@/context/UserContext';
 
 export const metadata = {
   title: 'sheen.bot | a smarter way to learn coding & robotics',
@@ -21,11 +23,13 @@ export default function NormalLayout({
   return (
     <html lang="en" className="text-body font-sans select-none">
       <body className="h-screen flex flex-col">
+        <UserProvider>
           <Header />
             <main className="flex-grow p-0 relative">
             {children}
           </main>
           <Footer />
+        </UserProvider>
       </body>
     </html>
   );

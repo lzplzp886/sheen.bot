@@ -35,6 +35,8 @@ export default function CloudPlatformSection() {
                 <Image
                 src="/images/solutions/bullet.svg"
                 alt="Bullet Icon"
+                width={16}
+                height={16}
                 className="w-4 h-4 mr-3 flex-shrink-0 mt-1"
                 />
                 <p className="text-sm sm:text-base">
@@ -46,6 +48,8 @@ export default function CloudPlatformSection() {
                 <Image
                 src="/images/solutions/bullet.svg"
                 alt="Bullet Icon"
+                width={16}
+                height={16}
                 className="w-4 h-4 mr-3 flex-shrink-0 mt-1"
                 />
                 <p className="text-sm sm:text-base">
@@ -57,6 +61,8 @@ export default function CloudPlatformSection() {
                 <Image
                 src="/images/solutions/bullet.svg"
                 alt="Bullet Icon"
+                width={16}
+                height={16}
                 className="w-4 h-4 mr-3 flex-shrink-0 mt-1"
                 />
                 <p className="text-sm sm:text-base">
@@ -68,6 +74,8 @@ export default function CloudPlatformSection() {
                 <Image
                 src="/images/solutions/bullet.svg"
                 alt="Bullet Icon"
+                width={16}
+                height={16}
                 className="w-4 h-4 mr-3 flex-shrink-0 mt-1"
                 />
                 <p className="text-sm sm:text-base">
@@ -80,6 +88,8 @@ export default function CloudPlatformSection() {
             <Image
             src="/images/solutions/sheen-bot-architecture.png"
             alt="sheen.bot Architecture"
+            width={1200}
+            height={800}
             className="w-full h-auto"
             />
         </div>

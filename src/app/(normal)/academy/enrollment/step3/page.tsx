@@ -55,6 +55,8 @@ export default function Step3() {
             <Image
               src={image}
               alt={group}
+              width={64}
+              height={64}
               className="w-16 h-16 rounded-lg border shadow-sm"
             />
           )}
@@ -64,10 +66,10 @@ export default function Step3() {
   });
 
   const handleBack = () => {
-    router.push("/enrollment/step2");
+    router.push("/academy/enrollment/step2");
   };
   const handleNext = () => {
-    router.push("/enrollment/step4");
+    router.push("/academy/enrollment/step4");
   };
 
   return (
