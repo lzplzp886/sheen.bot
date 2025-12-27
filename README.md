@@ -1,4 +1,4 @@
-# sheen.bot by Adam Lin email: linzhipu@hotmail.com
+# sheen.bot by Adam Lin email: adam@sheen.bot
 
 A platform that empowered by AI capabilities and assist kids learning coding and robotics efficiently.
 
