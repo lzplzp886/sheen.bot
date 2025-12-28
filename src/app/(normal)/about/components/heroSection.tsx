@@ -6,25 +6,20 @@ import React from 'react';
 export default function HeroSection() {
   return (
     <div
-      className="relative h-96 md:h-[500px] bg-cover bg-center"
+      className="relative h-80 md:h-[450px] bg-cover bg-center"
       style={{ backgroundImage: "url('/images/about/about-sheen.webp')" }}
     >
-      <div className="absolute inset-0 bg-body/50" />
+      {/* 遮罩加深一点点 */}
+      <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 container mx-auto h-full flex
                       items-center justify-center px-4">
-        <div className="text-background text-center max-w-xl">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-            Building&nbsp;for&nbsp;Future
+        <div className="text-background text-center max-w-2xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
+            Building for Future
           </h1>
-          <p className="mb-6 text-lg">
+          <p className="text-lg md:text-xl font-medium text-gray-200">
             Empowering African youth to invent the future with coding & robotics
           </p>
-          <a
-            href="#about"
-            className="bg-primary text-background px-5 py-2 rounded inline-block"
-          >
-            Learn More
-          </a>
         </div>
       </div>
     </div>

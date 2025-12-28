@@ -6,7 +6,7 @@ import CourseDetailsSection from './components/courseDetailsSection';
 import FAQSection from './components/FAQSection';
 
 export const metadata = {
-  title: 'Our Robotics & Coding Courses | Sheen Academy',
+  title: 'Our Extramural Coding & Robotics Courses | Sheen Academy',
   description: 'Discover Sheen Academy’s structured coding & robotics programs: Intro Class (ages 6–8), Junior Class (ages 9–11) and Explorer Class (ages 12–15). Code it, make it!',
 };
 

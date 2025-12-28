@@ -29,6 +29,8 @@ export default function LandingPage() {
             <Image
               src="/images/onboarding/home.svg"
               alt="Home Icon"
+              width={64}
+              height={64}
               className="h-16 w-16 mb-6"
             />
             <span className="text-lg font-bold">HOME</span>
@@ -46,6 +48,8 @@ export default function LandingPage() {
             <Image
               src="/images/onboarding/new-project.svg"
               alt="New Project Icon"
+              width={64}
+              height={64}
               className="h-16 w-16 mb-6"
             />
             <span className="text-lg font-bold">NEW PROJECT</span>

@@ -16,7 +16,13 @@ const Tile: React.FC<TileProps> = ({ title, onClick, icon }) => {
       onClick={onClick}
       className="large-button-style cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out flex flex-col items-center justify-center"
     >
-      <Image src={icon} alt={title} className="w-12 h-12 mb-4" />
+      <Image 
+        src={icon} 
+        alt={title} 
+        width={48} 
+        height={48} 
+        className="w-12 h-12 mb-4" 
+      />
       <h3 className="text-xl font-semibold">{title}</h3>
     </div>
   );

@@ -6,7 +6,6 @@ import AboutSection from './components/aboutSection';
 import ActivitiesGallerySection from './components/activitiesGallerySection';
 import TeamMembersSection from './components/teamMemberSection';
 import ContactSection from './components/contactSection';
-import TimelineSection from './components/timeSection';
 
 export const metadata = {
   title: 'About Sheen | Empowering African youth to invent the future with coding & robotics',
@@ -18,26 +17,30 @@ export default function AboutPage() {
     <>
       <HeroSection />
 
-      {/* 两列网格；移动端保持纵向 */}
-      <div className="container mx-auto px-4 py-12 space-y-12 md:space-y-0
-                      md:grid md:grid-cols-2 md:gap-8 items-start">
-        {/* 左列：About & Team */}
-        <div className="space-y-12">
+      {/* Row 1: About + Contact */}
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left Column: About Us Story & Video */}
           <AboutSection />
-          <ActivitiesGallerySection />
-        </div>
 
-        {/* 右列：Timeline & Contact */}
-        <div className="space-y-12">
-          <TimelineSection />
+          {/* Right Column: Contact Info & Map */}
           <ContactSection />
         </div>
-           
       </div>
 
-      {/* 全宽团队介绍 */}
-      <TeamMembersSection />
+      {/* Row 2: Our Activities (Full Width Background, Constrained Content) */}
+      <div className="bg-gray-50 py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <ActivitiesGallerySection />
+        </div>
+      </div>
 
+      {/* Row 3: Team (Full Width Background if needed, Constrained Content) */}
+      <div className="py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <TeamMembersSection />
+        </div>
+      </div>
     </>
   );
 }

@@ -1,9 +1,11 @@
+// src/app/(normal)/about/components/timeSection.tsx
+
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import SectionContainer from './sectionContainer';
+import { ChevronLeft, ChevronRight, ChevronRight as ChevronRightIcon } from 'lucide-react';
 
 interface EventItem {
   id: string;
@@ -36,119 +38,139 @@ const EVENTS: EventItem[] = [
 ];
 
 export default function TimelineSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<EventItem | null>(null);
-  const [itemsPerRow, setItemsPerRow] = useState<number>(4);   // 默认桌面 4 个/行
 
-  /* 监听视口宽度，小于 768px 时改为 3 个/行 */
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 768px)');
-    const handler = (e: MediaQueryListEvent | MediaQueryList) =>
-      setItemsPerRow(e.matches ? 4 : 3);
-    handler(mq);                   // 初始设定
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-
-  /* 按 itemsPerRow 分行，保持蛇形顺序 */
-  const rows = EVENTS.reduce<EventItem[][]>((acc, ev, idx) => {
-    const r = Math.floor(idx / itemsPerRow);
-    (acc[r] ??= []).push(ev);
-    return acc;
-  }, []);
-
-  /* 线段样式 */
-  const lineColor = 'bg-[#8C8C8C]';
-  const lineH = 'h-0.5';
-  const lineV = 'w-0.5';
-  const vHeight = 'h-10';
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 300;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
-    <SectionContainer>
-      <h3 className="text-2xl font-semibold mb-4">Our Journey</h3>
-
-      {/* 时间轴主体 */}
-      <div className="space-y-12">
-        {rows.map((row, rIdx) => {
-          const reverse = rIdx % 2 === 1;
-          const endSide = reverse ? 'left-4' : 'right-4';
-
-          return (
-            <div key={rIdx} className="relative select-none">
-              {/* 圆点行 */}
-              <div className={`flex justify-between ${reverse ? 'flex-row-reverse' : ''}`}>
-                {row.map((ev) => (
-                  <div key={ev.id} className="flex flex-col items-center text-center">
-                    <button
-                      onClick={() => setSelected(ev)}
-                      className="w-4 h-4 bg-blue-600 rounded-full hover:scale-150 focus:scale-150 transition-transform"
-                    />
-                    <p className="mt-2 text-sm text-gray-800">{ev.date}</p>
-                    <p className="mt-1 text-xs text-gray-600 max-w-[90px] truncate">
-                      {ev.title}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* 水平线 */}
-              <div className={`mx-4 mt-4 ${lineH} ${lineColor}`} />
-
-              {/* 竖线（最后一行不画） */}
-              {rIdx < rows.length - 1 && (
-                <div className={`absolute ${endSide} top-full ${lineV} ${vHeight} ${lineColor}`} />
-              )}
-            </div>
-          );
-        })}
+    <div className="h-full flex flex-col justify-center py-4 px-2"> 
+      <div className="flex justify-between items-end mb-6 px-2">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">Our Journey</h3>
+          <p className="text-gray-500 text-sm mt-1">Milestones that define our path forward.</p>
+        </div>
+        <div className="hidden sm:flex gap-2">
+          <button 
+            onClick={() => scroll('left')}
+            className="p-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4 text-gray-600" />
+          </button>
+          <button 
+            onClick={() => scroll('right')}
+            className="p-1.5 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors"
+          >
+            <ChevronRight className="w-4 h-4 text-gray-600" />
+          </button>
+        </div>
       </div>
 
-      {/* 弹窗 */}
+      <div className="relative">
+        <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 -z-10 transform -translate-y-1/2 hidden sm:block" />
+
+        <div 
+          ref={scrollRef}
+          className="flex overflow-x-auto gap-4 sm:gap-6 pb-6 pt-2 px-1 hide-scrollbar snap-x snap-mandatory"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {EVENTS.map((ev, index) => (
+            <motion.div
+              key={ev.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.05 }}
+              className="flex-shrink-0 w-[240px] sm:w-[280px] snap-center group"
+            >
+              <div 
+                onClick={() => setSelected(ev)}
+                className="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden cursor-pointer h-full flex flex-col hover:-translate-y-1"
+              >
+                <div className="relative h-40 w-full overflow-hidden">
+                  <Image
+                    src={ev.img}
+                    alt={ev.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full text-[10px] font-bold text-primary shadow-sm">
+                    {ev.date}
+                  </div>
+                </div>
+
+                <div className="p-4 flex-1 flex flex-col">
+                  <h4 className="text-base font-bold text-gray-900 mb-1 line-clamp-1" title={ev.title}>
+                    {ev.title}
+                  </h4>
+                  <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
+                    {ev.details}
+                  </p>
+                  <div className="mt-auto pt-3 text-primary text-xs font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Read more <ChevronRightIcon className="w-3 h-3" />
+                  </div>
+                </div>
+              </div>
+              
+              {/* 移除那个蓝色连接点 */}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
       <AnimatePresence>
         {selected && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}
             onClick={() => setSelected(null)}
           >
             <motion.div
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-lg shadow-lg w-full max-w-lg mx-4 flex"
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              // max-w-2xl -> max-w-4xl (加宽)
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
             >
-              {/* 图片：1:1 自适应裁剪 */}
-              <div className="relative w-40 sm:w-56 aspect-square flex-shrink-0">
+              {/* 左侧图片区域加大，占比 40% */}
+              <div className="relative w-full md:w-2/5 h-64 md:h-auto bg-gray-100">
                 <Image
                   src={selected.img}
                   alt={selected.title}
                   fill
-                  sizes="(max-width:768px) 160px, 224px"
-                  className="object-cover rounded-l-lg"
-                  priority
+                  className="object-cover"
                 />
               </div>
-
-              {/* 文本区 */}
-              <div className="p-6 flex-1 relative">
+              {/* 右侧内容区域加大，占比 60% */}
+              <div className="p-8 w-full md:w-3/5 flex flex-col relative overflow-y-auto">
                 <button
                   onClick={() => setSelected(null)}
-                  className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-xl"
-                  aria-label="Close"
+                  className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
                 >
-                  ×
+                  ✕
                 </button>
-
-                <h4 className="text-lg font-semibold mb-2">
-                  {selected.date} — {selected.title}
-                </h4>
-                <p className="text-gray-700">{selected.details}</p>
+                <div className="text-primary font-bold mb-2">{selected.date}</div>
+                <h3 className="text-3xl font-bold text-gray-900 mb-6">{selected.title}</h3>
+                <div className="text-gray-600 leading-relaxed text-lg pr-2">
+                  {selected.details}
+                </div>
+                {/* 可以在这里添加额外的社媒链接或其他内容 */}
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </SectionContainer>
+    </div>
   );
 }

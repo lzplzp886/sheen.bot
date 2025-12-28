@@ -31,7 +31,7 @@ const BasicProfileInfo: React.FC<BasicProfileInfoProps> = ({
           <strong>Last Name:</strong> {attributes["family_name"] || "Loading"}
         </p>
         <p>
-          <strong>Username:</strong> {globalUsername || "Loading"}
+          <strong>User ID:</strong> {globalUsername || "Loading"}
         </p>
         <p>
           <strong>Role:</strong> {role || "Loading"}

@@ -213,7 +213,7 @@ const CountryCodeSelect: React.FC<CountryCodeSelectProps> = ({ value, onChange }
   return (
     <select value={value} onChange={handleChange} className="select-style">
       {countryCodes.map(code => (
-        <option key={code.value} value={code.value}>
+        <option key={code.label} value={code.value}>
           {code.label}
         </option>
       ))}

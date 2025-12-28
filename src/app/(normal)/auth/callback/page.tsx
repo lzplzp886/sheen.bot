@@ -15,14 +15,14 @@ import {
 } from "amazon-cognito-identity-js";
 import userPool from "@/lib/cognitoClient";
 import Button from "@/components/Button";
-// 假设 CountryCodeSelect 组件路径如下，请根据实际情况调整
-import CountryCodeSelect from "@/app/(normal)/registration/reg_CountryCodeSelect";
+// 更新引用路径
+import CountryCodeSelect from "@/app/(normal)/login/components/CountryCodeSelect";
 
 export default function AuthCallbackPage() {
   const router = useRouter();
   const { setRole, setFirstName, setUsername } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // 当 custom:role 或 phone_number 缺失时，需要用户补全信息
+  // 当 custom:role 或 phone_number缺失时，需要用户补全信息
   const [needsSupplement, setNeedsSupplement] = useState<boolean>(false);
   const [selectedRole, setSelectedRole] = useState<"student" | "parent" | "teacher" | "admin">("student");
   const [errorMsg, setErrorMsg] = useState<string>("");

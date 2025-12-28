@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useWizardContext } from "../context";
-import CountryCodeSelect from "@/app/(normal)/registration/reg_CountryCodeSelect";
+import CountryCodeSelect from "@/app/(normal)/login/components/CountryCodeSelect";
 import Button from "@/components/Button";
 import StepContainer from "../stepContainer";
 

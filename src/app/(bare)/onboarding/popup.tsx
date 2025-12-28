@@ -89,6 +89,8 @@ export default function ProjectDashboardPopup({ onClose }: { onClose: () => void
           <Image
             src="/images/onboarding/close.svg"
             alt="Close Icon"
+            width={32}
+            height={32}
             className="h-8 w-8 mb-6"
           />
         </button>

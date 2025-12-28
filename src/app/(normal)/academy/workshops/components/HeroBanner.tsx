@@ -3,7 +3,8 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+// Link 不再需要，因为按钮被禁用了
+// import Link from 'next/link';
 
 export default function HeroBanner() {
   return (
@@ -20,11 +21,13 @@ export default function HeroBanner() {
 
           {/* buttons – vertical on mobile, horizontal on ≥sm */}
           <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center gap-4">
-            <Link href="/academy/workshops/WSH4">
-              <button className="bg-primary text-background font-bold px-5 py-3 rounded shadow hover:bg-secondary w-52">
-                December Holiday Clubs (3-DAYS)
-              </button>
-            </Link>
+            <button 
+              disabled 
+              className="bg-gray-500 text-gray-300 font-bold px-5 py-3 rounded shadow cursor-not-allowed w-full sm:w-auto"
+              title="No workshops currently available"
+            >
+              Currently we don&apos;t have upcoming workshops
+            </button>
           </div>
         </div>
       </div>

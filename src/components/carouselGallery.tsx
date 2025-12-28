@@ -10,12 +10,10 @@ interface CarouselGalleryProps { images: ImageItem[] }
 
 export default function CarouselGallery({ images }: CarouselGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const thumbsContainerRef = useRef<HTMLDivElement>(null); // 父容器 Ref
   const thumbsRef = useRef<HTMLDivElement[]>([]);
   const [isDesktop, setIsDesktop] = useState(false);
   const touchStartX = useRef<number | null>(null);
-
-  // 用来跳过首次渲染的 flag
-  const firstRender = useRef(true);
 
   // Responsive helper
   useEffect(() => {
@@ -33,19 +31,23 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
   const goToNext = () =>
     setCurrentIndex(i => (i === images.length - 1 ? 0 : i + 1));
 
-  // Scroll thumbnail into view whenever currentIndex changes,
-  // but skip the very first render to avoid auto-scrolling on page load
+  // Safe scroll logic: scroll the CONTAINER, not the page
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    const thumbEl = thumbsRef.current[currentIndex];
-    if (thumbEl) {
-      thumbEl.scrollIntoView({
+    const container = thumbsContainerRef.current;
+    const selectedThumb = thumbsRef.current[currentIndex];
+
+    if (container && selectedThumb) {
+      // Calculate center position
+      const containerWidth = container.offsetWidth;
+      const thumbWidth = selectedThumb.offsetWidth;
+      const thumbLeft = selectedThumb.offsetLeft;
+      
+      // Target scroll position to center the thumb
+      const targetScrollLeft = thumbLeft - (containerWidth / 2) + (thumbWidth / 2);
+
+      container.scrollTo({
+        left: targetScrollLeft,
         behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest',
       });
     }
   }, [currentIndex]);
@@ -127,7 +129,10 @@ export default function CarouselGallery({ images }: CarouselGalleryProps) {
       </div>
 
       {/* Thumbnails */}
-      <div className="flex gap-2 sm:gap-4 overflow-x-auto no-scrollbar mb-4 px-2">
+      <div 
+        ref={thumbsContainerRef} // 添加 ref 到父容器
+        className="flex gap-2 sm:gap-4 overflow-x-auto no-scrollbar mb-4 px-2"
+      >
         {images.map((img, idx) => (
           <div
             key={idx}

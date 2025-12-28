@@ -142,6 +142,7 @@ function ChildForm({
         />
       </div>
 
+      {/* allergies */}
       <div className="mb-3">
         <label className="block mb-1 font-semibold">Allergies</label>
         <input
@@ -158,6 +159,8 @@ function ChildForm({
           <Image
             src={classImage}
             alt={classification}
+            width={128}
+            height={128}
             className="w-32 h-32 mt-1 rounded-lg border shadow-sm"
           />
         </div>

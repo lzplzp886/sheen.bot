@@ -25,7 +25,7 @@ export default async function getCurrentUser(): Promise<CognitoUserSessionResult
   // Attempt to fetch the user from local storage via the user pool
   const cognitoUser = userPool.getCurrentUser();
   if (!cognitoUser) {
-    console.warn('No current user found.');
+    // console.warn('No current user found.'); // Quietly return null
     return null;
   }
 
@@ -33,7 +33,8 @@ export default async function getCurrentUser(): Promise<CognitoUserSessionResult
   return new Promise<CognitoUserSessionResult | null>((resolve) => {
     cognitoUser.getSession((err: Error | null, session: CognitoUserSession | null) => {
       if (err || !session) {
-        console.error('Failed to retrieve session.', err);
+        // Log as info/warn instead of error to prevent Next.js error overlay confusion
+        // console.warn('No active session or session invalid.', err);
         resolve(null);
       } else {
         resolve({ cognitoUser, session });

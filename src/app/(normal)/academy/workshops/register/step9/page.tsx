@@ -226,7 +226,9 @@ export default function Step9() {
           <Image
             src="/images/academy/Workshops/registration/eraser.svg"
             alt="Clear signature"
-            style={{ width: 20, height: 20, marginRight: 5 }}
+            width={20}
+            height={20}
+            style={{ marginRight: 5 }}
           />
           <span>Clear</span>
         </button>

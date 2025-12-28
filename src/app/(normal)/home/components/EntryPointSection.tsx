@@ -43,71 +43,67 @@ const entries = [
 
 export default function EntryPointsSection() {
   return (
-    <section className="py-20 bg-background">
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Entry cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {entries.map((item, idx) => {
-            const Card = (
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="
-                  group h-full rounded-2xl
-                  bg-background
-                  border border-primary/10
-                  shadow-sm
-                  hover:shadow-lg hover:-translate-y-1 hover:opacity-95
-                  transition-all duration-300
-                  p-6
-                "
-              >
-                <div className="flex flex-col h-full">
-                  {/* Icon */}
-                  <div className="mb-4">
-                    <Image
-                      src={item.icon}
-                      alt={`${item.title} icon`}
-                      width={40}
-                      height={40}
-                    />
-                  </div>
+    <>
+      {entries.map((item, idx) => {
+        const Card = (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: idx * 0.08 }}
+            className="
+              group h-full rounded-2xl
+              bg-background
+              border border-primary/10
+              shadow-sm
+              hover:shadow-lg hover:-translate-y-1 hover:opacity-95
+              transition-all duration-300
+              p-6
+            "
+          >
+            <div className="flex flex-col h-full">
+              {/* Icon */}
+              <div className="mb-4">
+                <Image
+                  src={item.icon}
+                  alt={`${item.title} icon`}
+                  width={40}
+                  height={40}
+                />
+              </div>
 
-                  {/* Text */}
-                  <h3 className="text-lg font-semibold mb-2 text-body group-hover:text-primary transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-darklight flex-1">
-                    {item.desc}
-                  </p>
+              {/* Text */}
+              <h3 className="text-lg font-semibold mb-2 text-body group-hover:text-primary transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-sm text-darklight flex-1">
+                {item.desc}
+              </p>
 
-                  {/* CTA */}
-                  <span className="mt-4 inline-flex items-center text-sm font-medium text-primary">
-                    Explore →
-                  </span>
-                </div>
-              </motion.div>
-            );
+              {/* CTA */}
+              <span className="mt-4 inline-flex items-center text-sm font-medium text-primary">
+                Explore →
+              </span>
+            </div>
+          </motion.div>
+        );
 
-            return item.external ? (
-              <a
-                key={item.key}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {Card}
-              </a>
-            ) : (
-              <Link key={item.key} href={item.href}>
-                {Card}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+        return item.external ? (
+          <a
+            key={item.key}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-full"
+          >
+            {Card}
+          </a>
+        ) : (
+          <Link key={item.key} href={item.href} className="h-full">
+            {Card}
+          </Link>
+        );
+      })}
+    </>
   );
 }

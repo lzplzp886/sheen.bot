@@ -8,7 +8,6 @@ import { useUser } from "@/context/UserContext";
 import getCurrentUser from "@/lib/getCurrentUser";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import BasicProfileInfo from "@/app/(normal)/profile/BasicProfileInfo";
-import ChangePasswordForm from "@/app/(normal)/profile/ChangePasswordForm";
 import AvatarUploader from "@/app/(normal)/profile/avatarUploader";
 import Button from "@/components/Button";
 
@@ -18,11 +17,6 @@ export default function ProfilePage() {
   // 本页单独维护一个 attributes 状态，用于存储从 Cognito 获取的详细属性
   const [attributes, setAttributes] = useState<Record<string, string>>({});
   const [updateMsg, setUpdateMsg] = useState("");
-
-  // For change password form
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [changePassMsg, setChangePassMsg] = useState("");
 
   // 控制头像上传弹窗的显示
   const [showAvatarModal, setShowAvatarModal] = useState(false);
@@ -102,37 +96,6 @@ export default function ProfilePage() {
     }
   };
 
-  const handleChangePassword = async () => {
-    setChangePassMsg("");
-    if (!oldPassword || !newPassword) {
-      setChangePassMsg("Please fill in both old and new password fields.");
-      return;
-    }
-    try {
-      const sessionResult = await getCurrentUser();
-      if (!sessionResult) {
-        setChangePassMsg("No logged in user found.");
-        return;
-      }
-      const { cognitoUser } = sessionResult;
-      cognitoUser.changePassword(oldPassword, newPassword, (err, result) => {
-        if (err) {
-          console.error("Change password error:", err);
-          setChangePassMsg(err.message || "Failed to change password");
-        } else {
-          console.log("Change password success:", result);
-          setChangePassMsg("Password changed successfully!");
-          setTimeout(() => {
-            window.location.reload();
-          }, 500);
-        }
-      });
-    } catch (err) {
-      console.error("Change password failed:", err);
-      setChangePassMsg("Change password failed. Possibly not logged in?");
-    }
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -169,16 +132,6 @@ export default function ProfilePage() {
           </div>
         </div>
       )}
-      <ChangePasswordForm
-        oldPassword={oldPassword}
-        newPassword={newPassword}
-        changePassMsg={changePassMsg}
-        isChangingPassword={false}
-        setOldPassword={setOldPassword}
-        setNewPassword={setNewPassword}
-        onChangePassword={handleChangePassword}
-        globalUsername={globalUsername}
-      />
     </div>
   );
 }
